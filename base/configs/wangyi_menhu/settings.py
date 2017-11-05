@@ -8,6 +8,7 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
+import os;
 
 BOT_NAME = 'wangyi_scrapy'
 
@@ -67,9 +68,9 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
    'base.pipelines.wangyi_menhu.pipelines.WangyiScrapyPipeline': 300,
 }
-MONGODB_SERVER="localhost"
-MONGODB_PORT=27017
-MONGODB_DBNAME="Crawler"
+MONGODB_SERVER=os.getenv("MONGO_HOST", "localhost")
+MONGODB_PORT=os.getenv("MONGO_PORT", 27017)
+MONGODB_DBNAME=os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION="Wangyiwang"
 
 # Enable and configure the AutoThrottle extension (disabled by default)

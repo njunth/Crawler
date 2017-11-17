@@ -5,7 +5,7 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pymongo
-from weibo.settings import MONGO_HOST,MONGO_PORT,MONGODB_COLLECTION,MONGODB_DBNAME
+from base.configs.weibo.settings import MONGO_HOST,MONGO_PORT,MONGODB_COLLECTION,MONGODB_DBNAME
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')

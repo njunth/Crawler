@@ -11,8 +11,8 @@
 
 BOT_NAME = 'weibo'
 
-SPIDER_MODULES = ['weibo.spiders']
-NEWSPIDER_MODULE = 'weibo.spiders'
+SPIDER_MODULES = ['base.spiders.weibo']
+NEWSPIDER_MODULE = 'base.spiders.weibo'
 
 MONGO_HOST = "localhost"
 MONGO_PORT = 27017
@@ -69,7 +69,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'weibo.pipelines.WeiboPipeline': 300,
+   'base.pipelines.weibo.pipelines.WeiboPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

@@ -5,7 +5,7 @@ import urllib
 import scrapy
 import json
 import datetime
-from weibo.items import WeiboItem
+from base.items.weibo.items import WeiboItem
 
 class WeiboSpider(Spider):
     name = "spider"
@@ -55,7 +55,7 @@ class WeiboSpider(Spider):
                 #item['attention'] = '0'
                 #item['sentiment'] = '0'
                 item['keyword'] = unicode(keyword)
-                item['time'] = datetime.datetime.now().strftime('%Y%m%d%H%M%S') + '_' + key['mblog']['created_at']
+                item['time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S') + '_' + key['mblog']['created_at']
                 item['url'] = key['scheme']
                 item['publisher'] = key['mblog']['user']['screen_name']
                 yield item

@@ -14,7 +14,7 @@ BOT_NAME = 'bbskaoyan'
 SPIDER_MODULES = ['base.spiders.bbskaoyan']
 NEWSPIDER_MODULE = 'base.spiders.bbskaoyan'
 
-
+LOG_LEVEL = 'INFO'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'bbskaoyan (+http://www.yourdomain.com)'
 MY_USER_AGENT = [

@@ -13,7 +13,14 @@ class SinaItem(scrapy.Item):
     # name = scrapy.Field()
     #pass
     source = scrapy.Field()
-    mainpage = scrapy.Field()
+    source_url = scrapy.Field()
+    url = scrapy.Field()
+    html = scrapy.Field()
+    n_click = scrapy.Field()
+    attention = scrapy.Field()
     content = scrapy.Field()
-    link = scrapy.Field()
+    title = scrapy.Field()
+    time = scrapy.Field()
+    n_reply = scrapy.Field()
+    sentiment = scrapy.Field()
 

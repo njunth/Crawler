@@ -2,40 +2,75 @@
 import scrapy
 import re
 from base.items.wangyi_menhu.items import WangyiScrapyItem
-
+from base.items.wangyi_menhu.bloomfilter import BloomFilter
+import sys
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["163.com"]
     start_urls = [
         "http://www.163.com/"
-        #"http://sports.sina.com.cn/g/pl/2017-10-16/doc-ifyfkqks4451477.shtml"
     ]
-
+    bf = BloomFilter(0.1, 10)
     def parse(self, response):
         r1 = '^http://.*.163.*'
         r2='^http://.*.163.*.html'
         r3='^http://.*v.163.*'
         url = response.url
+        self.bf.insert_element(url)
+        item = WangyiScrapyItem()
         try:
             if re.match(r2, url):
+                #with open('aaaaa', 'ab') as f:
+                 #f.write(url+'\n')
                 print url
                 print '\n'
                 #print "aaaaaaa!!!!!!!@*#()@_______"
                 #for sel in response:
-                item = WangyiScrapyItem()
-                # item['name'] = sel.xpath("h1[@class='main-title']/text()").extract()[0].encode('utf-8')
+                item['title'] = response.xpath("//head/title/text()").extract()[0]
                 # name= item['name']
-                item['url'] = url
-                item['content'] = response.body
-                item['source'] = "网易网"
-                item['source_url'] = "http://www.163.com/"
+                item['content'] = response.xpath("//div[@class='post_content_main']//div[@id='endText']//p/text()").extract()
+                if item['content']:
+                    #with open('aaaaa', 'ab') as f:
+                        #f.write(url+'\n')
+                    item['sentiment'] = 0
+                    item['attention'] = 0
+                    item['url'] = url
+                    item['source'] = "网易网"
+                    item['source_url'] = "http://www.163.com/"
+                    try:
+                        item['html'] = response.body.decode('gbk')
+                    except:
+                        item['html'] = response.body
+
+                    time_item = []
+                    time = response.xpath("//*[@class='post_time_source']/text()").extract()
+                    # time1 = response.xpath("//head/meta[@property='article:published_time']//@content").extract()[1]
+                    time = ''.join(time)
+                    time = re.sub(r'\s', '',time)
+                    print time
+                    print "\naaaaaaaaaaa\n"
+                    time_item.append(time[0:4])
+                    time_item += '_'
+
+                    time_item += time[5:7]
+                    time_item += '_'
+                    time_item += time[8:10]
+                    time_item += '_'
+                    time_item += time[10:12]
+                    time_item += '_'
+                    time_item += time[13:15]
+                
+
+                    time_item = ''.join(time_item)
+                    item['time'] = time_item
                 # print name
                 #with open('aaa', 'ab') as f:
                     #f.write(response.url)
                     #f.write('\n')
-                yield item
+                    yield item
         except:
-            print('error')
+            print(sys.exc_info())
         for url in response.selector.xpath("//a/@href").re(r1):
             if re.match(r3,url)==None:
-                yield scrapy.Request(url=url, callback=self.parse)
+                if (self.bf.is_element_exist(url) == False):
+                    yield scrapy.Request(url=url, callback=self.parse)

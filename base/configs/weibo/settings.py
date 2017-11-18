@@ -19,6 +19,7 @@ MONGO_PORT = 27017
 MONGODB_DBNAME = 'Crawler'
 MONGODB_COLLECTION = 'Weibo'
 
+LOG_LEVEL = 'INFO'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'weibo (+http://www.yourdomain.com)'
 

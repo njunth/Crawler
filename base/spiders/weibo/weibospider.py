@@ -4,7 +4,8 @@ from scrapy.spiders import Spider
 import urllib
 import scrapy
 import json
-import datetime
+import re
+import time
 from base.items.weibo.items import WeiboItem
 
 class WeiboSpider(Spider):
@@ -30,9 +31,9 @@ class WeiboSpider(Spider):
                 key = urllib.quote(keyword)
                 for i in range(1, 200):
                     url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
-                    yield scrapy.Request(url=url, callback=self.parse, headers=headers)
+                    yield scrapy.Request(url=url, callback=self.parse_search, headers=headers)
 
-    def parse(self, response):
+    def parse_search(self, response):
         #print response.status
         #print str(response.text)
         keyword = str(response.url)
@@ -43,24 +44,39 @@ class WeiboSpider(Spider):
         res = json.loads(response.text)
         if (str(res['ok']) == '1'):
             for key in res['cards'][0]['card_group']:
-                #print key['mblog']['id'], key['mblog']['text'], key['mblog']['reposts_count'], key['mblog'][
-                    #'comments_count'], key['mblog']['attitudes_count']
-                item = WeiboItem()
-                item['_id'] = key['mblog']['id']
-                item['content'] = key['mblog']['text']
-                #item['source'] = 'sina_weibo'
-                item['n_forword'] = key['mblog']['reposts_count']
-                item['n_comment'] = key['mblog']['comments_count']
-                item['n_like'] = key['mblog']['attitudes_count']
-                #item['attention'] = '0'
-                #item['sentiment'] = '0'
-                item['keyword'] = unicode(keyword)
-                item['time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S') + '_' + key['mblog']['created_at']
-                item['url'] = key['scheme']
-                item['publisher'] = key['mblog']['user']['screen_name']
-                yield item
+                ''''''
+                #yield item
+                yield scrapy.Request(url=key['scheme'],callback=self.parse)
         else:
             # i=i-1
             if ('msg' in res.keys()):
                 print res['msg']
+
+    def parse(self, response):
+        keyword = urllib.unquote(response.url)
+        spos = keyword.find('&q=')
+        epos = keyword.find('&featurecode')
+        keyword = keyword[spos+3:epos]
+        #print keyword
+        s = str(response.text)
+        (st,end) = re.search('render_data = .+status.+\\}\\]\\[0\\] \\|\\| \\{\\};',s,re.S).span()
+        s = s[st+15:end-11]
+        key = json.loads(s)
+        timestrs = str(key['status']['created_at']).split(' ')
+        timestr = timestrs[5] + ' ' + timestrs[1] + ' ' + timestrs[2] + ' ' + timestrs[3]
+        timestr = time.strftime('%Y_%m_%d_%H_%M_%S',time.strptime(timestr,'%Y %b %d %X'))
+        item = WeiboItem()
+        item['_id'] = key['status']['id']
+        item['content'] = key['status']['text']
+        # item['source'] = 'sina_weibo'
+        item['n_forword'] = key['status']['reposts_count']
+        item['n_comment'] = key['status']['comments_count']
+        item['n_like'] = key['status']['attitudes_count']
+        # item['attention'] = '0'
+        # item['sentiment'] = '0'
+        item['keyword'] = unicode(keyword)
+        item['time'] = timestr
+        item['url'] = key['status']['scheme']
+        item['publisher'] = key['status']['user']['screen_name']
+        yield item
 

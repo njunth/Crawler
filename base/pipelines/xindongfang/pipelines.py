@@ -6,16 +6,17 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 from pymongo import MongoClient
-from scrapy.conf import settings
-from scrapy.exceptions import DropItem
-from scrapy import log
+# from scrapy.conf import settings
+from base.configs.xindongfang.settings import MONGO_HOST,MONGO_PORT,MONGO_DB,MONGO_COLL
+# from scrapy.exceptions import DropItem
+# from scrapy import log
 
 
 class XindongfangPipeline(object):
     def __init__(self):
-        self.client = MongoClient(settings['MONGO_HOST'], settings['MONGO_PORT'])
-        mdb = self.client[settings['MONGO_DB']]
-        self.collection = mdb[settings['MONGO_COLL']]
+        self.client = MongoClient(MONGO_HOST, MONGO_PORT)
+        mdb = self.client[MONGO_DB]
+        self.collection = mdb[MONGO_COLL]
     
     
     def process_item(self, item, spider):

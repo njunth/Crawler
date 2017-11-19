@@ -15,10 +15,13 @@ BOT_NAME = 'xindongfang'
 SPIDER_MODULES = ['base.spiders.xindongfang']
 NEWSPIDER_MODULE = 'base.spiders.xindongfang'
 
+
+LOG_LEVEL = 'WARNING'
+
 FLAG='Xindongfang'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'xindongfang (+http://www.yourdomain.com)'
+# USER_AGENT = 'xindongfang (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -73,8 +76,7 @@ ITEM_PIPELINES = {
 MONGO_HOST = "localhost"  # 主机IP
 MONGO_PORT = 27017  # 端口号
 MONGO_DB = "Crawler"  # 库名
-MONGO_COLL = 'xindongfang'  # collection名
-
+MONGO_COLL = 'Xindongfang'  # collection名
 
 
 #MONGODB_SERVER = "localhost"

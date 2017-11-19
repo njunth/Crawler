@@ -15,7 +15,7 @@ BOT_NAME = 'wangyi_scrapy'
 SPIDER_MODULES = ['base.spiders.wangyi_menhu']
 NEWSPIDER_MODULE = 'base.spiders.wangyi_menhu'
 
-
+LOG_LEVEL = 'INFO'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'wangyi_scrapy (+http://www.yourdomain.com)'
 

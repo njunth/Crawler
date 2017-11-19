@@ -14,7 +14,7 @@ BOT_NAME = 'sina'
 SPIDER_MODULES = ['base.spiders.sina']
 NEWSPIDER_MODULE = 'base.spiders.sina'
 
-
+LOG_LEVEL = 'INFO'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'sina (+http://www.yourdomain.com)'
 

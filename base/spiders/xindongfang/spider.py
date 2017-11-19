@@ -1,9 +1,10 @@
 import scrapy
 
 from base.items.xindongfang.items import XinItem
-from scrapy.selector import Selector
+# from scrapy.selector import Selector
 from scrapy.http import Request
-from scrapy.spider import Spider
+import datetime
+# from scrapy.spider import Spider
 from base.items.xindongfang.BloomFilter import BloomFilter
 
 class spider(scrapy.Spider):
@@ -64,18 +65,24 @@ class spider(scrapy.Spider):
 			item['title']+=title
 # 			item['title']+='\n'
 
-		i=0
-		#timelist = response.xpath("//i[@class='s_tit_i1']/text()").extract()
+		# timelist = response.xpath("//i[@class='s_tit_i1']/text()").extract()
+		# print timelist
 		#for times in timelist:
-		while(i<=18):
-			if i!=4 and i!=7 and i!=10 and i!=13 and i!=16:
-				#time = times.encode('utf-8')
-				timelist = response.xpath("//i[@class='s_tit_i1']/text()").extract_first()[i]
-				item['time'] += timelist
-			else:
-				item['time']+='_'
-			i+=1
-
+		timelist = response.xpath( "//i[@class='s_tit_i1']/text()" ).extract_first()
+		# print timelist
+		if timelist is None:
+			item['time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+		else:
+			i = 0
+			while(i<=18):
+				if i!=4 and i!=7 and i!=10 and i!=13 and i!=16:
+					#time = times.encode('utf-8')
+					timelist = response.xpath("//i[@class='s_tit_i1']/text()").extract_first()[i]
+					item['time'] += timelist
+				else:
+					item['time']+='_'
+				i+=1
+		# print item['time']
 
 		#contentlist = response.xpath("//div[@class='mt40']/p/*/text()|//div[@class='mt40']/p/text()|//div[@class='mt40']/p/*/*/text()").extract()
 		contentlist = response.xpath("//div[@class='mt40']//text()").extract()

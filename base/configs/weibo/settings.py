@@ -8,15 +8,15 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-
+import os
 BOT_NAME = 'weibo'
 
 SPIDER_MODULES = ['base.spiders.weibo']
 NEWSPIDER_MODULE = 'base.spiders.weibo'
 
-MONGO_HOST = "localhost"
-MONGO_PORT = 27017
-MONGODB_DBNAME = 'Crawler'
+MONGO_HOST = os.getenv("MONGO_HOST", "localhost")
+MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))
+MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Weibo'
 
 LOG_LEVEL = 'INFO'

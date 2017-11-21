@@ -4,6 +4,10 @@ import re
 from base.items.wangyi_menhu.items import WangyiScrapyItem
 from base.items.wangyi_menhu.bloomfilter import BloomFilter
 import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["163.com"]

@@ -15,6 +15,7 @@ BOT_NAME = 'wangyi_scrapy'
 SPIDER_MODULES = ['base.spiders.wangyi_menhu']
 NEWSPIDER_MODULE = 'base.spiders.wangyi_menhu'
 
+LOG_LEVEL = 'INFO'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'wangyi_scrapy (+http://www.yourdomain.com)'
@@ -69,7 +70,7 @@ ITEM_PIPELINES = {
    'base.pipelines.wangyi_menhu.pipelines.WangyiScrapyPipeline': 300,
 }
 MONGODB_SERVER=os.getenv("MONGO_HOST", "localhost")
-MONGODB_PORT=os.getenv("MONGO_PORT", 27017)
+MONGODB_PORT=(int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME=os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION="Wangyiwang"
 

@@ -27,6 +27,10 @@ class WangyiScrapyPipeline(object):
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
         if valid:
-            self.collection.insert(dict(item))
+            try:
+                self.collection.insert(dict(item))
+            except Exception as e:
+                print "URL: Item inset error"
+            # self.collection.insert(dict(item))
             # log.msg("added to MongoDB database!",level=log.DEBUG, spider=spider)
         return item

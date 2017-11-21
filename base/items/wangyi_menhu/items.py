@@ -12,8 +12,11 @@ class WangyiScrapyItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     url = scrapy.Field()
-    name = scrapy.Field()
+    title = scrapy.Field()
+    html = scrapy.Field()
     content = scrapy.Field()
     source = scrapy.Field()
     source_url = scrapy.Field()
-    pass
+    time = scrapy.Field()
+    attention = scrapy.Field()
+    sentiment = scrapy.Field()

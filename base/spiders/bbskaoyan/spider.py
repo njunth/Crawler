@@ -42,8 +42,8 @@ class BKYSpider(Spider):
         currentUrl=response.url
         self.bf.insert_element(currentUrl)
         #print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
-        print str(response.url)
-        item['current_url'] = str(response.url)
+        # print str(response.url)
+        # item['current_url'] = str(response.url)
 		
         #contentList=site.xpath("//*").extract()
         #for floor in contentList:
@@ -53,9 +53,9 @@ class BKYSpider(Spider):
         #print item['content']
         #os.system("pause")
         item['content']=response.body
-        print item['content']
+        # print item['content']
         print item['current_url']
-       # os.system("pause")
+        # os.system("pause")
 			
         current_urlrlList=str(response.url)
         yield item
@@ -74,16 +74,16 @@ class BKYSpider(Spider):
 
 
     def parse_mainPage(self,response):
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+        # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
        # system("pause")
-        print str(response.url)
+       #  print str(response.url)
         sel=Selector(response)
         sites=sel.xpath("//*[@href]/@href").extract()
         for site in sites:
             if not site.startswith('http'):
                 urls = response.url+site
             else:
-                urls=site;
+                urls = site
             if(self.bf.is_element_exist(urls)==False):
                 yield Request(urls,callback=self.parse_inPage)
             else:

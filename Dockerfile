@@ -18,4 +18,4 @@ RUN cd /root/Crawler \
 
 WORKDIR /root/Crawler
 
-CMD ["bash", "scrapy crawl spider"]
+CMD ["sh", "scrapy crawl spider"]

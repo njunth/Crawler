@@ -110,7 +110,7 @@ COOKIES_ENABLED = False
 ITEM_PIPELINES = {
     'base.pipelines.bbskaoyan.pipelines.MongoDBPipeline': 300,
 }
-MONGODB_HOST = os.getenv('MONGODB_HOST', '127.0.0.1')
+MONGODB_HOST = os.getenv('MONGO_HOST', '127.0.0.1')
 MONGODB_PORT=(int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME=os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Kaoyanluntan'

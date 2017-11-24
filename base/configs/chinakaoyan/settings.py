@@ -8,6 +8,7 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
+import os;
 
 BOT_NAME = 'chinakaoyan'
 
@@ -110,9 +111,9 @@ COOKIES_ENABLED = False
 ITEM_PIPELINES = {
     'base.pipelines.chinakaoyan.pipelines.MongoDBPipeline': 300,
 }
-MONGODB_HOST = '127.0.0.1'
-MONGODB_PORT = 27017
-MONGODB_DBNAME = 'Crawler'
+MONGODB_HOST = os.getenv('MONGODB_HOST', '127.0.0.1')
+MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 27017))
+MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Zhongguokaoyanwang'
 
 # Enable and configure the AutoThrottle extension (disabled by default)

@@ -11,5 +11,9 @@ docker run -e "SCRAPY_SETTINGS_MODULE=base.configs.wangyi_menhu.settings" -e "MO
 
 java -classpath target/cf-tutorial-mesos-docker-1.0-SNAPSHOT-jar-with-dependencies.jar -Djava.library.path=/Users/lxs/Library/mesos/build/src/.libs com.codefutures.tutorial.mesos.docker.ExampleFramework 127.0.0.1:5050 scrapy-crawler:latest 1
 
+java -Djava.library.path=/Users/lxs/Library/mesos/build/src/.libs -jar -X
+debug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 target/cf-tutorial-mesos-docker-1.0-SNAPSHOT-jar-w
+ith-dependencies.jar 127.0.0.1:5050 scrapy-crawler:latest 1
+
 
 docker run -d -p 24224:24224 -p 24224:24224/udp -v /Users/lxs/workspace/data:/fluentd/log fluent/fluentd:latest

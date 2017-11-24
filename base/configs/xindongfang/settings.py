@@ -8,7 +8,7 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-
+import os;
 
 BOT_NAME = 'xindongfang'
 
@@ -73,9 +73,9 @@ ITEM_PIPELINES = {
     'base.pipelines.xindongfang.pipelines.XindongfangPipeline': 300,
 }
 
-MONGO_HOST = "localhost"  # 主机IP
-MONGO_PORT = 27017  # 端口号
-MONGO_DB = "Crawler"  # 库名
+MONGO_HOST = os.getenv("MONGO_HOST", "localhost")  # 主机IP
+MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))  # 端口号
+MONGO_DB = os.getenv("MONGO_DBNAME", "Crawler")  # 库名
 MONGO_COLL = 'Xindongfang'  # collection名
 
 

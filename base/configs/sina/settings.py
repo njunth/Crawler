@@ -8,6 +8,7 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
+import os;
 
 BOT_NAME = 'sina'
 
@@ -69,9 +70,9 @@ ITEM_PIPELINES = {
     'base.pipelines.sina.pipelines.SinaPipeline': 300,
 }
 
-MONGO_HOST = "localhost"  # 主机IP
-MONGO_PORT = 27017  # 端口号
-MONGODB_DBNAME = "Crawler"  # 库名
+MONGO_HOST = os.getenv("MONGO_HOST", "localhost")  # 主机IP
+MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))  # 端口号
+MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")  # 库名
 MONGODB_COLLECTION = "Xinlangluntan"  # collection名
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

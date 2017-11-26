@@ -16,7 +16,7 @@ SPIDER_MODULES = ['base.spiders.xindongfang']
 NEWSPIDER_MODULE = 'base.spiders.xindongfang'
 
 
-LOG_LEVEL = 'WARNING'
+LOG_LEVEL = 'INFO'
 
 FLAG='Xindongfang'
 

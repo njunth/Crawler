@@ -16,10 +16,19 @@ class Tianyaspider(scrapy.Spider):
         #"http://bbs.tianya.cn/post-travel-821028-1.shtml"
     }
 
-    bf = BloomFilter(0.1, 10)
+    #bf = BloomFilter(0.1, 10)
 
     def parse(self,response):
 
+        #item = Tianyav2Item()
+        self.bf = BloomFilter(0.0001, 1000000)
+        while 1:
+            for url1 in response.selector.xpath("//li/div[@class='title']/a/@href").re(r'^http://bbs.tianya.*'):
+                if (self.bf.is_element_exist(url1) == False):  # reduce a /
+                    yield scrapy.Request(url=url1, callback=self.parse_inpage)
+                else:
+                    continue
+    def parse_inpage(self,response):
         item = Tianyav2Item()
 
         if re.match('^http://bbs.tianya.*.shtml', response.url):
@@ -76,8 +85,8 @@ class Tianyaspider(scrapy.Spider):
             time_collection.append(article_time)
             item['time'] = ''.join(time_collection)
 
-            #collection_name = ''.join(time_collection)
-            #tianyav2.config.set_name(collection_name)
+            # collection_name = ''.join(time_collection)
+            # tianyav2.config.set_name(collection_name)
 
 
 
@@ -85,16 +94,13 @@ class Tianyaspider(scrapy.Spider):
             item['content'] = response.xpath(
                 '//div[@class="atl-main"]//div/div[@class="atl-content"]/div[2]/div[1]/text()').extract()
 
-
             click = response.xpath('//div[@class="atl-info"]/span[3]/text()').re(r'[0-9]*')
             clickstr = ''.join(click)
             item['n_click'] = int(clickstr)
 
-
             reply = response.xpath('//div[@class="atl-info"]/span[4]/text()').re(r'[0-9]*')
             replystr = ''.join(reply)
             item['n_reply'] = int(replystr)
-
 
             item['sentiment'] = 0
             item['attention'] = 0
@@ -104,8 +110,3 @@ class Tianyaspider(scrapy.Spider):
             yield item
 
 
-        for url1 in response.selector.xpath("//li/div[@class='title']/a/@href").re(r'^http://bbs.tianya.*'):
-            if (self.bf.is_element_exist(url1) == False):  # reduce a /
-                yield scrapy.Request(url=url1, callback=self.parse)
-            else:
-                continue

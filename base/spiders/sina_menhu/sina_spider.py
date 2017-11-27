@@ -11,8 +11,8 @@ class DmozSpider(scrapy.Spider):
         "http://www.sina.com.cn/"
         #"http://edu.sina.com.cn/"
     ]
-    bf = BloomFilter(0.1, 10)
-    def parse(self, response):
+
+    def parse_inpage(self, response):
         r1 = '^http://.*.sina.*'
         r2 = '^http://.*.sina.*.shtml.*'
         r3 = '^http://.*video.sina.*'
@@ -66,10 +66,23 @@ class DmozSpider(scrapy.Spider):
                 yield item
         except:
             print(sys.exc_info())
-        for url in response.selector.xpath("//a/@href").re(r1):
-            if re.match(r3, url) == None and re.match(r4, url) == None:
-                #with open('aaaaa', 'ab') as f:
-                    #f.write(url+'\n')
-                if (self.bf.is_element_exist(url) == False):
-                    yield scrapy.Request(url=url, callback=self.parse)
+
+    def parse(self, response):
+        self.bf = BloomFilter(0.0001, 1000000)
+        r1 = '^http://.*.sina.*'
+        r2 = '^http://.*.sina.*.shtml.*'
+        r3 = '^http://.*video.sina.*'
+        r4 = '^http://.*auto.sina.*'
+        while 1:
+            for url in response.selector.xpath("//a/@href").re(r1):
+                if re.match(r3, url) == None and re.match(r4, url) == None:
+                    #with open('aaaaa', 'ab') as f:
+                        #f.write(url+'\n')
+                    if (self.bf.is_element_exist(url) == False):
+                        yield scrapy.Request(url=url, callback=self.parse_inpage)
+                    else:
+                        continue
+                else:
+                    continue
+
 

@@ -46,5 +46,5 @@ class SinaScrapyPipeline(object):
                 raise DropItem("Missing {0}!".format(data))
         if valid:
             self.collection.insert(dict(item))
-            log.msg("added to MongoDB database!", level=log.INFO, spider=spider)
+            #log.msg("added to MongoDB database!", level=log.INFO, spider=spider)
         return item

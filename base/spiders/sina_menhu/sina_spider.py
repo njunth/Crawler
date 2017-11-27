@@ -26,8 +26,8 @@ class DmozSpider(scrapy.Spider):
                 #if re.match(r3, url):
                 #with open('aaaa', 'ab') as f:
                  #f.write(url + '\n')
-                print url
-                print '\n'
+                #print url
+                #print '\n'
                 # print "aaaaaaa!!!!!!!@*#()@_______"
                 # for sel in response:
                 item = SinaScrapyItem()
@@ -65,6 +65,7 @@ class DmozSpider(scrapy.Spider):
                 # f.write('\n')
                 yield item
         except:
+            print url
             print(sys.exc_info())
 
     def parse(self, response):

@@ -8,6 +8,12 @@
 
 天涯论坛：tianya
 
+新东方：xindongfang
+
 新浪网：sina_menhu
 
 网易网：wangyi_menhu
+
+海天教育考研：haitian
+
+文都教育考研：wendu

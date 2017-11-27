@@ -14,8 +14,8 @@ class DmozSpider(scrapy.Spider):
     ]
 
     def parse_inpage(self, response):
-        print response.url
-        print '\n'
+        # print response.url
+        # print '\n'
         r1 = '^http://.*.163.*'
         r2 = '^http://.*.163.*.html'
         r3 = '^http://.*v.163.*'
@@ -27,8 +27,8 @@ class DmozSpider(scrapy.Spider):
             if re.match(r2, url):
                 # with open('aaaaa', 'ab') as f:
                 # f.write(url+'\n')
-                print url
-                print '\n'
+                # print url
+                # print '\n'
                 # print "aaaaaaa!!!!!!!@*#()@_______"
                 # for sel in response:
                 item['title'] = response.xpath("//head/title/text()").extract()[0]
@@ -53,7 +53,7 @@ class DmozSpider(scrapy.Spider):
                     # time1 = response.xpath("//head/meta[@property='article:published_time']//@content").extract()[1]
                     time = ''.join(time)
                     time = re.sub(r'\s', '', time)
-                    print time
+                    # print time
                     # print "\naaaaaaaaaaa\n"
                     time_item.append(time[0:4])
                     time_item += '_'
@@ -74,6 +74,7 @@ class DmozSpider(scrapy.Spider):
                     # f.write('\n')
                     yield item
         except:
+            print url
             print(sys.exc_info())
 
     def parse(self, response):

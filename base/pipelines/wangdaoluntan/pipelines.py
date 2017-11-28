@@ -8,7 +8,7 @@
 
 import pymongo
 # from scrapy.conf import settings
-from base.configs.cskaoyan.settings import MONGODB_HOST, MONGODB_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
+from base.configs.wangdaoluntan.settings import MONGODB_HOST, MONGODB_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
 
 
 

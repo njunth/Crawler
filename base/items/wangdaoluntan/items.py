@@ -8,13 +8,15 @@
 import scrapy
 
 
-class ChinakaoyanItem(scrapy.Item):
+class WangdaoluntanItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     source = scrapy.Field()
     source_url = scrapy.Field()
     url = scrapy.Field()
     html = scrapy.Field()
+    n_click = scrapy.Field()
+    n_reply = scrapy.Field()
     content = scrapy.Field()
     title = scrapy.Field()
     attention = scrapy.Field()

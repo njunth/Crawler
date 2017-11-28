@@ -9,11 +9,14 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 import os;
+from datetime import datetime;
 
-BOT_NAME = 'bbskaoyan'
+BOT_NAME = 'kaoyanluntan'
 
-SPIDER_MODULES = ['base.spiders.bbskaoyan']
-NEWSPIDER_MODULE = 'base.spiders.bbskaoyan'
+SPIDER_MODULES = ['base.spiders.kaoyanluntan']
+NEWSPIDER_MODULE = 'base.spiders.kaoyanluntan'
+
+FEED_EXPORT_ENCODING = 'utf-8'
 
 LOG_LEVEL = 'INFO'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -56,14 +59,17 @@ MY_USER_AGENT = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
     ]
 
-#DOWNLOADER_MIDDLEWARES = {  
-#         'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None, 
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
+         'kaoyanluntan.middlewares.MyUserAgentMiddleware': 400,
+}
+#DOWNLOADER_MIDDLEWARES = {
+#         'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
 #         'bbskaoyan.middlewares.MyUserAgentMiddleware': 400,
-#    }  
+#    }
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
-
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
@@ -77,7 +83,7 @@ ROBOTSTXT_OBEY = False
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
-
+DEPTH_LIMIT = 4
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
 
@@ -108,9 +114,9 @@ COOKIES_ENABLED = False
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'base.pipelines.bbskaoyan.pipelines.MongoDBPipeline': 300,
+    'base.pipelines.kaoyanluntan.pipelines.MongoDBPipeline': 300,
 }
-MONGODB_HOST = os.getenv('MONGO_HOST', '127.0.0.1')
+MONGODB_HOST = os.getenv('MONGO_HOST', "localhost")
 MONGODB_PORT=(int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME=os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Kaoyanluntan'

@@ -14,7 +14,7 @@ BOT_NAME = 'chinakaoyan'
 
 SPIDER_MODULES = ['base.spiders.chinakaoyan']
 NEWSPIDER_MODULE = 'base.spiders.chinakaoyan'
-
+FEED_EXPORT_ENCODING = 'utf-8'
 LOG_LEVEL = 'INFO'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'chinakaoyan (+http://www.yourdomain.com)'
@@ -57,10 +57,10 @@ MY_USER_AGENT = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
     ]
 
-DOWNLOADER_MIDDLEWARES = {  
-         'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None, 
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
          'base.downloaders.chinakaoyan.middlewares.MyUserAgentMiddleware': 400,
-    }  
+    }
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -78,6 +78,7 @@ DOWNLOAD_DELAY = 3
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
+DEPTH_LIMIT = 4
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -111,7 +112,7 @@ COOKIES_ENABLED = False
 ITEM_PIPELINES = {
     'base.pipelines.chinakaoyan.pipelines.MongoDBPipeline': 300,
 }
-MONGODB_HOST = os.getenv('MONGO_HOST', '127.0.0.1')
+MONGODB_HOST = os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Zhongguokaoyanwang'

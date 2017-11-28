@@ -7,7 +7,7 @@
 
 import pymongo
 # from scrapy.conf import settings
-from base.configs.bbskaoyan.settings import MONGODB_HOST, MONGODB_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
+from base.configs.kaoyanluntan.settings import MONGODB_HOST, MONGODB_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
 
 
 class MongoDBPipeline(object):

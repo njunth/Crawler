@@ -2,8 +2,8 @@
 from scrapy.spider import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
-from kaoyanluntan.items import KaoyanluntanItem
-from kaoyanluntan.bloomfliter import BloomFilter
+from base.items.kaoyanluntan.items import KaoyanluntanItem
+from base.items.kaoyanluntan.bloomfliter import BloomFilter
 import os
 import re
 

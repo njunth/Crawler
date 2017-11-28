@@ -11,8 +11,13 @@ import scrapy
 class ChinakaoyanItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    origion = scrapy.Field()
-    source_url =  scrapy.Field()
-    current_url =  scrapy.Field()
+    source = scrapy.Field()
+    source_url = scrapy.Field()
+    url = scrapy.Field()
+    html = scrapy.Field()
     content = scrapy.Field()
+    title = scrapy.Field()
+    attention = scrapy.Field()
+    time = scrapy.Field()
+    sentiment = scrapy.Field()
     pass

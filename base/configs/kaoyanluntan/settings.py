@@ -61,7 +61,7 @@ MY_USER_AGENT = [
 
 DOWNLOADER_MIDDLEWARES = {
          'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
-         'kaoyanluntan.middlewares.MyUserAgentMiddleware': 400,
+         'base.downloaders.kaoyanluntan.middlewares.MyUserAgentMiddleware': 400,
 }
 #DOWNLOADER_MIDDLEWARES = {
 #         'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
@@ -116,7 +116,7 @@ DEPTH_LIMIT = 4
 ITEM_PIPELINES = {
     'base.pipelines.kaoyanluntan.pipelines.MongoDBPipeline': 300,
 }
-MONGODB_HOST = os.getenv('MONGO_HOST', "localhost")
+MONGODB_HOST = os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT=(int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME=os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Kaoyanluntan'

@@ -10,12 +10,14 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 import os;
 
-BOT_NAME = 'cskaoyan'
+BOT_NAME = 'wangdaoluntan'
 
-SPIDER_MODULES = ['base.spiders.cskaoyan']
-NEWSPIDER_MODULE = 'base.spiders.cskaoyan'
+SPIDER_MODULES = ['base.spiders.wangdaoluntan']
+NEWSPIDER_MODULE = 'base.spiders.wangdaoluntan'
 
+FEED_EXPORT_ENCODING = 'utf-8'
 
+LOG_LEVEL = 'INFO'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'cskaoyan (+http://www.yourdomain.com)'
 MY_USER_AGENT = [
@@ -56,10 +58,10 @@ MY_USER_AGENT = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
     ]
 
-DOWNLOADER_MIDDLEWARES = {  
-         'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None, 
-         'base.downloaders.cskaoyan.middlewares.MyUserAgentMiddleware': 400,
-    }  
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
+         'base.downloaders.wangdaoluntan.middlewares.MyUserAgentMiddleware': 400,
+    }
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
@@ -76,7 +78,7 @@ ROBOTSTXT_OBEY = False
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
-
+DEPTH_LIMIT = 4
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
 
@@ -107,14 +109,13 @@ COOKIES_ENABLED = False
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'base.pipelines.cskaoyan.pipelines.MongoDBPipeline': 300,
+    'base.pipelines.wangdaoluntan.pipelines.MongoDBPipeline': 300,
 }
 MONGODB_HOST = os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Wangdaoluntan'
 
-LOG_LEVEL = 'INFO'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

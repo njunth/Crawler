@@ -76,7 +76,8 @@ class WeiboSpider(Spider):
         # item['sentiment'] = '0'
         item['keyword'] = unicode(keyword)
         item['time'] = timestr
-        item['url'] = key['status']['scheme']
+        #item['url'] = key['status']['scheme']
+        item['url'] = response.url
         item['publisher'] = key['status']['user']['screen_name']
         yield item
 

@@ -1,5 +1,5 @@
-# -*- coding: UTF-8 -*-
-from scrapy.spiders import Spider
+#encoding=utf-8
+from scrapy.spider import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.chinakaoyan.items import ChinakaoyanItem
@@ -38,14 +38,14 @@ class ChinakaoyanSpider(Spider):
         content_div = response.selector.xpath('//font[@face="Arial"]/text()').extract()
         try:
             if (re.match(r1, url) and len(content_div)>0):
-                print url
-                print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+                # print url
+                # print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
                # os.system("pause")
-                print('!???????????')
+               #  print('!???????????')
                 item['source']='chinakaoyan'
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
-                item['html']=response.body
+                item['html']=''
                 print item['url']
                 #os.system("pause")
                 item['content'] = content_div
@@ -56,21 +56,20 @@ class ChinakaoyanSpider(Spider):
                 print item['time']
                 #os.system('pause')
                 item['sentiment']=0
-                #os.system("pause")
+                # os.system("pause")
                 yield item
         except:
-            print('error')
-            #os.system("pause")
-        for t in response.selector.xpath("//a[@href]/@href").extract():
-            if not t.startswith('http'):
-                t=response.url+t
-            if (self.bf.is_element_exist(t)==False):  # reduce a /
-                yield Request(t,callback=self.parse_inPage)
-            else:
-                continue
+            for t in response.selector.xpath( "//a[@href]/@href" ).extract():
+                if not t.startswith( 'http' ):
+                    t = response.url + t
+                if (self.bf.is_element_exist( t ) == False):  # reduce a /
+                    yield Request( t, callback=self.parse_inPage )
+                else:
+                    continue
+
 
     def parse_mainPage(self,response):
-        print str(response.url)
+        # print str(response.url)
        # rr = '^http://[a-z.]*.chinakaoyan.com/info/article/id.*'
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
@@ -80,7 +79,7 @@ class ChinakaoyanSpider(Spider):
                     urls = "http://www.chinakaoyan.com"+site
                 else:
                     urls=site
-                print urls
+                # print urls
                 if(self.bf.is_element_exist(urls)==False):
                     yield Request(urls,callback=self.parse_inPage)
                 else:

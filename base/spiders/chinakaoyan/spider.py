@@ -6,6 +6,9 @@ from base.items.chinakaoyan.items import ChinakaoyanItem
 from base.items.chinakaoyan.bloomfliter import BloomFilter
 import os
 import re
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 class ChinakaoyanSpider(Spider):
@@ -63,7 +66,7 @@ class ChinakaoyanSpider(Spider):
             #os.system("pause")
         for t in response.selector.xpath("//a[@href]/@href").extract():
             if not t.startswith('http'):
-                t=response.url+t
+                t="http://www.chinakaoyan.com"+t
             if (self.bf.is_element_exist(t)==False):  # reduce a /
                 yield Request(t,callback=self.parse_inPage)
             else:

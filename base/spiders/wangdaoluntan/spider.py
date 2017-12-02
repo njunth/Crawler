@@ -6,7 +6,9 @@ from base.items.wangdaoluntan.items import WangdaoluntanItem
 from base.items.wangdaoluntan.bloomfliter import BloomFilter
 import os
 import re
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 class WangdaoluntanSpider(Spider):
     name = 'spider'

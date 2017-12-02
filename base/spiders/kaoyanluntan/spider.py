@@ -6,7 +6,9 @@ from base.items.kaoyanluntan.items import KaoyanluntanItem
 from base.items.kaoyanluntan.bloomfliter import BloomFilter
 import os
 import re
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 class KaoyanluntanSpider(Spider):
     name = 'spider'
@@ -43,10 +45,10 @@ class KaoyanluntanSpider(Spider):
       #  print content2
         try:
             if (re.match(r1, url) and len(content_div)>0):
-                print url
-                print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+            #    print url
+                #print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
                # os.system("pause")
-                print('!???????????')
+                #print('!???????????')
                 item['source']='kaoyanluntan'
                 item['source_url']='http://bbs.kaoyan.com/'
                 item['url']=url
@@ -73,7 +75,7 @@ class KaoyanluntanSpider(Spider):
             #os.system("pause")
         for t in response.selector.xpath("//a[@href]/@href").extract():
             if not t.startswith('http'):
-                t=response.url+t
+                t="http://bbs.kaoyan.com"+t
             if (self.bf.is_element_exist(t)==False):  # reduce a /
                 yield Request(t,callback=self.parse_inPage)
             else:

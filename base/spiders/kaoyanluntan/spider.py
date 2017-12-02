@@ -37,16 +37,16 @@ class KaoyanluntanSpider(Spider):
         item =KaoyanluntanItem()
         content_div = response.selector.xpath('//table[@cellspacing="0" and @cellpadding="0"]//tr//td[@class="t_f"]')
         content1=content_div.xpath('string(.)').extract()
-        print content1
+        # print content1
       #  content_div2 = response.selector.xpath('//div[@align="left"]//font[@face]//font[@color]//font[@size]')
      #   content2=content_div2.xpath('string(.)').extract()
       #  print content2
         try:
             if (re.match(r1, url) and len(content_div)>0):
-                print url
-                print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+                # print url
+                # print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
                # os.system("pause")
-                print('!???????????')
+               #  print('!???????????')
                 item['source']='kaoyanluntan'
                 item['source_url']='http://bbs.kaoyan.com/'
                 item['url']=url
@@ -58,7 +58,7 @@ class KaoyanluntanSpider(Spider):
                 item['attention'] = 0
                 text=str(response.body)
                 time_str=response.selector.xpath("//em[@id]/text()").extract()[0]
-                print time_str
+                # print time_str
                 item['time']=re.findall(r'(\w*[0-9]+-[0-9]+-[0-9]+)\w*',time_str)[0]
             #    print item['time']
                 item['n_click'] = int(response.selector.xpath("//span[@class='xi1']/text()").extract()[0])
@@ -80,7 +80,7 @@ class KaoyanluntanSpider(Spider):
                 continue
 
     def parse_mainPage(self,response):
-        print str(response.url)
+        # print str(response.url)
        # rr = '^http://[a-z.]*.chinakaoyan.com/info/article/id.*'
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
@@ -90,7 +90,7 @@ class KaoyanluntanSpider(Spider):
                     urls = "http://bbs.kaoyan.com"+site
                 else:
                     urls=site
-                print urls
+                # print urls
                 if(self.bf.is_element_exist(urls)==False):
                     yield Request(urls,callback=self.parse_inPage)
                 else:

@@ -10,10 +10,10 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 import os;
 
-BOT_NAME = 'chinakaoyan'
+BOT_NAME = 'chinakaoyanluntan'
 
-SPIDER_MODULES = ['base.spiders.chinakaoyan']
-NEWSPIDER_MODULE = 'base.spiders.chinakaoyan'
+SPIDER_MODULES = ['base.spiders.chinakaoyanluntan']
+NEWSPIDER_MODULE = 'base.spiders.chinakaoyanluntan'
 FEED_EXPORT_ENCODING = 'utf-8'
 LOG_LEVEL = 'INFO'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -59,7 +59,7 @@ MY_USER_AGENT = [
 
 DOWNLOADER_MIDDLEWARES = {
          'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
-         'base.downloaders.chinakaoyan.middlewares.MyUserAgentMiddleware': 400,
+         'base.downloaders.chinakaoyanluntan.middlewares.MyUserAgentMiddleware': 400,
     }
 
 # Obey robots.txt rules
@@ -110,12 +110,12 @@ DEPTH_LIMIT = 4
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'base.pipelines.chinakaoyan.pipelines.MongoDBPipeline': 300,
+    'base.pipelines.chinakaoyanluntan.pipelines.MongoDBPipeline': 300,
 }
 MONGODB_HOST = os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
-MONGODB_COLLECTION = 'Zhongguokaoyanwang'
+MONGODB_COLLECTION = 'Zhongguokaoyanwangluntan'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

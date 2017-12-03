@@ -11,43 +11,55 @@ class DmozSpider(scrapy.Spider):
         "http://www.sina.com.cn/"
         #"http://edu.sina.com.cn/"
     ]
-
+    r1 = '^http://.*.sina.*'
+    r2 = '^http://.*.sina.*.shtml.*'
+    r3 = '^http://.*video.sina.*'
+    r4 = '^http://.*auto.sina.*'
+    r5 = '^http://.*.sina.*.html.*'
+    r6='^http://.*blog.sina.*'
+    r7='^http://.*slide.*.sina.*'
+    r8='^http://.*jiaju.*.sina.*'
+    bf = BloomFilter(0.0001, 1000000)
     def parse_inpage(self, response):
-        r1 = '^http://.*.sina.*'
-        r2 = '^http://.*.sina.*.shtml.*'
-        r3 = '^http://.*video.sina.*'
-        r4 = '^http://.*auto.sina.*'
         r_content1="//div[@id='artibody']//p/text()"
         r_time="span class=.*time.*>"
         url = response.url
-        self.bf.insert_element(url)
+        time=[]
         try:
-            if re.match(r2, url):
-                #if re.match(r3, url):
-                #with open('aaaa', 'ab') as f:
-                 #f.write(url + '\n')
-                #print url
-                #print '\n'
-                # print "aaaaaaa!!!!!!!@*#()@_______"
-                # for sel in response:
+            if re.match(self.r2, url) or re.match(self.r5, url):
+                self.bf.insert_element(url)
                 item = SinaScrapyItem()
                 item['title'] = response.xpath("//head/title/text()").extract_first().encode('utf-8')
                 #item['title'] = response.xpath("//h1/text()").extract_first().encode('utf-8')
                 item['content']=response.xpath(r_content1).extract()
+                item['content'] = ''.join(item['content'])
                 # name= item['name']
                 item['url'] = url
                 item['sentiment'] = 0
                 item['attention'] = 0
-                try:
-                    item['html'] = response.body.decode('gbk')
-                except:
-                    item['html'] = response.body
+
+                item['html'] = ''
+                contentlist = response.xpath('//html').extract()
+                for con in contentlist:
+                    utfcontent = con.encode('utf-8')
+                    item['html'] += utfcontent
+
                 item['source'] = "新浪网"
                 item['source_url'] = "http://www.sina.com.cn/"
                 #item['time']
                 time_item=[]
-                time= response.xpath("//head/meta[@property='article:published_time']/@content").extract()[0]
+                try:
+                    time= response.xpath("//head/meta[@property='article:published_time']/@content").extract()[0]
                 #time1 = response.xpath("//head/meta[@property='article:published_time']//@content").extract()[1]
+                    #print time
+                except:
+                    #print len(time)
+                    try:
+                        time = response.xpath("//span[@class='timer']/text()").extract()[0]
+                    except:
+                        time = response.xpath("//p[@class='source-time']/span/text()").extract()[0]
+
+                    #print time
                 time_item.append(time[0:4])
                 time_item += '_'
                 time_item += time[5:7]
@@ -60,30 +72,32 @@ class DmozSpider(scrapy.Spider):
                 time_item = ''.join(time_item)
                 item['time'] = time_item
 
+
                 # with open('aaa', 'ab') as f:
                 # f.write(response.url)
                 # f.write('\n')
                 yield item
         except:
-            print url
-            print(sys.exc_info())
+            #print url
+            #print time
+            #print '\n'
+            #print(sys.exc_info())
+            pass
 
     def parse(self, response):
-        self.bf = BloomFilter(0.0001, 1000000)
-        r1 = '^http://.*.sina.*'
-        r2 = '^http://.*.sina.*.shtml.*'
-        r3 = '^http://.*video.sina.*'
-        r4 = '^http://.*auto.sina.*'
-        while 1:
-            for url in response.selector.xpath("//a/@href").re(r1):
-                if re.match(r3, url) == None and re.match(r4, url) == None:
-                    #with open('aaaaa', 'ab') as f:
-                        #f.write(url+'\n')
+        """
+        with open('aaaa', 'ab') as f:
+            f.write(response.url)
+            f.write('\n')
+            """
+        for url in response.selector.xpath("//a/@href").re(self.r1):
+            if re.match(self.r2, url) is None and re.match(self.r3, url) is None and re.match(self.r4, url) is None \
+                    and re.match(self.r4, url) is None and re.match(self.r5, url) is None and re.match(self.r6, url) is None\
+                    and re.match(self.r7, url) is None and re.match(self.r8, url) is None:
+                yield scrapy.Request(url=url, callback=self.parse, priority=0)
+
+            else:
+                if re.match(self.r3, url) == None and re.match(self.r4, url) == None and re.match(self.r6, url) is None\
+                    and re.match(self.r7, url) is None and re.match(self.r8, url) is None:
                     if (self.bf.is_element_exist(url) == False):
-                        yield scrapy.Request(url=url, callback=self.parse_inpage)
-                    else:
-                        continue
-                else:
-                    continue
-
-
+                        yield scrapy.Request(url=url, callback=self.parse_inpage, priority=1)

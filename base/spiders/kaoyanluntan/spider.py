@@ -45,6 +45,7 @@ class KaoyanluntanSpider(Spider):
                 item['source_url']='http://bbs.kaoyan.com/'
                 item['url']=url
                 item['html']=''
+                print('a')
                 item['content'] = content1
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention']=0

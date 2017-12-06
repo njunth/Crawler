@@ -42,7 +42,7 @@ class OkkaoyanluntanSpider(Spider):
                 item['source']='okkaoyanluntan'
                 item['source_url']='http://bbs.okaoyan.com/'
                 item['url']=url
-                item['html']=''
+                item['html']=response.body
                 click1 = response.selector.xpath("//span[@class='xi1']/text()").extract()
                 if(len(click1)>0): item['n_click'] = int(click1[0])
                 else:item['n_click']=0

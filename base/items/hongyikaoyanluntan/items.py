@@ -22,4 +22,5 @@ class HongyikaoyanluntanItem(scrapy.Item):
     attention = scrapy.Field()
     time = scrapy.Field()
     sentiment = scrapy.Field()
+    authid = scrapy.Field()
     pass

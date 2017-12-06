@@ -38,7 +38,8 @@ class ChinakaoyanSpider(Spider):
         url = response.url
         self.bf.insert_element(url)
         item =ChinakaoyanItem()
-        content_div = response.selector.xpath('//font[@face="Arial"]/text()').extract()
+        content_div = response.selector.xpath('//font[@face="Arial"]')
+        content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content_div)>0):
                 print url
@@ -51,11 +52,15 @@ class ChinakaoyanSpider(Spider):
                 item['html']=response.body
                 print item['url']
                 #os.system("pause")
-                item['content'] = content_div
+                item['content'] = "".join(content1)
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0
-                text=str(response.body)
-                item['time'] =re.search(r'\d+-\d+-\d+',text).group(0)
+                time_str=response.selector.xpath("//div[@class='time']/text()").extract()[0]
+                print time_str
+                try:
+                    item['time'] = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
+                except:
+                    item['time']='no time'
                 print item['time']
                 #os.system('pause')
                 item['sentiment']=0

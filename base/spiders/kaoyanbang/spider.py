@@ -41,32 +41,29 @@ class KaoyanbangSpider(Spider):
         item =KaoyanbangItem()
         content_div = response.selector.xpath('//div[@class="article"]')
         content1=content_div.xpath('string(.)').extract()
-        #print content1
         try:
             if (((re.match(r1, url) or re.match(r2, url))and len(content_div)>0) and (str(url).find("index")==-1)) :
-                print url
-                #print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-               # os.system("pause")
-                #print('!???????????')
                 item['source']='kaoyanbang'
                 item['source_url']='http://www.kaoyan.com/'
                 item['url']=url
                 item['html']=response.body
-                print item['url']
-                #os.system("pause")
-                item['content'] = content1
+                i=0
+                for t in content1:
+                    tt = t.replace('\r','').replace('\n','').replace('\t','').replace(' ','')
+                    content1[i]=tt
+                    i=i+1
+                item['content'] = "".join(content1)
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0
-                text=str(response.body)
-                item['time'] =re.search(r'\d+-\d+-\d+',text).group(0)
-                print item['time']
+                time_str=response.selector.xpath("//div[@class='articleInfo']//span/text()").extract()[0]
+                try:
+                    item['time'] = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
+                except:
+                    item['time']='no time'
                 item['sentiment']=0
-                #os.system('pause')
-                #os.system("pause")
                 yield item
         except:
             print('error')
-            #os.system("pause")
         for t in response.selector.xpath("//a[@href]/@href").extract():
             if not t.startswith('http'):
                 t="http://www.kaoyan.com"+t
@@ -76,8 +73,6 @@ class KaoyanbangSpider(Spider):
                 continue
 
     def parse_mainPage(self,response):
-        print str(response.url)
-       # rr = '^http://[a-z.]*.chinakaoyan.com/info/article/id.*'
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
         while(1):

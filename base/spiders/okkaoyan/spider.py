@@ -44,7 +44,7 @@ class OkkaoyanSpider(Spider):
                 item['source']='okkaoyan'
                 item['source_url']='http://www.okaoyan.com/'
                 item['url']=url
-                item['html']=''
+                item['html']=response.body
                 i=0
                 for t in content1:
                     tt = t.replace('\r','').replace('\n','').replace('\t','').replace(' ','')

@@ -6,6 +6,9 @@ from base.items.chinakaoyan.items import ChinakaoyanItem
 from base.items.chinakaoyan.bloomfliter import BloomFilter
 import os
 import re
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 class ChinakaoyanSpider(Spider):
@@ -35,42 +38,39 @@ class ChinakaoyanSpider(Spider):
         url = response.url
         self.bf.insert_element(url)
         item =ChinakaoyanItem()
-        content_div = response.selector.xpath('//font[@face="Arial"]/text()').extract()
+        content_div = response.selector.xpath('//font[@face="Arial"]')
+        content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content_div)>0):
-                # print url
-                # print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-               # os.system("pause")
-               #  print('!???????????')
+
                 item['source']='chinakaoyan'
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
-                item['html']=''
-                print item['url']
-                #os.system("pause")
-                item['content'] = content_div
+                item['html']=response.body
+                item['content'] = "".join(content1)
+
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0
-                text=str(response.body)
-                item['time'] =re.search(r'\d+-\d+-\d+',text).group(0)
-                print item['time']
-                #os.system('pause')
+                time_str=response.selector.xpath("//div[@class='time']/text()").extract()[0]
+                try:
+                    item['time'] = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
+                except:
+                    item['time']='no time'
                 item['sentiment']=0
-                # os.system("pause")
+
                 yield item
         except:
-            for t in response.selector.xpath( "//a[@href]/@href" ).extract():
-                if not t.startswith( 'http' ):
-                    t = response.url + t
-                if (self.bf.is_element_exist( t ) == False):  # reduce a /
-                    yield Request( t, callback=self.parse_inPage )
-                else:
-                    continue
+            print('error')
+        for t in response.selector.xpath("//a[@href]/@href").extract():
+            if not t.startswith('http'):
+                t="http://www.chinakaoyan.com"+t
+            if (self.bf.is_element_exist(t)==False):  # reduce a /
+                yield Request(t,callback=self.parse_inPage)
+            else:
+                continue
 
-
+                
     def parse_mainPage(self,response):
-        # print str(response.url)
-       # rr = '^http://[a-z.]*.chinakaoyan.com/info/article/id.*'
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
         while (1):

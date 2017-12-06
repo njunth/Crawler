@@ -23,6 +23,5 @@ class MongoDBPipeline(object):
 
     def process_item(self, item, spider):
          njudata = dict(item)
-         print item['url']
          self.post.insert(njudata)
          return item

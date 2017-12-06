@@ -42,33 +42,22 @@ class ChinakaoyanSpider(Spider):
         content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content_div)>0):
-                print url
-                print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-               # os.system("pause")
-                print('!???????????')
                 item['source']='chinakaoyan'
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
                 item['html']=response.body
-                print item['url']
-                #os.system("pause")
                 item['content'] = "".join(content1)
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0
                 time_str=response.selector.xpath("//div[@class='time']/text()").extract()[0]
-                print time_str
                 try:
                     item['time'] = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
                 except:
                     item['time']='no time'
-                print item['time']
-                #os.system('pause')
                 item['sentiment']=0
-                #os.system("pause")
                 yield item
         except:
             print('error')
-            #os.system("pause")
         for t in response.selector.xpath("//a[@href]/@href").extract():
             if not t.startswith('http'):
                 t="http://www.chinakaoyan.com"+t
@@ -78,8 +67,6 @@ class ChinakaoyanSpider(Spider):
                 continue
 
     def parse_mainPage(self,response):
-        print str(response.url)
-       # rr = '^http://[a-z.]*.chinakaoyan.com/info/article/id.*'
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
         while (1):

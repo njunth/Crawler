@@ -25,7 +25,6 @@ class KaoyanluntanSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
 
-        #self.bf=BloomFilter(0.0001,100000)
         self.mainpage="http://bbs.kaoyan.com/"
 
 
@@ -44,7 +43,7 @@ class KaoyanluntanSpider(Spider):
                 item['source']='kaoyanluntan'
                 item['source_url']='http://bbs.kaoyan.com/'
                 item['url']=url
-                item['html']=''
+                item['html']=response.body
                 item['content'] = content1
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention']=0
@@ -58,15 +57,12 @@ class KaoyanluntanSpider(Spider):
                 yield item
         except:
             print('error')
-            #os.system("pause")
         for t in response.selector.xpath("//a[@href]/@href").extract():
             if not t.startswith('http'):
                 t="http://bbs.kaoyan.com"+t
             yield Request(t,callback=self.parse_inPage)
 
     def parse_mainPage(self,response):
-        print str(response.url)
-       # rr = '^http://[a-z.]*.chinakaoyan.com/info/article/id.*'
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
         while(1):

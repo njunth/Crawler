@@ -73,12 +73,13 @@ class OkkaoyanSpider(Spider):
     def parse_mainPage(self,response):
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
-        for site in sites:
-            if not site.startswith('http'):
-                urls = "http://www.okaoyan.com"+site
-            else:
-                urls=site
-            if(self.bf.is_element_exist(urls)==False):
-                yield Request(urls,callback=self.parse_inPage)
-            else:
-                continue
+        while(1):
+            for site in sites:
+                if not site.startswith('http'):
+                    urls = "http://www.okaoyan.com"+site
+                else:
+                    urls=site
+                if(self.bf.is_element_exist(urls)==False):
+                    yield Request(urls,callback=self.parse_inPage)
+                else:
+                    continue

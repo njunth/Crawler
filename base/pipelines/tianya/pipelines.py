@@ -23,7 +23,7 @@ class Tianyav2Pipeline(object):
             # self.coll.insert(dict(item))
         valid = True
         for data in item:
-            print data
+            #print data
             if not data:
                 valid = False
                 raise DropItem('Missing{0}!'.format(data))

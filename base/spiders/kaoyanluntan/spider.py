@@ -37,6 +37,7 @@ class KaoyanluntanSpider(Spider):
         item =KaoyanluntanItem()
         content_div = response.selector.xpath('//table[@cellspacing="0" and @cellpadding="0"]//tr//td[@class="t_f"]')
         content1=content_div.xpath('string(.)').extract()
+
         try:
             if (re.match(r1, url) and len(content_div)>0):
                 print url
@@ -72,3 +73,4 @@ class KaoyanluntanSpider(Spider):
                 else:
                     urls=site
                 yield Request(urls,callback=self.parse_inPage)
+

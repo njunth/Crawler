@@ -10,6 +10,11 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+import sys
+
+reload( sys )
+sys.setdefaultencoding( 'utf8' )
+
 
 class WangdaoluntanSpider(Spider):
     name = 'spider'
@@ -70,8 +75,10 @@ class WangdaoluntanSpider(Spider):
         sites=sel.xpath("//a[@href]/@href").extract()
         while(1):
             for site in sites:
+                # print site
                 if not site.startswith('http'):
                     urls = "http://www.cskaoyan.com/forum.php"+site
                 else:
                     urls=site
                 yield Request(urls,callback=self.parse_inPage)
+

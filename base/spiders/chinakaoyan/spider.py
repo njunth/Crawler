@@ -1,5 +1,5 @@
-# -*- coding: UTF-8 -*-
-from scrapy.spiders import Spider
+#encoding=utf-8
+from scrapy.spider import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.chinakaoyan.items import ChinakaoyanItem
@@ -42,11 +42,13 @@ class ChinakaoyanSpider(Spider):
         content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content_div)>0):
+
                 item['source']='chinakaoyan'
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
                 item['html']=response.body
                 item['content'] = "".join(content1)
+
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0
                 time_str=response.selector.xpath("//div[@class='time']/text()").extract()[0]
@@ -55,6 +57,7 @@ class ChinakaoyanSpider(Spider):
                 except:
                     item['time']='no time'
                 item['sentiment']=0
+
                 yield item
         except:
             print('error')
@@ -66,6 +69,7 @@ class ChinakaoyanSpider(Spider):
             else:
                 continue
 
+                
     def parse_mainPage(self,response):
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
@@ -75,7 +79,7 @@ class ChinakaoyanSpider(Spider):
                     urls = "http://www.chinakaoyan.com"+site
                 else:
                     urls=site
-                print urls
+                # print urls
                 if(self.bf.is_element_exist(urls)==False):
                     yield Request(urls,callback=self.parse_inPage)
                 else:

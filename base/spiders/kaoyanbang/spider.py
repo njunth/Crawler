@@ -4,6 +4,7 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.kaoyanbang.items import KaoyanbangItem
 from base.items.kaoyanbang.bloomfliter import BloomFilter
+from datetime import datetime
 import os
 import re
 import sys
@@ -57,10 +58,12 @@ class KaoyanbangSpider(Spider):
                 item['attention'] = 0
                 time_str=response.selector.xpath("//div[@class='articleInfo']//span/text()").extract()[0]
                 try:
-                    item['time'] = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
+                    item['time'] =time_str.replace('-','_').replace(' ','_').replace(':','_')
                 except:
-                    item['time']='no time'
+                    item['time']='0000_00_00_00_00'
+                item['time']=item['time']+'_00'
                 item['sentiment']=0
+                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')

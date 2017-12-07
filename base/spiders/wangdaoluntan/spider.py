@@ -4,6 +4,7 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.wangdaoluntan.items import WangdaoluntanItem
 from base.items.wangdaoluntan.bloomfliter import BloomFilter
+from datetime import datetime
 import os
 import re
 import sys
@@ -62,6 +63,7 @@ class WangdaoluntanSpider(Spider):
                 item['sentiment']=0
                 authid_str=response.selector.xpath("//div[@class='authi']//a[@class='xw1']/text()").extract()
                 item['authid']=authid_str
+                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')
@@ -81,4 +83,3 @@ class WangdaoluntanSpider(Spider):
                 else:
                     urls=site
                 yield Request(urls,callback=self.parse_inPage)
-

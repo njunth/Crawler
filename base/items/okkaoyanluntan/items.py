@@ -23,4 +23,5 @@ class OkkaoyanluntanItem(scrapy.Item):
     time = scrapy.Field()
     sentiment = scrapy.Field()
     authid = scrapy.Field()
+    create_time=scrapy.Field()
     pass

@@ -68,7 +68,7 @@ class OkkaoyanluntanSpider(Spider):
     def parse_mainPage(self,response):
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
-		while(1):
+        while(1):
             for site in sites:
                 if not site.startswith('http'):
                     urls = "http://bbs.okaoyan.com"+site

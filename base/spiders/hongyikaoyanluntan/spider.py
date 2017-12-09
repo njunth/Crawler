@@ -4,6 +4,7 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.hongyikaoyanluntan.items import HongyikaoyanluntanItem
 from base.items.hongyikaoyanluntan.bloomfliter import BloomFilter
+from datetime import datetime
 import os
 import re
 import sys
@@ -56,6 +57,7 @@ class HongyikaoyanluntanSpider(Spider):
                 item['sentiment']=0
                 authid_str=response.selector.xpath("//div[@class='authi']//a[@class='xw1']/text()").extract()
                 item['authid']=authid_str
+                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')

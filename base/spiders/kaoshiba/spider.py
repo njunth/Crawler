@@ -4,6 +4,7 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.kaoshiba.items import KaoshibaItem
 from base.items.kaoshiba.bloomfliter import BloomFilter
+from datetime import datetime
 import os
 import re
 import sys
@@ -57,10 +58,25 @@ class KaoshibaSpider(Spider):
                 time_str=response.selector.xpath("//div[@class='titiefu']")
                 time_str1=time_str.xpath('string(.)').extract()[0]
                 try:
-                    item['time'] = re.search(r'\d{4}-\d+-\d+',time_str1).group(0)
+                    s2=time_str1.replace('-','_').replace(' ','_').replace(':','_')
+                    time_str3= re.findall(r'\w*([0-9]{4}_[0-9]+_[0-9]+_[0-9]+_[0-9]+_[0-9]+)\w*',s2)[0]
+                    timelist=time_str3.split('_')
+                    kk=0
+                    for t in timelist:
+                        if (len(t)==0):
+                            timelist[kk]='00_'
+                        elif(len(t)==1):
+                            timelist[kk]='0'+t+'_'
+                        else:
+                            timelist[kk]=t+'_'
+                        kk=kk+1
+                    final_str=list(''.join(timelist))
+                    final_str.pop()
+                    item['time']=''.join(final_str)
                 except:
-                    item['time']='no time'
+                    item['time']='0000_00_00_00_00_00'
                 item['sentiment']=0
+                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')

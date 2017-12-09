@@ -4,6 +4,7 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.baidutiebaquanbasousuo.items import BaidutiebaquanbasousuoItem
 from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
+from datetime import datetime
 import os
 import re
 import sys
@@ -67,6 +68,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
                 authid_str2=authid_str.xpath('string(.)').extract()
                 item['authid']=authid_str2
                 item['sentiment']=0
+                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')

@@ -4,6 +4,7 @@ import re
 from base.items.sina_menhu.items import SinaScrapyItem
 from base.items.sina_menhu.bloomfilter import BloomFilter
 import sys
+import datetime
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["sina.com.cn"]
@@ -22,7 +23,6 @@ class DmozSpider(scrapy.Spider):
     bf = BloomFilter(0.0001, 1000000)
     def parse_inpage(self, response):
         r_content1="//div[@id='artibody']//p/text()"
-        r_time="span class=.*time.*>"
         url = response.url
         time=[]
         try:
@@ -71,11 +71,11 @@ class DmozSpider(scrapy.Spider):
                 time_item += time[14:16]
                 time_item = ''.join(time_item)
                 item['time'] = time_item
+                item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
 
-
-                # with open('aaa', 'ab') as f:
-                # f.write(response.url)
-                # f.write('\n')
+                #with open('aaa', 'ab') as f:
+                  #f.write(response.url)
+                  #f.write('\n')
                 yield item
         except:
             #print url
@@ -100,4 +100,5 @@ class DmozSpider(scrapy.Spider):
                 if re.match(self.r3, url) == None and re.match(self.r4, url) == None and re.match(self.r6, url) is None\
                     and re.match(self.r7, url) is None and re.match(self.r8, url) is None:
                     if (self.bf.is_element_exist(url) == False):
+
                         yield scrapy.Request(url=url, callback=self.parse_inpage, priority=1)

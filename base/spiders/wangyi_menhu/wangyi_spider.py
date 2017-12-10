@@ -5,6 +5,7 @@ from base.items.wangyi_menhu.items import WangyiScrapyItem
 from base.items.wangyi_menhu.bloomfilter import BloomFilter
 import sys
 
+import datetime
 
 class DmozSpider(scrapy.Spider):
     name = "spider"
@@ -79,6 +80,7 @@ class DmozSpider(scrapy.Spider):
 
                     time_item = ''.join(time_item)
                     item['time'] = time_item
+                    item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
                     # print name
                     # with open('aaa', 'ab') as f:
                     # f.write(response.url)

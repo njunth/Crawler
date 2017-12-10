@@ -4,6 +4,7 @@ import re
 import sys
 from base.items.yangguang_menhu.items import YangguangMenhuItem
 from base.items.yangguang_menhu.bloomfilter import BloomFilter
+import datetime
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["cnr.cn"]
@@ -86,7 +87,7 @@ class DmozSpider(scrapy.Spider):
                 #with open('aaa', 'ab') as f:
                     #f.write(response.url)
                     #f.write('\n')
-
+                item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
                 yield item
 
             except:

@@ -73,7 +73,7 @@ MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))  # 端口号
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")  # 库名
 MONGODB_COLLECTION = "Tianyaluntan"  # collection名
 
-LOG_LEVEL = 'INFO'
+#LOG_LEVEL = 'INFO'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

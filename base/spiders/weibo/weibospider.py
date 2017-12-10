@@ -28,11 +28,12 @@ class WeiboSpider(Spider):
         urls = []
         while 1:
             for keyword in keywords:
+                print keyword
                 key = urllib.quote(keyword)
                 for i in range(1, 200):
                     url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
                     # print key
-                    # time.sleep(0.1)
+                    time.sleep(0.1)
                     yield scrapy.Request(url=url, callback=self.parse_search, headers=headers)
 
     def parse_search(self, response):
@@ -49,8 +50,8 @@ class WeiboSpider(Spider):
             # print res['data']['cards']
             for key in res['data']['cards'][0]['card_group']:
                 ''''''
-                # print 111
-                # time.sleep(0.01)
+                print 111
+                time.sleep(0.1)
                 #yield item
                 yield scrapy.Request(url=key['scheme'],callback=self.parse)
         else:
@@ -85,6 +86,6 @@ class WeiboSpider(Spider):
         item['time'] = timestr
         #item['url'] = key['status']['scheme']
         item['url'] = response.url
-        item['publisher'] = key['status']['user']['screen_name']
+        item['authid'] = key['status']['user']['screen_name']
         yield item
 

@@ -18,7 +18,7 @@ class Meiqispider(scrapy.Spider):
         "http://bbs.biketo.com/index.html"
         # "http://bbs.biketo.com/index.html"
     }
-    bf = BloomFilter(0.0001, 1000000)
+    #bf = BloomFilter(0.0001, 1000000)
 
     def parse(self, response):
 
@@ -26,11 +26,11 @@ class Meiqispider(scrapy.Spider):
             # url = response.xpath("//a/@href").extract()
             for url1 in response.selector.xpath("//a/@href").re(r'^http://bbs.biketo.com.*.html'):
                 # for url1 in url:
-                if (self.bf.is_element_exist(url1) == False):  # reduce a /
-                    yield scrapy.Request(url=url1, callback=self.parse_inpage)
-                else:
+                #if (self.bf.is_element_exist(url1) == False):  # reduce a /
+                yield scrapy.Request(url=url1, callback=self.parse_inpage)
+                #else:
                     #continue
-                    yield scrapy.Request(url=url1, callback=self.parse)
+                 #   yield scrapy.Request(url=url1, callback=self.parse)
 
             #for url in response.selector.xpath("//a/@href").re(r'^http://bbs.biketo.com.*.html'):
              #   if re.match('^http://bbs.biketo.com.*.html', url) is None:
@@ -38,8 +38,10 @@ class Meiqispider(scrapy.Spider):
 
     def parse_inpage(self, response):
         item = MeiqiItem()
+        content = response.selector.xpath("//div[@class='t_fsz']//td[@class='t_f']")#/text()").extract()
+        con_div = content.xpath('string(.)').extract()
 
-        if re.match('^http://bbs.biketo.com.*.html', response.url):
+        if re.match('^http://bbs.biketo.com.*.html', response.url) and len(con_div)>0:
             item['source'] = '美骑社区'
             item['source_url'] = 'http://bbs.biketo.com/index.html'
 
@@ -57,9 +59,16 @@ class Meiqispider(scrapy.Spider):
             title1 = title.encode('utf-8')
             item['title'] = title1
 
-            content = response.xpath("//div[@class='t_fsz']//td[@class='t_f']/text()").extract()
-            content1 = ''.join(content)
-            item['content'] = content1  # response.xpath("//div[@class='t_fsz']//td[@class='t_f']/text()").extract()
+            #content = response.xpath("//div[@class='t_fsz']//td[@class='t_f']/text()").extract()
+            #content1 = ''.join(content)
+            #item['content'] = content1  # response.xpath("//div[@class='t_fsz']//td[@class='t_f']/text()").extract()
+            item['content'] = con_div
+            item['mainauth'] = response.xpath("//a[@target='_blank'][@class='xw1']/text()").extract_first()
+            item['authid'] = response.xpath("//a[@target='_blank'][@class='xg1']/text()").extract()
+            item['testtime'] = response.xpath("//em[@class='date']/text()").extract()
+
+
+
 
             time_item = []
             time = response.xpath("//div[@class='pti']//em/text()").extract_first()
@@ -131,7 +140,7 @@ class Meiqispider(scrapy.Spider):
             item['attention'] = 0
 
             # if(response.url != 'http://bbs.biketo.com/index.html'):
-            self.bf.insert_element(response.url)
+            #self.bf.insert_element(response.url)
             yield item
 
 

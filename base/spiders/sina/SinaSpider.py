@@ -18,7 +18,7 @@ class Sinaspider(scrapy.Spider):
         # "http://club.eladies.sina.com.cn/thread-6490945-1-1.html"
         # "http://club.eladies.sina.com.cn/thread-6596256-1-1.html"
     }
-    bf = BloomFilter(0.1, 10)
+    #bf = BloomFilter(0.0001,1000000)
 
     def parse(self, response):
 
@@ -29,11 +29,11 @@ class Sinaspider(scrapy.Spider):
         while 1:
 
             for url1 in response.selector.xpath("//a/@href").re(r'^http://club.[a-z.]*.sina.*'):
-                if (self.bf.is_element_exist(url1) == False):  # reduce a /
-                    yield scrapy.Request(url=url1, callback=self.parse_inpage)
-                else:
+                #if (self.bf.is_element_exist(url1) == False):  # reduce a /
+                yield scrapy.Request(url=url1, callback=self.parse_inpage)
+                #else:
                     #continue
-                    yield scrapy.Request(url=url1, callback=self.parse)
+                #yield scrapy.Request(url=url1, callback=self.parse)
 
             #for url1 in response.selector.xpath("//a/@href").re(r'^http://club.[a-z.]*.sina.*'):
              #   yield scrapy.Request(url=url1, callback=self.parse)
@@ -41,7 +41,22 @@ class Sinaspider(scrapy.Spider):
 
     def parse_inpage(self,response):
         item = SinaItem()
-        if re.match('^http://club.[a-z.]*.sina.*.html', response.url):
+        reply = response.selector.xpath("//div[@class='cont f14']")#//text()")  # .extract()
+        reply1 = reply.xpath('string(.)').extract()
+
+        #if reply is not None:
+         #   reply1 = reply[0].xpath('string(.)').extract()
+        #else:
+         #   reply1 = None
+
+        #author = response.selector.xpath("//div[@class='myInfo_up']/a")#/text()").extract()
+        #if author is not None:
+        #author1 = author.xpath('string(.)').extract()
+        #else:
+         #   author1 = None
+
+        #if re.match('^http://club.[a-z.]*.sina.*.html', response.url):
+        if re.match('^http://club.[a-z.]*.sina.com.cn/thread-[0-9]+-[0-9]+-[0-9]+.html', response.url) and len(reply1)>0:
             item['source'] = '新浪论坛'
             item['source_url'] = 'http://people.sina.com.cn/'
 
@@ -64,10 +79,46 @@ class Sinaspider(scrapy.Spider):
             title1 = title.encode('utf-8')
             item['title'] = title1
 
-            #item['content']  = response.xpath("//div[@class='maincont']//p/text()").extract()
-            item['content'] = response.xpath("//tbody//p//font/text()").extract()
+            try:
+                #item['content']  = response.xpath("//div[@class='maincont']//p//text()").extract()
+                item['content'] = response.xpath("//div[@class='cont f14']//text()").extract()
+            except:
+                item['content'] = response.xpath("//div[@class='postmessage defaultpost']//text()").extract()
 
-            item['content'] = ''.join(item['content'])
+            #item['replies'] =
+            #reply = response.selector.xpath("//div[@class='cont f14']//text()")#.extract()
+            #item['replies'] = response.xpath("//div[@class='cont f14']//text()").extract()
+            #item['replies'] = reply.xpath('string(.)').extract()#response.xpath("//div[@class='cont f14']//text()").extract()#reply.xpath('string(.)').extract()
+            item['replies'] = reply1
+
+
+            #item['replies'] = ''.join(item['replies'])
+            #item['content'] = response.xpath("//tbody//p//font/text()").extract()
+
+            #item['content'] = response.xpath("//div[@class='mybbs_cont']/text()").extract()
+            #try:
+             #   item['content'] = response.xpath("//div[@class='mainbox']//p//text()").extract()
+            #except:
+             #   item['content'] = response.xpath("//td[@class='postcontent']//text()").extract()
+
+
+            #item['content'] = ''.join(item['content'])
+            try:
+                item['authid'] = response.xpath("//div[@class='myInfo_up']//a[@class='f14']/text()").extract()#不要first获得全部
+            except:
+                item['authid'] = response.xpath("//td[@class='postauthor']/text()").extract()
+
+            #item['authid'] = author1#''.join(item['authid'])
+
+
+            try:
+                item['testtime'] = response.xpath("//div[@class='myInfo_up']//font/text()").extract()
+            except:
+                item['testtime'] = response.xpath("//td[@class='postauthor']/text()").extract()
+                #item['testtime'] = item['testtime'][3]
+
+
+
 
             n_click = response.xpath("//div[@class='maincont']//tbody//span/font/text()").extract_first()
             #item['n_click'] = n_click
@@ -128,5 +179,5 @@ class Sinaspider(scrapy.Spider):
             item['attention'] = 0
 
             yield item
-            self.bf.insert_element(response.url)
+            #self.bf.insert_element(response.url)
 

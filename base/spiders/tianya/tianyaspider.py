@@ -22,18 +22,21 @@ class Tianyaspider(scrapy.Spider):
     def parse(self,response):
 
         #item = Tianyav2Item()
-        self.bf = BloomFilter(0.0001, 1000000)
+        #self.bf = BloomFilter(0.0001, 1000000)
         while 1:
             for url1 in response.selector.xpath("//li/div[@class='title']/a/@href").re(r'^http://bbs.tianya.*'):
-                if (self.bf.is_element_exist(url1) == False):  # reduce a /
-                    yield scrapy.Request(url=url1, callback=self.parse_inpage)
-                else:
+                #if (self.bf.is_element_exist(url1) == False):  # reduce a /
+                yield scrapy.Request(url=url1, callback=self.parse_inpage)
+                #else:
                     #continue
-                    yield scrapy.Request(url=url1, callback=self.parse)
+                 #   yield scrapy.Request(url=url1, callback=self.parse)
+
     def parse_inpage(self,response):
         item = Tianyav2Item()
+        content = response.selector.xpath('//div[@class="atl-main"]//div/div[@class="atl-content"]/div[2]/div[1]')#/text()').extract()
+        con_div = content.xpath('string(.)').extract()
 
-        if re.match('^http://bbs.tianya.*.shtml', response.url):
+        if re.match('^http://bbs.tianya.*.shtml', response.url) and len(con_div)>0:
             item['source'] = '天涯'
             item['source_url'] = 'http://bbs.tianya.cn/'
             """try:
@@ -106,12 +109,14 @@ class Tianyaspider(scrapy.Spider):
             # collection_name = ''.join(time_collection)
             # tianyav2.config.set_name(collection_name)
 
-
+            item['authid'] = response.xpath('//div[@class="atl-info"]/span[1]/a/text()').extract()#.re(r'[0-9]*')
+            item['testtime'] = response.xpath('//div[@class="atl-info"]/span[2]/text()').extract()
 
             # article_content = response.xpath('//div[@class="atl-main"]//div/div[@class="atl-content"]/div[2]/div[1]/text()').extract()#[0].encode('utf-8')
-            item['content'] = response.xpath(
-                '//div[@class="atl-main"]//div/div[@class="atl-content"]/div[2]/div[1]/text()').extract()
-            item['content'] = ''.join(item['content'])
+            #item['content'] = response.xpath(
+                #'//div[@class="atl-main"]//div/div[@class="atl-content"]/div[2]/div[1]/text()').extract()
+            #item['content'] = ''.join(item['content'])
+            item['content'] = con_div
 
             click = response.xpath('//div[@class="atl-info"]/span[3]/text()').re(r'[0-9]*')
             if click is None:
@@ -136,7 +141,7 @@ class Tianyaspider(scrapy.Spider):
             item['sentiment'] = 0
             item['attention'] = 0
 
-            self.bf.insert_element(response.url)
+            #self.bf.insert_element(response.url)
 
             yield item
 

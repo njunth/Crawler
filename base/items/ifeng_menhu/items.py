@@ -8,7 +8,7 @@
 import scrapy
 
 
-class WangyiScrapyItem(scrapy.Item):
+class IfengScrapyItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     url = scrapy.Field()
@@ -21,3 +21,4 @@ class WangyiScrapyItem(scrapy.Item):
     attention = scrapy.Field()
     sentiment = scrapy.Field()
     create_time = scrapy.Field()
+    pass

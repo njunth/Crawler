@@ -20,4 +20,5 @@ class SinaScrapyItem(scrapy.Item):
     time = scrapy.Field()
     attention = scrapy.Field()
     sentiment = scrapy.Field()
+    create_time=scrapy.Field()
     pass

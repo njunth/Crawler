@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for sina_scrapy project
+# Scrapy settings for ifeng_scrapy project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -8,16 +8,18 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
+
 import os;
 
-BOT_NAME = 'sina_scrapy'
+BOT_NAME = 'ifeng_scrapy'
 
-SPIDER_MODULES = ['base.spiders.sina_menhu']
-NEWSPIDER_MODULE = 'base.spiders.sina_menhu'
+SPIDER_MODULES = ['base.spiders.ifeng_menhu']
+NEWSPIDER_MODULE = 'base.spiders.ifeng_menhu'
 
 LOG_LEVEL = 'INFO'
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'sina_scrapy (+http://www.yourdomain.com)'
+#USER_AGENT = 'tencent_scrapy (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -48,13 +50,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'sina_scrapy.middlewares.SinaScrapySpiderMiddleware': 543,
+#    'tencent_scrapy.middlewares.TencentScrapySpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'sina_scrapy.middlewares.MyCustomDownloaderMiddleware': 543,
+#    'tencent_scrapy.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,16 +65,18 @@ ROBOTSTXT_OBEY = True
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
-#Configure item pipelines
+# Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
+
+
 ITEM_PIPELINES = {
-  'base.pipelines.sina_menhu.pipelines.SinaScrapyPipeline': 300,
+  'base.pipelines.ifeng_menhu.pipelines.IfengScrapyPipeline': 300,
 }
 
 MONGODB_SERVER=os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT=(int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME=os.getenv("MONGO_DBNAME", "Crawler")
-MONGODB_COLLECTION="Xinlangwang"
+MONGODB_COLLECTION="Fenghuangwang"
 
 LOG_LEVEL = 'INFO'
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -95,4 +99,4 @@ LOG_LEVEL = 'INFO'
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-DEPTH_LIMIT=3
+DEPTH_LIMIT = 3

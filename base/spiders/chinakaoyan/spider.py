@@ -37,6 +37,7 @@ class ChinakaoyanSpider(Spider):
     def parse_inPage(self,response):
         r1 = '.*/info/article/id.*'
         url = response.url
+        print url
         self.bf.insert_element(url)
         item =ChinakaoyanItem()
         content_div = response.selector.xpath('//font[@face="Arial"]')
@@ -53,6 +54,7 @@ class ChinakaoyanSpider(Spider):
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0
                 time_str=response.selector.xpath("//div[@class='time']/text()").extract()[0]
+                print 111
                 try:
                     time_str1 = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
                     item['time'] =time_str1.replace('-','_').replace(' ','_').replace(':','_')
@@ -78,6 +80,7 @@ class ChinakaoyanSpider(Spider):
         sites=sel.xpath("//a[@href]/@href").extract()
         while (1):
             for site in sites:
+                # print site
                 if not site.startswith('http'):
                     urls = "http://www.chinakaoyan.com"+site
                 else:

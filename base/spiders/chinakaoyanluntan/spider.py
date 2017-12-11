@@ -52,7 +52,7 @@ class ChinakaoyanluntanSpider(Spider):
                     item['n_click']=int(ccrr[0])
                 else:
                     item['n_click']=0
-                print item['n_click']
+                # print item['n_click']
                 if(len(ccrr)>1):
                     item['n_reply']=int(ccrr[1])
                 else:

@@ -2,7 +2,7 @@ import scrapy
 
 from base.items.haitian.items import HaiItem
 from scrapy.http import Request
-import datetime
+import datetime, random, time
 from base.items.haitian.BloomFilter import BloomFilter
 
 class htkaoyan(scrapy.Spider):
@@ -22,7 +22,9 @@ class htkaoyan(scrapy.Spider):
 					continue
 
 	def parse_inPage(self,response):
-
+		sleep_time = random.random()
+		print sleep_time
+		time.sleep(sleep_time)
 		item = HaiItem()
 		item['title'] = ''
 		item['source'] = "HaiTianKaoYan"

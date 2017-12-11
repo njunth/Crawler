@@ -5,7 +5,7 @@ import re
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from base.items.kaidi.bloomfilter import BloomFilter
-import datetime
+import datetime, random, time
 
 class KdSpider(scrapy.Spider):
     name = "spider"
@@ -30,6 +30,9 @@ class KdSpider(scrapy.Spider):
              #   continue
 
     def parse_inpage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         item = KaidiItem()
         content = response.selector.xpath("//div[@class='replycont-text']")#//text()").extract()
         con_div = content.xpath('string(.)').extract()

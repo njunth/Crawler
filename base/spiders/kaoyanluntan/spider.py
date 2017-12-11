@@ -5,7 +5,7 @@ from scrapy.selector import Selector
 from base.items.kaoyanluntan.items import KaoyanluntanItem
 from base.items.kaoyanluntan.bloomfliter import BloomFilter
 from datetime import datetime
-import os
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -33,6 +33,9 @@ class KaoyanluntanSpider(Spider):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         r1 = 'http://bbs.kaoyan.com/t[0-9]*p1'
         url = response.url
         item =KaoyanluntanItem()

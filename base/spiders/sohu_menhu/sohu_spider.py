@@ -4,7 +4,7 @@ import re
 from base.items.sohu_menhu.items import SohuScrapyItem
 from base.items.sohu_menhu.bloomfilter import BloomFilter
 import sys
-import datetime
+import datetime, random, time
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["sohu.com"]
@@ -104,6 +104,9 @@ class DmozSpider(scrapy.Spider):
         #with open('aaa', 'ab') as f:
          #f.write(response.url + '\n')
         for url in response.selector.xpath("//a/@href").re(self.r1):
+            sleep_time = random.random()
+            print sleep_time
+            time.sleep( sleep_time )
             if not url.startswith('http:'):
                 url = "http:"+ url
                 #with open('aaaaaa', 'ab') as f:

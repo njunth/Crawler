@@ -1,9 +1,9 @@
 #-*-coding:utf8-*-
 import scrapy
 from base.items.tianya.items import Tianyav2Item
-from base.items.tianya.bloomfilter import BloomFilter
+from base.items.tianya.BloomFilter import BloomFilter
 import re
-import datetime
+import datetime, random, time
 
 
 
@@ -32,6 +32,9 @@ class Tianyaspider(scrapy.Spider):
                  #   yield scrapy.Request(url=url1, callback=self.parse)
 
     def parse_inpage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         item = Tianyav2Item()
         content = response.selector.xpath('//div[@class="atl-main"]//div/div[@class="atl-content"]/div[2]/div[1]')#/text()').extract()
         con_div = content.xpath('string(.)').extract()

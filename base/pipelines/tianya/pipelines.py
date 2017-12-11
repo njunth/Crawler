@@ -8,7 +8,7 @@ import pymongo
 # from scrapy.conf import settings
 from base.configs.tianya.settings import MONGO_HOST, MONGO_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
 from scrapy.exceptions import DropItem
-from base.items.tianya.bloomfilter import BloomFilter
+from base.items.tianya.BloomFilter import BloomFilter
 import re
 
 import datetime

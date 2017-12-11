@@ -2,7 +2,7 @@ import scrapy
 
 from base.items.kuakao.items import KuakaoItem
 from scrapy.http import Request
-import datetime
+import datetime, random, time
 from base.items.kuakao.BloomFilter import BloomFilter
 
 class spider(scrapy.Spider):
@@ -27,7 +27,9 @@ class spider(scrapy.Spider):
 
 
 	def parse_inPage(self,response):
-
+		sleep_time = random.random()
+		print sleep_time
+		time.sleep( sleep_time )
 		item=KuakaoItem()
 		item['title'] = ''
 		item['source'] = "KuaKaoKaoYan"

@@ -4,9 +4,9 @@ from base.items.meiqi.items import MeiqiItem
 import re
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
-from base.items.meiqi.bloomfilter import BloomFilter
+from base.items.meiqi.BloomFilter import BloomFilter
 import string
-import datetime
+import datetime, random, time
 
 
 class Meiqispider(scrapy.Spider):
@@ -27,6 +27,9 @@ class Meiqispider(scrapy.Spider):
             for url1 in response.selector.xpath("//a/@href").re(r'^http://bbs.biketo.com.*.html'):
                 # for url1 in url:
                 #if (self.bf.is_element_exist(url1) == False):  # reduce a /
+                sleep_time = random.random()
+                print sleep_time
+                time.sleep( sleep_time )
                 yield scrapy.Request(url=url1, callback=self.parse_inpage)
                 #else:
                     #continue

@@ -2,7 +2,7 @@
 import scrapy
 import re
 import sys
-import datetime
+import datetime, random, time
 
 from base.items.ifeng_menhu.items import IfengScrapyItem
 from base.items.ifeng_menhu.bloomfilter import BloomFilter
@@ -22,6 +22,9 @@ class DmozSpider(scrapy.Spider):
     r6='^http://.*art.ifeng.*'
     r7='^http://.*house.ifeng.*'
     def parse_inpage(self, response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
 
         url = response.url
         self.bf.insert_element(url)
@@ -70,44 +73,44 @@ class DmozSpider(scrapy.Spider):
                 item['source_url'] = "http://www.ifeng.com/"
 
                 time_item = []
-                time = response.xpath("normalize-space(//p[@class='p_time']//span/text())").extract()[0]
-                if len(time) == 0:
-                        time = response.xpath("normalize-space(//div[@class='titL']//span/text())").extract()[0]
-                if len(time) == 0:
-                        time = response.xpath("normalize-space(//div[@id='artical']//span/text())").extract()[0]
-                if len(time) == 0:
+                publish_time = response.xpath("normalize-space(//p[@class='p_time']//span/text())").extract()[0]
+                if len(publish_time) == 0:
+                    publish_time = response.xpath("normalize-space(//div[@class='titL']//span/text())").extract()[0]
+                if len(publish_time) == 0:
+                    publish_time = response.xpath("normalize-space(//div[@id='artical']//span/text())").extract()[0]
+                if len(publish_time) == 0:
                         #print url+'\n'
-                        time = response.xpath("normalize-space(//div[@class='cont']//span/text())").extract()[0]
-                        if re.match("^[0-9]",time) is None:
-                            time = response.xpath("normalize-space(//div[@id='title']/p/span[2]/text())").extract()[0]
-                        time_item.append(time[0:4])
+                        publish_time = response.xpath("normalize-space(//div[@class='cont']//span/text())").extract()[0]
+                        if re.match("^[0-9]",publish_time) is None:
+                            publish_time = response.xpath("normalize-space(//div[@id='title']/p/span[2]/text())").extract()[0]
+                        time_item.append(publish_time[0:4])
                         time_item += '_'
-                        time_item += time[5:7]
+                        time_item += publish_time[5:7]
                         time_item += '_'
                         time_item += time[8:10]
                         time_item += '_'
-                        time_item += time[11:13]
+                        time_item += publish_time[11:13]
                         time_item += '_'
-                        time_item += time[14:16]
+                        time_item += publish_time[14:16]
                         time_item = ''.join(time_item)
                         item['time'] = time_item
                 else:
                 #print time
                 # print '\n'
-                    time_item.append(time[0:4])
+                    time_item.append(publish_time[0:4])
                     time_item += '_'
-                    time_item += time[5:7]
+                    time_item += publish_time[5:7]
                     time_item += '_'
-                    time_item += time[8:10]
+                    time_item += publish_time[8:10]
                     time_item += '_'
-                    time_item += time[12:14]
+                    time_item += publish_time[12:14]
                     time_item += '_'
-                    time_item += time[15:17]
+                    time_item += publish_time[15:17]
                     time_item = ''.join(time_item)
                     item['time'] = time_item
 
                 item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
-                if time and item['content']:
+                if publish_time and item['content']:
                     yield item
                     #with open('aaaa', 'ab') as f:
                         #f.write(url + '\n')

@@ -2,7 +2,7 @@ import scrapy
 
 from base.items.kaicheng.items import KaichengItem
 from scrapy.http import Request
-import datetime
+import datetime, random, time
 from base.items.kaicheng.BloomFilter import BloomFilter
 
 class spider(scrapy.Spider):
@@ -29,6 +29,9 @@ class spider(scrapy.Spider):
 
 
 	def parse_inPage(self,response):
+		sleep_time = random.random()
+		print sleep_time
+		time.sleep( sleep_time )
 		item=KaichengItem()
 		item['title'] = ''
 		item['source'] = "KaiChengKaoYan"

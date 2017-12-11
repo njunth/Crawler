@@ -2,7 +2,7 @@ import scrapy
 
 from base.items.qihang.items import QihangItem
 from scrapy.http import Request
-import datetime
+import datetime, random, time
 from base.items.qihang.BloomFilter import BloomFilter
 
 class spider(scrapy.Spider):
@@ -27,7 +27,9 @@ class spider(scrapy.Spider):
 
 
 	def parse_inPage(self,response):
-
+		sleep_time = random.random()
+		print sleep_time
+		time.sleep( sleep_time )
 		item=QihangItem()
 		item['title'] = ''
 		item['source'] = "QiHangKaoYan"

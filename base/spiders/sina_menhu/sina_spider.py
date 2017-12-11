@@ -4,7 +4,7 @@ import re
 from base.items.sina_menhu.items import SinaScrapyItem
 from base.items.sina_menhu.bloomfilter import BloomFilter
 import sys
-import datetime
+import datetime, random, time
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["sina.com.cn"]
@@ -24,9 +24,11 @@ class DmozSpider(scrapy.Spider):
     def parse_inpage(self, response):
         r_content1="//div[@id='artibody']//p/text()"
         url = response.url
+        # print url
         time=[]
         try:
             if re.match(self.r2, url) or re.match(self.r5, url):
+                # print "crawl"
                 self.bf.insert_element(url)
                 item = SinaScrapyItem()
                 item['title'] = response.xpath("//head/title/text()").extract_first().encode('utf-8')
@@ -91,6 +93,9 @@ class DmozSpider(scrapy.Spider):
             f.write('\n')
             """
         for url in response.selector.xpath("//a/@href").re(self.r1):
+            sleep_time = random.random()
+            print sleep_time
+            time.sleep( sleep_time )
             if re.match(self.r2, url) is None and re.match(self.r3, url) is None and re.match(self.r4, url) is None \
                     and re.match(self.r4, url) is None and re.match(self.r5, url) is None and re.match(self.r6, url) is None\
                     and re.match(self.r7, url) is None and re.match(self.r8, url) is None:

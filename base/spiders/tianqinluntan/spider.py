@@ -5,7 +5,7 @@ from scrapy.selector import Selector
 from base.items.tianqinluntan.items import TianqinluntanItem
 from base.items.tianqinluntan.bloomfliter import BloomFilter
 from datetime import datetime
-import os
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -33,6 +33,9 @@ class TianqinluntanSpider(Spider):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         r1 = 'http://www.csbiji.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
         url = response.url
         item =TianqinluntanItem()
@@ -40,6 +43,7 @@ class TianqinluntanSpider(Spider):
         content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content_div)>0):
+                print "crawl"
                 item['source']='tianqinluntan'
                 item['source_url']='http://www.csbiji.com/'
                 item['url']=url

@@ -5,7 +5,7 @@ import re
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from base.items.qiangguo.bloomfilter import BloomFilter
-import datetime
+import datetime, random, time
 import string
 
 
@@ -29,6 +29,9 @@ class Tianyaspider(scrapy.Spider):
              #   continue
 
     def parse_inpage(self, response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         item = QiangguoItem()
         #item['content'] = response.xpath("//p//text()").extract()
         content = response.selector.xpath("//div//p")

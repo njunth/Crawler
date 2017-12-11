@@ -2,7 +2,7 @@
 import scrapy
 import re
 import sys
-import datetime
+import datetime, random, time
 
 from base.items.tencent_menhu.items import TencentScrapyItem
 from base.items.tencent_menhu.bloomfilter import BloomFilter
@@ -96,6 +96,9 @@ class DmozSpider(scrapy.Spider):
             pass
 
     def parse(self, response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         #with open('aaaaa', 'ab') as f:
             #f.write(response.url + '\n')
         for url in response.selector.xpath("//a/@href").re(self.r1):

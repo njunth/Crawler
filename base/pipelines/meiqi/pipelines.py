@@ -12,7 +12,7 @@ import pymongo
 
 from base.configs.meiqi.settings import MONGO_HOST, MONGO_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
 from scrapy.exceptions import DropItem
-from base.items.meiqi.bloomfilter import BloomFilter
+from base.items.meiqi.BloomFilter import BloomFilter
 import re
 import datetime
 

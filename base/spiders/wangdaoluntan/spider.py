@@ -5,7 +5,7 @@ from scrapy.selector import Selector
 from base.items.wangdaoluntan.items import WangdaoluntanItem
 from base.items.wangdaoluntan.bloomfliter import BloomFilter
 from datetime import datetime
-import os
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -37,12 +37,15 @@ class WangdaoluntanSpider(Spider):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         r1 = 'http://www.cskaoyan.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
         url = response.url
         item =WangdaoluntanItem()
         content_div = response.selector.xpath('//table[@cellspacing="0" and @cellpadding="0"]//tr//td[@class="t_f"]')
         content1=content_div.xpath('string(.)').extract()
-        print content1
+        # print content1
         try:
             if (re.match(r1, url) and len(content1)>0):
                 item['source']='wangdaoluntan'

@@ -18,19 +18,21 @@ class DmozSpider(scrapy.Spider):
     r3 = '^http://.*.qq.com/a/.*'
     r4 = '^http://.*v.qq.*'
     r5='^http://.*auto.qq.*'
-    r6 = '^http://.*.qq.*.htm'
+    r6 = '^http://.*.qq.*.htm$'
     r7 = '^http://.*inews.qq.*'
     r8='^http://.*class.qq.*'
     def parse_inpage(self, response):
 
         url = response.url
         self.bf.insert_element(url)
-        print url
-
+        #print url
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep(sleep_time)
         try:
-            if re.match(self.r6, url) or re.match(self.r3, url):
-                #with open('aaaa', 'ab') as f:
-                    #f.write(url + '\n')
+            if re.match(self.r3, url):
+               # with open('aa', 'ab') as f:
+                   # f.write(url + '\n')
                 #print "aaaaaaa!!!!!!!@*#()@_______"
                 #for sel in response:
                 item = TencentScrapyItem()
@@ -62,31 +64,43 @@ class DmozSpider(scrapy.Spider):
 
                 time_item = []
                 try:
-                    time = response.xpath("//span[@class='article-time']/text()").extract()[0]
+                    publish_time = response.xpath("//span[@class='article-time']/text()").extract()[0]
                 except:
                     try:
-                        time = response.xpath("//span[@class='a_time']/text()").extract()[0]
+                        publish_time = response.xpath("//span[@class='a_time']/text()").extract()[0]
                     except:
-                        time = response.xpath("//span[@class='pubTime']/text()").extract()[0]
+                        try:
+                            publish_time= response.xpath("//span[@class='pubTime']/text()").extract()[0]
+                        except:
+                            try:
+                                publish_time = response.xpath("//div[@id='time_source']/span/text()").extract()[0]
+                            except:
+                                publish_time = response.xpath("//span[@class='pubTime article-time']/text()").extract()[0]
 
-                # print time
+
+
+                #print publish_time
                 # print '\n'
-                time_item.append(time[0:4])
+                #print url
+                time_item.append(publish_time[0:4])
+                #print time_item
                 time_item += '_'
-                time_item += time[5:7]
+                time_item += publish_time[5:7]
                 time_item += '_'
-                time_item += time[8:10]
+                time_item += publish_time[8:10]
                 time_item += '_'
-                time_item += time[11:13]
+                time_item += publish_time[11:13]
+
                 time_item += '_'
-                time_item += time[14:16]
+                time_item += publish_time[14:16]
                 time_item = ''.join(time_item)
                 item['time'] = time_item
 
                 item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
-                yield item
-                #with open('aaaa', 'ab') as f:
-                    #f.write(url + '\n')
+                if item['content']:
+                    yield item
+                    #with open('aaaa', 'ab') as f:
+                        #f.write(url + '\n')
         except:
             #print url
             #print '\n'
@@ -101,11 +115,9 @@ class DmozSpider(scrapy.Spider):
             #f.write(response.url + '\n')
         for url in response.selector.xpath("//a/@href").re(self.r1):
             #print url+'\n'
-            sleep_time = random.random()
-            print sleep_time
-            time.sleep( sleep_time )
+
             if re.match(self.r4,url)is None and re.match(self.r5,url) is None and re.match(self.r7,url) is None and re.match(self.r8,url) is None:
-                if re.match(self.r2, url) or re.match(self.r3, url):
+                if re.match(self.r3, url):
                     if (self.bf.is_element_exist(url) == False):
                         yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
 

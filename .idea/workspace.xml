@@ -4,22 +4,10 @@
     <list default="true" id="782425e8-1cb4-45e1-b426-98e0e79b2149" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pipelines/chinakaoyan/pipelines.py" afterPath="$PROJECT_DIR$/base/pipelines/chinakaoyan/pipelines.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pipelines/chinakaoyanluntan/pipelines.py" afterPath="$PROJECT_DIR$/base/pipelines/chinakaoyanluntan/pipelines.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/chinakaoyan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/chinakaoyan/spider.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/chinakaoyanluntan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/chinakaoyanluntan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/sina_menhu/sina_spider.py" afterPath="$PROJECT_DIR$/base/spiders/sina_menhu/sina_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/sohu_menhu/sohu_spider.py" afterPath="$PROJECT_DIR$/base/spiders/sohu_menhu/sohu_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/tencent_menhu/tencent_spider.py" afterPath="$PROJECT_DIR$/base/spiders/tencent_menhu/tencent_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/tianqinluntan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/tianqinluntan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/wangdaoluntan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/wangdaoluntan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/wangyi_menhu/wangyi_spider.py" afterPath="$PROJECT_DIR$/base/spiders/wangyi_menhu/wangyi_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/weibo/weibospider.py" afterPath="$PROJECT_DIR$/base/spiders/weibo/weibospider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/wendu/spider.py" afterPath="$PROJECT_DIR$/base/spiders/wendu/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/xiaomi/xiaomiSpider.py" afterPath="$PROJECT_DIR$/base/spiders/xiaomi/xiaomiSpider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/xindongfang/spider.py" afterPath="$PROJECT_DIR$/base/spiders/xindongfang/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/yangguang_menhu/yangguang_spider.py" afterPath="$PROJECT_DIR$/base/spiders/yangguang_menhu/yangguang_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/yixuekaoyan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/yixuekaoyan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/zhonggong/spider.py" afterPath="$PROJECT_DIR$/base/spiders/zhonggong/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/zhuoyue/spider.py" afterPath="$PROJECT_DIR$/base/spiders/zhuoyue/spider.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scrapy.cfg" afterPath="$PROJECT_DIR$/scrapy.cfg" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-710">
-              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="140">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -64,11 +52,19 @@
       <file leaf-file-name="spider.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/base/spiders/chinakaoyanluntan/spider.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="66" column="37" lean-forward="true" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
-              <folding>
-                <element signature="e#24#57#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="100">
+              <caret line="50" column="67" lean-forward="false" selection-start-line="50" selection-start-column="67" selection-end-line="50" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pipelines.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/base/pipelines/chinakaoyanluntan/pipelines.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="347">
+              <caret line="55" column="35" lean-forward="false" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -96,10 +92,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/base/items/zhonggong/items.py" />
         <option value="$PROJECT_DIR$/base/pipelines/baidutiebaquanbasousuo/pipelines.py" />
         <option value="$PROJECT_DIR$/base/spiders/baidutiebaquanbasousuo/spider.py" />
-        <option value="$PROJECT_DIR$/base/pipelines/chinakaoyanluntan/pipelines.py" />
         <option value="$PROJECT_DIR$/base/spiders/haitian/spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/haiwen/spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/hongyikaoyanluntan/spider.py" />
@@ -143,10 +137,12 @@
         <option value="$PROJECT_DIR$/base/spiders/tianqinluntan/spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/sohu_menhu/sohu_spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/sina_menhu/sina_spider.py" />
+        <option value="$PROJECT_DIR$/base/pipelines/chinakaoyan/pipelines.py" />
         <option value="$PROJECT_DIR$/base/spiders/chinakaoyan/spider.py" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/base/spiders/chinakaoyanluntan/spider.py" />
         <option value="$PROJECT_DIR$/scrapy.cfg" />
-        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/base/pipelines/chinakaoyanluntan/pipelines.py" />
       </list>
     </option>
   </component>
@@ -157,8 +153,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="66" />
-    <option name="y" value="95" />
+    <option name="x" value="91" />
+    <option name="y" value="74" />
     <option name="width" value="1734" />
     <option name="height" value="936" />
   </component>
@@ -241,6 +237,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="chinakaoyanluntan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spiders" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="chinakaoyan" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -488,7 +506,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="66" y="95" width="1734" height="936" extended-state="0" />
+    <frame x="91" y="74" width="1734" height="936" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -499,7 +517,7 @@
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15243179" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32094175" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16192171" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941943" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291815" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -548,24 +566,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/base/spiders/qiangguo/qspider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="31" column="8" lean-forward="true" selection-start-line="31" selection-start-column="8" selection-end-line="33" selection-end-column="32" />
-          <folding>
-            <element signature="e#20#33#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/items/sina/pipelines.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1080">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base/items/sina/bloomfilter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -916,24 +916,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/haitian/spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="8" selection-end-line="26" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#13#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/configs/chinakaoyan/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1980">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base/configs/chinakaoyanluntan/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2040">
@@ -942,13 +924,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/base/pipelines/chinakaoyan/pipelines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-39">
+          <caret line="9" column="104" lean-forward="false" selection-start-line="9" selection-start-column="104" selection-end-line="9" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/configs/haitian/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/spiders/haitian/spider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="45" column="37" lean-forward="false" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/configs/chinakaoyan/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="118" column="40" lean-forward="false" selection-start-line="118" selection-start-column="22" selection-end-line="118" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/base/spiders/chinakaoyan/spider.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="38" column="8" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="40" selection-end-column="32" />
-          <folding>
-            <element signature="e#16#48#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="280">
+          <caret line="53" column="42" lean-forward="true" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -960,28 +980,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base/pipelines/chinakaoyanluntan/pipelines.py">
+    <entry file="file://$PROJECT_DIR$/base/spiders/chinakaoyanluntan/spider.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="56" column="55" lean-forward="true" selection-start-line="56" selection-start-column="55" selection-end-line="56" selection-end-column="55" />
+        <state relative-caret-position="100">
+          <caret line="50" column="67" lean-forward="false" selection-start-line="50" selection-start-column="67" selection-end-line="50" selection-end-column="67" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/chinakaoyanluntan/spider.py">
+    <entry file="file://$PROJECT_DIR$/base/pipelines/chinakaoyanluntan/pipelines.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="66" column="37" lean-forward="true" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
-          <folding>
-            <element signature="e#24#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-710">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="347">
+          <caret line="55" column="35" lean-forward="false" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
           <folding />
         </state>
       </provider>

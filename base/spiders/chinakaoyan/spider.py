@@ -40,18 +40,18 @@ class ChinakaoyanSpider(Spider):
         print sleep_time
         time.sleep( sleep_time )
         url = response.url
-        print url
         self.bf.insert_element(url)
         item =ChinakaoyanItem()
         content_div = response.selector.xpath('//font[@face="Arial"]')
         content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content_div)>0):
-
+                print url
                 item['source']='chinakaoyan'
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
-                item['html']=response.body
+                # item['html']=''
+                item['html']=response.body.decode("unicode_escape")
                 item['content'] = "".join(content1)
 
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]

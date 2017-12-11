@@ -45,7 +45,7 @@ class ChinakaoyanluntanSpider(Spider):
                 item['source']='chinakaoyanluntan'
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
-                item['html']=response.body
+                item['html']=response.body.decode("unicode_escape")
                 click_reply_str=response.selector.xpath("//h6/text()").extract()[0]
                 ccrr = re.findall(r'(\w*[0-9]+)\w*',click_reply_str)
                 if(len(ccrr)>0):
@@ -57,6 +57,7 @@ class ChinakaoyanluntanSpider(Spider):
                     item['n_reply']=int(ccrr[1])
                 else:
                     item['n_reply']=0
+                content1.pop()
                 item['content'] = content1
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0

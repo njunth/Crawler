@@ -47,7 +47,7 @@ class ChinakaoyanSpider(Spider):
                 item['source']='chinakaoyan'
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
-                item['html']=response.body
+                item['html']=response.body.decode("unicode_escape")
                 item['content'] = "".join(content1)
 
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]

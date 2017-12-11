@@ -4,7 +4,7 @@ import re
 import sys
 from base.items.yangguang_menhu.items import YangguangMenhuItem
 from base.items.yangguang_menhu.bloomfilter import BloomFilter
-import datetime
+import datetime, random, time
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["cnr.cn"]
@@ -20,10 +20,10 @@ class DmozSpider(scrapy.Spider):
     def parse_inpage(self, response):
         url = response.url
         #print url
-
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         if re.match(self.r2, url) or re.match(self.r3, url)or re.match(self.r4, url):
-                #with open('aaaa', 'ab') as f:
-                    #f.write(url + '\n')
             try:
                 print url
                 self.bf.insert_element(url)
@@ -60,24 +60,24 @@ class DmozSpider(scrapy.Spider):
 
 
                 time_item = []
-                time = response.xpath("//body//div[@class='source']/span/text()").extract()[0]
+                publish_time = response.xpath("//body//div[@class='source']/span/text()").extract()[0]
                 #time1 = response.xpath("//body//div[@class='source']/span").extract()
                 # time1 = response.xpath("//head/meta[@property='article:published_time']//@content").extract()[1]
 
-                print time
+                # print time
 
                 #print time1
                 #print '/n'
 
-                time_item.append(time[0:4])
+                time_item.append(publish_time[0:4])
                 time_item += '_'
-                time_item += time[5:7]
+                time_item += publish_time[5:7]
                 time_item += '_'
-                time_item += time[8:10]
+                time_item += publish_time[8:10]
                 time_item += '_'
-                time_item += time[11:13]
+                time_item += publish_time[11:13]
                 time_item += '_'
-                time_item += time[14:16]
+                time_item += publish_time[14:16]
                 time_item = ''.join(time_item)
                 item['time'] = time_item
 

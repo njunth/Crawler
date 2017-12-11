@@ -28,6 +28,9 @@ class DmozSpider(scrapy.Spider):
     def parse_inpage(self, response):
 
         url = response.url
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
 
         try:
             if re.match(self.r2, url)or re.match(self.r3, url):
@@ -72,21 +75,21 @@ class DmozSpider(scrapy.Spider):
 
                 time_item = []
                 try:
-                    time = response.xpath("//head/meta[@property='og:release_date']/@content").extract()[0]
+                    publish_time = response.xpath("//head/meta[@property='og:release_date']/@content").extract()[0]
                 except:
-                    time = response.xpath("//div[@class='time']/text()").extract()[0]
+                    publish_time = response.xpath("//div[@class='time']/text()").extract()[0]
 
                 #print time
                 #print '\n'
-                time_item.append(time[0:4])
+                time_item.append(publish_time[0:4])
                 time_item += '_'
-                time_item += time[5:7]
+                time_item += publish_time[5:7]
                 time_item += '_'
-                time_item += time[8:10]
+                time_item += publish_time[8:10]
                 time_item += '_'
-                time_item += time[11:13]
+                time_item += publish_time[11:13]
                 time_item += '_'
-                time_item += time[14:16]
+                time_item += publish_time[14:16]
                 time_item = ''.join(time_item)
                 item['time'] = time_item
                 item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
@@ -104,9 +107,6 @@ class DmozSpider(scrapy.Spider):
         #with open('aaa', 'ab') as f:
          #f.write(response.url + '\n')
         for url in response.selector.xpath("//a/@href").re(self.r1):
-            sleep_time = random.random()
-            print sleep_time
-            time.sleep( sleep_time )
             if not url.startswith('http:'):
                 url = "http:"+ url
                 #with open('aaaaaa', 'ab') as f:

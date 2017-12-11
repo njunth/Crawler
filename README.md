@@ -5,26 +5,42 @@
 
 百度贴吧：baiduquanbasousuo，前20-50页，请求之间停顿，不进入具体页面
 
-中国考研网：chinakaoyan，爬不到数据，输出较多
->中国考研论坛：chinakaoyanluntan，爬不到数据
+中国考研网：chinakaoyan，爬不到数据，输出较多(放宽规则)
+>中国考研论坛：chinakaoyanluntan，爬不到数据(放宽规则)
 
 弘毅考研论坛：hongyikaoyanluntan，直接关闭
 
 启航考研：qihang，请求之间停顿随机数,content为空
 
-新浪网：sina_menhu，爬不到数据
+天勤论坛：tianqinluntan，无数据(放宽规则)
 
-搜狐网：sohu_menhu，请求之间停顿随机数，数据较少
+王道论坛：wangdaoluntan，无数据(放宽规则)
 
-天勤论坛：tianqinluntan，无数据
+微博：待定。。。。
 
-王道论坛：wangdaoluntan，无数据
+卓越考研：zhuoyue，请求之间停顿随机数，正常
 
+搜狐网：sohu_menhu，请求之间停顿随机数，正常
 
+新浪网：sina_menhu，请求之间停顿随机数，正常
+
+中公考研：zhonggong，请求之间停顿随机数，正常
+
+医学考研网：yixuekaoyan，请求之间停顿随机数，正常
+
+央广网：yangguang_menhu，请求之间停顿随机数，正常
+
+新东方在线考研：xindongfang，请求之间停顿随机数，正常
+
+小米论坛：xiaomi，请求之间停顿随机数，正常
+
+文都教育考研：wendu，请求之间停顿随机数，正常
+
+网易网：wangyi_menhu，请求之间停顿随机数，正常
 
 天涯论坛：tianya，请求之间停顿随机数，正常
 
-腾讯网：tencent_menhu，请求之间停顿随机数，正常
+腾讯网：tencent_menhu，请求之间停顿随机数，数据较少
 
 新浪论坛：sina，请求之间停顿随机数，正常
 

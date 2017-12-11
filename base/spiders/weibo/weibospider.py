@@ -5,7 +5,7 @@ import urllib
 import scrapy
 import json
 import re
-import time
+import time, random
 from base.items.weibo.items import WeiboItem
 
 class WeiboSpider(Spider):
@@ -33,7 +33,7 @@ class WeiboSpider(Spider):
                 for i in range(1, 200):
                     url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
                     # print key
-                    time.sleep(0.1)
+                    # time.sleep(0.1)
                     yield scrapy.Request(url=url, callback=self.parse_search, headers=headers)
 
     def parse_search(self, response):
@@ -49,9 +49,6 @@ class WeiboSpider(Spider):
             # print res
             # print res['data']['cards']
             for key in res['data']['cards'][0]['card_group']:
-                ''''''
-                print 111
-                time.sleep(0.1)
                 #yield item
                 yield scrapy.Request(url=key['scheme'],callback=self.parse)
         else:
@@ -60,6 +57,9 @@ class WeiboSpider(Spider):
                 print res['msg']
 
     def parse(self, response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         keyword = urllib.unquote(response.url)
         spos = keyword.find('&q=')
         epos = keyword.find('&featurecode')

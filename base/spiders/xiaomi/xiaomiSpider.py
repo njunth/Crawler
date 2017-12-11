@@ -5,7 +5,7 @@ import re
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from base.items.xiaomi.bloomfilter import BloomFilter
-import string
+import string, random, time
 
 class Xiaomispider(scrapy.Spider):
     name = "spider"
@@ -28,6 +28,9 @@ class Xiaomispider(scrapy.Spider):
             #yield scrapy.Request(url=url1, callback=self.parse)
 
     def parse_inpage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         item = XiaomiItem()
         #content = response.selector.xpath("//div[@class='invitation_content']//p")#//text()").extract()
         #con_div = content.xpath('string(.)').extract()

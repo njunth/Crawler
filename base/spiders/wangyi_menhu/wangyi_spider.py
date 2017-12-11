@@ -5,7 +5,7 @@ from base.items.wangyi_menhu.items import WangyiScrapyItem
 from base.items.wangyi_menhu.bloomfilter import BloomFilter
 import sys
 
-import datetime
+import datetime, random, time
 
 class DmozSpider(scrapy.Spider):
     name = "spider"
@@ -27,6 +27,10 @@ class DmozSpider(scrapy.Spider):
         url = response.url
         self.bf.insert_element(url)
         item = WangyiScrapyItem()
+        print url
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         try:
             if re.match(self.r2, url):
                 # with open('aaaaa', 'ab') as f:
@@ -61,22 +65,22 @@ class DmozSpider(scrapy.Spider):
                         item['html'] += utfcontent
 
                     time_item = []
-                    time = response.xpath("//*[@class='post_time_source']/text()").extract()
+                    publish_time = response.xpath("//*[@class='post_time_source']/text()").extract()
                     # time1 = response.xpath("//head/meta[@property='article:published_time']//@content").extract()[1]
-                    time = ''.join(time)
-                    time = re.sub(r'\s', '', time)
+                    publish_time = ''.join(publish_time)
+                    publish_time = re.sub(r'\s', '', publish_time)
                     # print time
                     # print "\naaaaaaaaaaa\n"
-                    time_item.append(time[0:4])
+                    time_item.append(publish_time[0:4])
                     time_item += '_'
 
-                    time_item += time[5:7]
+                    time_item += publish_time[5:7]
                     time_item += '_'
-                    time_item += time[8:10]
+                    time_item += publish_time[8:10]
                     time_item += '_'
-                    time_item += time[10:12]
+                    time_item += publish_time[10:12]
                     time_item += '_'
-                    time_item += time[13:15]
+                    time_item += publish_time[13:15]
 
                     time_item = ''.join(time_item)
                     item['time'] = time_item
@@ -92,11 +96,6 @@ class DmozSpider(scrapy.Spider):
             pass
 
     def parse(self, response):
-        """
-        with open('aaaa', 'ab') as f:
-            f.write(response.url)
-            f.write('\n')
-            """
         for url in response.selector.xpath("//a/@href").re(self.r1):
             if re.match(self.r2, url) is None and re.match(self.r3, url) is None and re.match(self.r4, url) is None \
                     and re.match(self.r4, url) is None and re.match(self.r5, url) is None:

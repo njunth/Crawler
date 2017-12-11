@@ -5,7 +5,7 @@ from scrapy.selector import Selector
 from base.items.chinakaoyanluntan.items import ChinakaoyanluntanItem
 from base.items.chinakaoyanluntan.bloomfliter import BloomFilter
 from datetime import datetime
-import os
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -36,6 +36,9 @@ class ChinakaoyanluntanSpider(Spider):
 
     def parse_inPage(self,response):
         r1 = '.*/club/topicShow/clubId/[0-9]*/tid.*'
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         url = response.url
         item =ChinakaoyanluntanItem()
         content_div = response.selector.xpath('//div[@class="yq11n"]')

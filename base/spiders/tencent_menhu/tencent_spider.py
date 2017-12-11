@@ -25,6 +25,7 @@ class DmozSpider(scrapy.Spider):
 
         url = response.url
         self.bf.insert_element(url)
+        print url
 
         try:
             if re.match(self.r6, url) or re.match(self.r3, url):
@@ -96,13 +97,13 @@ class DmozSpider(scrapy.Spider):
             pass
 
     def parse(self, response):
-        sleep_time = random.random()
-        print sleep_time
-        time.sleep( sleep_time )
         #with open('aaaaa', 'ab') as f:
             #f.write(response.url + '\n')
         for url in response.selector.xpath("//a/@href").re(self.r1):
             #print url+'\n'
+            sleep_time = random.random()
+            print sleep_time
+            time.sleep( sleep_time )
             if re.match(self.r4,url)is None and re.match(self.r5,url) is None and re.match(self.r7,url) is None and re.match(self.r8,url) is None:
                 if re.match(self.r2, url) or re.match(self.r3, url):
                     if (self.bf.is_element_exist(url) == False):

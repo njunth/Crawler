@@ -5,7 +5,7 @@ from scrapy.selector import Selector
 from base.items.chinakaoyan.items import ChinakaoyanItem
 from base.items.chinakaoyan.bloomfliter import BloomFilter
 from datetime import datetime
-import os
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -36,6 +36,9 @@ class ChinakaoyanSpider(Spider):
 
     def parse_inPage(self,response):
         r1 = '.*/info/article/id.*'
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         url = response.url
         print url
         self.bf.insert_element(url)

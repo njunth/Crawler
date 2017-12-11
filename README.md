@@ -5,7 +5,7 @@
 
 百度贴吧：baiduquanbasousuo，前20-50页，请求之间停顿，不进入具体页面
 
-中国考研论坛：chinakaoyanluntan，爬不到数据(放宽规则)
+
 
 弘毅考研论坛：hongyikaoyanluntan，直接关闭
 
@@ -19,6 +19,7 @@
 
 中国考研网：chinakaoyan，请求之间停顿随机数，正常
 
+中国考研论坛：chinakaoyanluntan，请求之间停顿随机数，正常
 
 卓越考研：zhuoyue，请求之间停顿随机数，正常
 

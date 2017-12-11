@@ -1,37 +1,37 @@
 import scrapy
 
-from base.items.kuakao.items import KuakaoItem
+from base.items.qihang.items import QihangItem
 from scrapy.http import Request
 import datetime
-from base.items.kuakao.BloomFilter import BloomFilter
+from base.items.qihang.BloomFilter import BloomFilter
 
 class spider(scrapy.Spider):
 	name="spider"
-	allowed_domains=["www.kuakao.com"]
+	allowed_domains=["www.qihang.com.cn"]
 
-	start_urls=["http://www.kuakao.com"]
+	start_urls=["http://www.qihang.com.cn"]
 
 	def parse(self,response):
 		self.bf=BloomFilter(0.0001,1000000)
 		while 1:
-			urls = response.xpath("//a[starts-with(@href,'http')]/@href").extract()
+			urls = response.xpath("//*/a/@href").extract()
 			for url in urls:
-				urlc=''
+				urlc = 'http://www.qihang.com.cn'
 				for urllist in url:
 					urll = urllist.encode('utf-8')
 					urlc += urll
 				if(self.bf.is_element_exist(urlc)==False):
-					yield Request(url,callback=self.parse_inPage)
+					yield Request(urlc,callback=self.parse_inPage)
 				else:
 					continue
 
 
 	def parse_inPage(self,response):
 
-		item=KuakaoItem()
+		item=QihangItem()
 		item['title'] = ''
-		item['source'] = "KuaKaoKaoYan"
-		item['source_url'] = "http://www.kuakao.com"
+		item['source'] = "QiHangKaoYan"
+		item['source_url'] = "http://www.qihang.com.cn/"
 		item['url'] = response.url
 		item['html'] = ''
 		item['time'] = ''
@@ -52,21 +52,22 @@ class spider(scrapy.Spider):
 			title = line.encode('utf-8')
 			item['title'] += title
 
-		timelist = response.xpath("//div[@class='artMessage clearfix']/p[2]/text()").extract_first()
+		timelist = response.xpath("//li[@class='content_lt21']/text()").extract_first()
 		if timelist is None:
 			item['time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
 		else:
 			i=0
-			while (i <= 18):
-				timelist = response.xpath("//div[@class='artMessage clearfix']/p[2]/text()").extract_first()[i]
+			while (i <= 9):
+				timelist = response.xpath("//li[@class='content_lt21']//text()").extract_first()[i+5]
 				if timelist=='-' or timelist==' ' or timelist==':' :
 					item['time']+= '_'
 				else:
 					item['time']+=timelist.encode('utf-8')
 				i+=1
+			item['time'] +="_00_00_00"
 
 
-		contentlist = response.xpath("//div[@class='artTxt']/*[position()<last()-1]//text()").extract()
+		contentlist = response.xpath("//div[@class='content_lt5']//text()").extract()
 		for con in contentlist:
 			content = con.encode('utf-8')
 			item['content'] += content

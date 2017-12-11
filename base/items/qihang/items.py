@@ -8,7 +8,7 @@
 import scrapy
 
 
-class HaiwenItem(scrapy.Item):
+class QihangItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     source = scrapy.Field()

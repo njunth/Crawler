@@ -20,4 +20,5 @@ class KuakaoItem(scrapy.Item):
     title = scrapy.Field()
     time = scrapy.Field()
     sentiment = scrapy.Field()
+    create_time=scrapy.Field()
     pass

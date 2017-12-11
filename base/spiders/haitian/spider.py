@@ -33,6 +33,7 @@ class htkaoyan(scrapy.Spider):
 		item['content'] = ''
 		item['attention'] = 0
 		item['sentiment'] = 0
+		item['create_time']= datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
 
 		self.bf.insert_element(response.url)
 

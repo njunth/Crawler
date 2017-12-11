@@ -8,7 +8,7 @@
 import scrapy
 
 
-class HaiwenItem(scrapy.Item):
+class ZhuoyueItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     source = scrapy.Field()
@@ -20,5 +20,5 @@ class HaiwenItem(scrapy.Item):
     title = scrapy.Field()
     time = scrapy.Field()
     sentiment = scrapy.Field()
-    create_time=scrapy.Field()
+    create_time = scrapy.Field()
     pass

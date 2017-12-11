@@ -9,6 +9,7 @@ import pymongo
 # from scrapy.conf import settings
 from base.configs.tianqinluntan.settings import MONGODB_HOST, MONGODB_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
 from base.items.tianqinluntan.bloomfliter import BloomFilter
+from datetime import datetime
 import os
 import sys
 import re
@@ -42,7 +43,7 @@ class MongoDBPipeline(object):
             if(len(time_str)>0):
                 time_str= re.findall(r'\w*_([0-9]{4}_[0-9]+_[0-9]+_[0-9]+_[0-9]+_[0-9]+)\w*',s2)[0]
             else:
-                time_str="0000_00_00_00_00_00"
+                time_str=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
             timelist=time_str.split('_')
             kk=0
             for t in timelist:
@@ -59,16 +60,17 @@ class MongoDBPipeline(object):
             k=k+1
         i=0
         ii=0
-        for tt in item['content']:
-            t = tt.replace('\r','').replace('\n','').replace('\t','').replace(' ','')
-            time_=item['time'][i]
-            authid_=item['authid'][ii]
-            i=i+1
-            ii=ii+1
-            njudata=dict({'create_time':item['create_time'],'source':item['source'],'source_url':item['source_url'],'url':item['url'],'html':item['html'],'n_click':item['n_click'],'n_reply':item['n_reply'],'content':str(t),'title':item['title'],'attention':item['attention'],'time':time_,'authid':authid_,'sentiment':item['sentiment']})
-            if(self.bf.is_element_exist(str(njudata))==False):
-                self.bf.insert_element(str(njudata))
-                self.post.insert(njudata)
+        if(len(item['content'])==len(item['authid'])):
+            for tt in item['content']:
+                t = tt.replace('\r','').replace('\n','').replace('\t','').replace(' ','')
+                time_=item['time'][i]
+                authid_=item['authid'][ii]
+                i=i+1
+                ii=ii+1
+                njudata=dict({'create_time':item['create_time'],'source':item['source'],'source_url':item['source_url'],'url':item['url'],'html':item['html'],'n_click':item['n_click'],'n_reply':item['n_reply'],'content':str(t),'title':item['title'],'attention':item['attention'],'time':time_,'authid':authid_,'sentiment':item['sentiment']})
+                if(self.bf.is_element_exist(str(njudata))==False):
+                    self.bf.insert_element(str(njudata))
+                    self.post.insert(njudata)
         # njudata = dict(item)
         # self.post.insert(njudata)
         return item

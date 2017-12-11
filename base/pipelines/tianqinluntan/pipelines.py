@@ -38,7 +38,11 @@ class MongoDBPipeline(object):
         k=0
         for s in item['time']:
             s2=s.replace('-','_').replace(' ','_').replace(':','_')
-            time_str= re.findall(r'\w*_([0-9]+_[0-9]+_[0-9]+_[0-9]+_[0-9]+_[0-9]+)\w*',s2)[0]
+            time_str= re.findall(r'\w*_([0-9]{4}_[0-9]+_[0-9]+_[0-9]+_[0-9]+_[0-9]+)\w*',s2)
+            if(len(time_str)>0):
+                time_str= re.findall(r'\w*_([0-9]{4}_[0-9]+_[0-9]+_[0-9]+_[0-9]+_[0-9]+)\w*',s2)[0]
+            else:
+                time_str="0000_00_00_00_00_00"
             timelist=time_str.split('_')
             kk=0
             for t in timelist:

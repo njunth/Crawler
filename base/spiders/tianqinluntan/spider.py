@@ -27,15 +27,18 @@ class TianqinluntanSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
         self.mainpage="http://www.csbiji.com/forum.php"
-
+        self.bf=BloomFilter(0.0001,100000)
 
     def start_requests(self):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
+        
+
         sleep_time = random.random()
         print sleep_time
         time.sleep( sleep_time )
+
         r1 = 'http://www.csbiji.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
         url = response.url
         item =TianqinluntanItem()
@@ -48,7 +51,8 @@ class TianqinluntanSpider(Spider):
                 item['source']='tianqinluntan'
                 item['source_url']='http://www.csbiji.com/'
                 item['url']=url
-                item['html']=response.body
+                #item['html']=response.body.decode("unicode_escape")
+                item['html']=''
                 click1 = response.selector.xpath("//span[@class='xi1']/text()").extract()
                 if(len(click1)>0): item['n_click'] = int(click1[0])
                 else:item['n_click']=0
@@ -67,18 +71,45 @@ class TianqinluntanSpider(Spider):
                 yield item
         except:
             print('error')
-        for t in response.selector.xpath("//a[@href]/@href").extract():
+        for t in response.selector.xpath("//a[@class='nxt' and @href]/@href").extract():
             if not t.startswith('http'):
-                t="http://www.csbiji.com/"+t
-            yield Request(t,callback=self.parse_inPage)
+                t=response.url+t
+            self.bf.insert_element(t)
+            if(self.bf.is_element_exist(t)==False):
+                yield Request(t,callback=self.parse_inPage)
+            else:
+                continue
+
+    def parse_zhuye(self,response):
+        ＃self.bf=BloomFilter(0.0001,100000)
+        sel=Selector(response)
+        sites=sel.xpath("//th[@class='common']//a[@href]/@href").extract()
+        sites2=sel.xpath("//a[@class='nxt' and @href]/@href").extract()
+        for site in sites:
+            if not site.startswith('http'):
+                urls = "http://www.csbiji.com/"+site
+            else:
+                urls=site
+            yield Request(urls,callback=self.parse_inPage)
+        for site in sites2:
+            if not site.startswith('http'):
+                urls = "http://www.csbiji.com/"+site
+            else:
+                urls=site
+            self.bf.insert_element(urls)
+            if(self.bf.is_element_exist(urls)==False):
+                yield Request(urls,callback=self.parse_zhuye)
+            else:
+                continue
+
 
     def parse_mainPage(self,response):
         sel=Selector(response)
-        sites=sel.xpath("//a[@href]/@href").extract()
+        sites=sel.xpath("//div[@class='fl_icn_g']//a[@href]/@href").extract()
         while(1):
             for site in sites:
                 if not site.startswith('http'):
                     urls = "http://www.csbiji.com/"+site
                 else:
                     urls=site
-                yield Request(urls,callback=self.parse_inPage)
+                yield Request(urls,callback=self.parse_zhuye)

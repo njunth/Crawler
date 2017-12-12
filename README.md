@@ -7,7 +7,7 @@
 
 弘毅考研论坛：hongyikaoyanluntan，直接关闭
 
-微博：待定。。。。
+微博：weibo，前50页，请求之间停顿，不进入具体页面
 
 王道论坛：wangdaoluntan，请求之间停顿随机数，正常
 

@@ -63,7 +63,7 @@ class MongoDBPipeline(object):
                 t = tt.replace('\r','').replace('\n','').replace('\t','').replace(' ','')
                 time_=item['time'][i]
                 authid_=item['authid'][ii]
-                print i
+                # print i
                 njudata=dict({'create_time':item['create_time'],'source':item['source'],'source_url':item['source_url'],'url':item['url'],'html':item['html'],'n_click':item['n_click'],'n_reply':item['n_reply'],'content':str(t),'title':item['title'],'attention':item['attention'],'time':time_,'authid':authid_,'sentiment':item['sentiment']})
                 if(self.bf.is_element_exist(str(item['time'][i])+str(item['authid'][i]))==False):
                     self.bf.insert_element(str(item['time'][i])+str(item['authid'][i]))

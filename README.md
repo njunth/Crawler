@@ -5,17 +5,15 @@
 
 百度贴吧：baiduquanbasousuo，前20-50页，请求之间停顿，不进入具体页面
 
-
-
 弘毅考研论坛：hongyikaoyanluntan，直接关闭
 
-启航考研：qihang，请求之间停顿随机数,content为空
-
-天勤论坛：tianqinluntan，无数据(放宽规则)
-
-王道论坛：wangdaoluntan，无数据(放宽规则)
-
 微博：待定。。。。
+
+王道论坛：wangdaoluntan，请求之间停顿随机数，正常
+
+天勤论坛：tianqinluntan，请求之间停顿随机数，正常
+
+启航考研：qihang，请求之间停顿随机数，正常
 
 中国考研网：chinakaoyan，请求之间停顿随机数，正常
 
@@ -43,7 +41,7 @@
 
 天涯论坛：tianya，请求之间停顿随机数，正常
 
-腾讯网：tencent_menhu，请求之间停顿随机数，数据较少
+腾讯网：tencent_menhu，请求之间停顿随机数，正常
 
 新浪论坛：sina，请求之间停顿随机数，正常
 
@@ -62,7 +60,7 @@ OK考研：okkaoyan，请求之间停顿随机数，正常
 
 考试吧－考研频道：kaoshiba，请求之间停顿随机数，正常
 
-凯迪社区：kaidi，正常，authid+time作为查重，输出较多
+凯迪社区：kaidi，正常，authid+time作为查重，正常
 
 凯程考研：kaicheng，请求之间停顿随机数，正常
 

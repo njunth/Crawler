@@ -42,7 +42,7 @@ class WeiboPipeline(object):
             '_id': item['_id'],
             'content': item['content'],
             'source': 'sina_weibo',
-            'n_forward': item['n_forword'],
+            'n_forward': item['n_forward'],
             'n_comment': item['n_comment'],
             'n_like': item['n_like'],
             'attention': '0',
@@ -51,7 +51,7 @@ class WeiboPipeline(object):
             'keyword' : keyword,
             'time': item['time'],
             'url': item['url'],
-            'authid': item['authid'],
+            'publisher': item['publisher'],
             'create_time': createstr
         })
         return item

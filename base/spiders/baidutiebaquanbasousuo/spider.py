@@ -5,7 +5,7 @@ from scrapy.selector import Selector
 from base.items.baidutiebaquanbasousuo.items import BaidutiebaquanbasousuoItem
 from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
 from datetime import datetime
-import os
+import os, random, time
 import urllib
 import re
 import sys
@@ -44,6 +44,9 @@ class BaidutiebaquanbasousuoSpider(Spider):
 
     def parse_inPage(self,response):
         url = response.url
+        sleep_time = random.random()
+        print 5*sleep_time
+        time.sleep( 5*sleep_time )
         print url
         item =BaidutiebaquanbasousuoItem()
         #contains(@class , 'ico-tag')

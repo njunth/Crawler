@@ -14,7 +14,7 @@ class WeiboItem(scrapy.Item):
     _id = scrapy.Field()
     content = scrapy.Field()
     source = scrapy.Field()
-    n_forword = scrapy.Field()
+    n_forward = scrapy.Field()
     n_comment = scrapy.Field()
     n_like = scrapy.Field()
     attention = scrapy.Field()
@@ -22,5 +22,5 @@ class WeiboItem(scrapy.Item):
     keyword = scrapy.Field()
     time = scrapy.Field()
     url = scrapy.Field()
-    authid=scrapy.Field()
+    publisher=scrapy.Field()
     pass

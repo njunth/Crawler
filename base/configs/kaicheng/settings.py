@@ -24,7 +24,7 @@ MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))  # 端口号
 MONGO_DB = os.getenv("MONGO_DBNAME", "Crawler")  # 库名
 MONGO_COLL = 'Kaicheng'  # collection
 
-DEPTH_LIMIT=6
+DEPTH_LIMIT=50
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'kaicheng (+http://www.yourdomain.com)'

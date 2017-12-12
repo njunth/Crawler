@@ -60,17 +60,19 @@ class MongoDBPipeline(object):
             k=k+1
         i=0
         ii=0
+
         if(len(item['content'])==len(item['authid'])):
             for tt in item['content']:
                 t = tt.replace('\r','').replace('\n','').replace('\t','').replace(' ','')
                 time_=item['time'][i]
                 authid_=item['authid'][ii]
-                i=i+1
-                ii=ii+1
                 njudata=dict({'create_time':item['create_time'],'source':item['source'],'source_url':item['source_url'],'url':item['url'],'html':item['html'],'n_click':item['n_click'],'n_reply':item['n_reply'],'content':str(t),'title':item['title'],'attention':item['attention'],'time':time_,'authid':authid_,'sentiment':item['sentiment']})
-                if(self.bf.is_element_exist(str(njudata))==False):
-                    self.bf.insert_element(str(njudata))
+                if(self.bf.is_element_exist(str(item['time'][i])+str(item['authid'][i]))==False):
+                    self.bf.insert_element(str(item['time'][i])+str(item['authid'][i]))
                     self.post.insert(njudata)
+                i = i + 1
+                ii = ii + 1
+
         # njudata = dict(item)
         # self.post.insert(njudata)
         return item

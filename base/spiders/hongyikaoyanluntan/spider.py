@@ -5,6 +5,7 @@ from scrapy.selector import Selector
 from base.items.hongyikaoyanluntan.items import HongyikaoyanluntanItem
 from base.items.hongyikaoyanluntan.bloomfliter import BloomFilter
 from datetime import datetime
+import random, time
 import os
 import re
 import sys
@@ -32,6 +33,9 @@ class HongyikaoyanluntanSpider(Spider):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         r1 = 'http://www.hykaoyan.org/thread-[0-9]+-[0-9]+-[0-9]+.html'
         url = response.url
         item =HongyikaoyanluntanItem()

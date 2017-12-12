@@ -5,7 +5,7 @@ from scrapy.selector import Selector
 from base.items.tianqinluntan.items import TianqinluntanItem
 from base.items.tianqinluntan.bloomfliter import BloomFilter
 from datetime import datetime
-import os
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -27,20 +27,27 @@ class TianqinluntanSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
         self.mainpage="http://www.csbiji.com/forum.php"
-
+        self.bf=BloomFilter(0.0001,100000)
 
     def start_requests(self):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
-        self.bf=BloomFilter(0.0001,100000)
+        
+
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
+
         r1 = 'http://www.csbiji.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
         url = response.url
         item =TianqinluntanItem()
+        print url
         content_div = response.selector.xpath('//table[@cellspacing="0" and @cellpadding="0"]//tr//td[@class="t_f"]')
         content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content_div)>0):
+                print "crawl"
                 item['source']='tianqinluntan'
                 item['source_url']='http://www.csbiji.com/'
                 item['url']=url
@@ -74,7 +81,7 @@ class TianqinluntanSpider(Spider):
                 continue
 
     def parse_zhuye(self,response):
-        self.bf=BloomFilter(0.0001,100000)
+        ＃self.bf=BloomFilter(0.0001,100000)
         sel=Selector(response)
         sites=sel.xpath("//th[@class='common']//a[@href]/@href").extract()
         sites2=sel.xpath("//a[@class='nxt' and @href]/@href").extract()

@@ -5,7 +5,7 @@ from scrapy.selector import Selector
 from base.items.kaoyanbang.items import KaoyanbangItem
 from base.items.kaoyanbang.bloomfliter import BloomFilter
 from datetime import datetime
-import os
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -35,6 +35,9 @@ class KaoyanbangSpider(Spider):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         r1 = '.*/zhaosheng/.+.html'
         r2 = '.*/xinwen/.+.html'
         url = response.url
@@ -84,7 +87,7 @@ class KaoyanbangSpider(Spider):
                     urls = "http://www.kaoyan.com"+site
                 else:
                     urls=site
-                print urls
+                # print urls
                 if(self.bf.is_element_exist(urls)==False):
                     yield Request(urls,callback=self.parse_inPage)
                 else:

@@ -2,7 +2,7 @@ import scrapy
 
 from base.items.wendu.items import WenduItem
 from scrapy.http import Request
-import datetime
+import datetime, random, time
 from base.items.wendu.BloomFilter import BloomFilter
 
 class wendu(scrapy.Spider):
@@ -26,7 +26,9 @@ class wendu(scrapy.Spider):
 					continue
 
 	def parse_inPage(self,response):
-
+		sleep_time = random.random()
+		print sleep_time
+		time.sleep( sleep_time )
 		item = WenduItem()
 		item['title'] = ''
 		item['source'] = "WenDuKaoYan"
@@ -37,7 +39,7 @@ class wendu(scrapy.Spider):
 		item['content'] = ''
 		item['attention'] = 0
 		item['sentiment'] = 0
-
+		item['create_time']= datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
 		self.bf.insert_element(response.url)
 
 		contentlist = response.xpath('//html').extract()

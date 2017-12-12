@@ -5,7 +5,7 @@ import urllib
 import scrapy
 import json
 import re
-import time
+import time, random
 from base.items.weibo.items import WeiboItem
 
 class WeiboSpider(Spider):
@@ -28,9 +28,12 @@ class WeiboSpider(Spider):
         urls = []
         while 1:
             for keyword in keywords:
+                print keyword
                 key = urllib.quote(keyword)
                 for i in range(1, 200):
                     url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
+                    # print key
+                    # time.sleep(0.1)
                     yield scrapy.Request(url=url, callback=self.parse_search, headers=headers)
 
     def parse_search(self, response):
@@ -43,8 +46,9 @@ class WeiboSpider(Spider):
         #print 'unicode',isinstance(response.body,unicode)
         res = json.loads(response.text)
         if (str(res['ok']) == '1'):
-            for key in res['cards'][0]['card_group']:
-                ''''''
+            # print res
+            # print res['data']['cards']
+            for key in res['data']['cards'][0]['card_group']:
                 #yield item
                 yield scrapy.Request(url=key['scheme'],callback=self.parse)
         else:
@@ -53,10 +57,14 @@ class WeiboSpider(Spider):
                 print res['msg']
 
     def parse(self, response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         keyword = urllib.unquote(response.url)
         spos = keyword.find('&q=')
         epos = keyword.find('&featurecode')
         keyword = keyword[spos+3:epos]
+        print 'successfully crawl'
         #print keyword
         s = str(response.text)
         (st,end) = re.search('render_data = .+status.+\\}\\]\\[0\\] \\|\\| \\{\\};',s,re.S).span()
@@ -78,6 +86,6 @@ class WeiboSpider(Spider):
         item['time'] = timestr
         #item['url'] = key['status']['scheme']
         item['url'] = response.url
-        item['publisher'] = key['status']['user']['screen_name']
+        item['authid'] = key['status']['user']['screen_name']
         yield item
 

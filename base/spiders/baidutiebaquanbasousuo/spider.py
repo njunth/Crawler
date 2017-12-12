@@ -6,6 +6,7 @@ from base.items.baidutiebaquanbasousuo.items import BaidutiebaquanbasousuoItem
 from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
 from datetime import datetime
 import os
+import urllib
 import re
 import sys
 reload(sys)
@@ -35,6 +36,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
         url_p2 = '&rn=10&un=&only_thread=0&sm=1&sd=&ed=&pn='
         while 1:
             for keyword in keywords:
+                print keyword
                 key = urllib.quote(keyword)
                 for i in range(1, 200):
                     url = url_p1 + key + url_p2 + str(i)
@@ -42,6 +44,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
 
     def parse_inPage(self,response):
         url = response.url
+        print url
         item =BaidutiebaquanbasousuoItem()
         #contains(@class , 'ico-tag')
         content_div1 = response.selector.xpath('//div[@class="d_post_content_main d_post_content_firstfloor"]')
@@ -76,12 +79,12 @@ class BaidutiebaquanbasousuoSpider(Spider):
     def parse_mainPage(self,response):
         sel=Selector(response)
         sites=sel.xpath("//a[@data-tid and @data-fid]/@href").extract()
-        for t in sites:
-            print t
+        # for t in sites:
+        #     print t
         for site in sites:
             if not site.startswith('http'):
                 urls = "http://tieba.baidu.com"+site
             else:
                 urls=site
-            print urls
+            # print urls
             yield Request(urls,callback=self.parse_inPage)

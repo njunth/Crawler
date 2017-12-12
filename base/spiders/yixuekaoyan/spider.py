@@ -5,7 +5,7 @@ from scrapy.selector import Selector
 from base.items.yixuekaoyan.items import YixuekaoyanItem
 from base.items.yixuekaoyan.bloomfliter import BloomFilter
 from datetime import datetime
-import os
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -34,6 +34,9 @@ class YixuekaoyanSpider(Spider):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         r1 = '.*html'
         url = response.url
         self.bf.insert_element(url)

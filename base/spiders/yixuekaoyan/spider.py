@@ -4,7 +4,8 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.yixuekaoyan.items import YixuekaoyanItem
 from base.items.yixuekaoyan.bloomfliter import BloomFilter
-import os
+from datetime import datetime
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -33,6 +34,9 @@ class YixuekaoyanSpider(Spider):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         r1 = '.*html'
         url = response.url
         self.bf.insert_element(url)
@@ -54,11 +58,14 @@ class YixuekaoyanSpider(Spider):
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 time_str=response.selector.xpath("//div[@class='nrx']/text()").extract()[0]
                 try:
-                    item['time'] = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
+                    time_str1 = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
+                    item['time'] =time_str1.replace('-','_').replace(' ','_').replace(':','_')
+                    item['time']=item['time']+'_00_00_00'
                 except:
-                    item['time']='no time'
+                    item['time']='0000_00_00_00_00_00'
                 item['attention'] = 0
                 item['sentiment']=0
+                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')

@@ -33,7 +33,7 @@ class SinaScrapyPipeline(object):
         )
         db = connection[MONGODB_DBNAME]
         self.collection = db[MONGODB_COLLECTION]
-        print self.collection.database
+        print self.collection
         # log.msg(self.collection.database, level=log.INFO, spider=spider)
         #Sina = {'name': u'新浪网', 'url': "http://www.sina.com.cn/"}
         #self.collection.insert(Sina)

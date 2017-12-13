@@ -11,7 +11,6 @@ import scrapy
 class MeiqiItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    #pass
     source = scrapy.Field()
     source_url = scrapy.Field()
     url = scrapy.Field()
@@ -24,3 +23,9 @@ class MeiqiItem(scrapy.Item):
     n_reply = scrapy.Field()
     sentiment = scrapy.Field()
 
+    replies = scrapy.Field()
+    authid = scrapy.Field()
+    mainauth = scrapy.Field()
+    create_time = scrapy.Field()
+    testtime = scrapy.Field()
+    pass

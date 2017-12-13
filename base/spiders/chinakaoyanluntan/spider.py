@@ -4,7 +4,8 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.chinakaoyanluntan.items import ChinakaoyanluntanItem
 from base.items.chinakaoyanluntan.bloomfliter import BloomFilter
-import os
+from datetime import datetime
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -35,6 +36,9 @@ class ChinakaoyanluntanSpider(Spider):
 
     def parse_inPage(self,response):
         r1 = '.*/club/topicShow/clubId/[0-9]*/tid.*'
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         url = response.url
         item =ChinakaoyanluntanItem()
         content_div = response.selector.xpath('//div[@class="yq11n"]')
@@ -44,18 +48,19 @@ class ChinakaoyanluntanSpider(Spider):
                 item['source']='chinakaoyanluntan'
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
-                item['html']=response.body
+                item['html']=response.body.decode("unicode_escape")
                 click_reply_str=response.selector.xpath("//h6/text()").extract()[0]
                 ccrr = re.findall(r'(\w*[0-9]+)\w*',click_reply_str)
                 if(len(ccrr)>0):
                     item['n_click']=int(ccrr[0])
                 else:
                     item['n_click']=0
-                print item['n_click']
+                # print item['n_click']
                 if(len(ccrr)>1):
                     item['n_reply']=int(ccrr[1])
                 else:
                     item['n_reply']=0
+                content1.pop()
                 item['content'] = content1
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0
@@ -64,6 +69,7 @@ class ChinakaoyanluntanSpider(Spider):
                 authid_str=response.selector.xpath("//td[@rowspan='2']/text()").extract()
                 item['authid']=authid_str
                 item['sentiment']=0
+                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')

@@ -23,4 +23,8 @@ class SinaItem(scrapy.Item):
     time = scrapy.Field()
     n_reply = scrapy.Field()
     sentiment = scrapy.Field()
-
+    authid = scrapy.Field()
+    testtime = scrapy.Field()
+    mainauth = scrapy.Field()
+    create_time = scrapy.Field()
+    replies = scrapy.Field()

@@ -2,7 +2,7 @@ import scrapy
 
 from base.items.haiwen.items import HaiwenItem
 from scrapy.http import Request
-import datetime
+import datetime, random, time
 from base.items.haiwen.BloomFilter import BloomFilter
 
 class spider(scrapy.Spider):
@@ -24,8 +24,9 @@ class spider(scrapy.Spider):
 
 
 	def parse_inPage(self,response):
-
-
+		sleep_time = random.random()
+		print sleep_time
+		time.sleep( sleep_time )
 		item=HaiwenItem()
 		item['title']=''
 		item['source']="HaiWen"
@@ -36,6 +37,7 @@ class spider(scrapy.Spider):
 		item['content'] = ''
 		item['attention'] = 0
 		item['sentiment'] = 0
+		item['create_time']= datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
 		contentlist = response.xpath("//html").extract()
 
 		self.bf.insert_element(response.url)

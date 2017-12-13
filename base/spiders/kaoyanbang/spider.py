@@ -4,7 +4,8 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.kaoyanbang.items import KaoyanbangItem
 from base.items.kaoyanbang.bloomfliter import BloomFilter
-import os
+from datetime import datetime
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -34,6 +35,9 @@ class KaoyanbangSpider(Spider):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         r1 = '.*/zhaosheng/.+.html'
         r2 = '.*/xinwen/.+.html'
         url = response.url
@@ -57,10 +61,12 @@ class KaoyanbangSpider(Spider):
                 item['attention'] = 0
                 time_str=response.selector.xpath("//div[@class='articleInfo']//span/text()").extract()[0]
                 try:
-                    item['time'] = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
+                    item['time'] =time_str.replace('-','_').replace(' ','_').replace(':','_')
                 except:
-                    item['time']='no time'
+                    item['time']='0000_00_00_00_00'
+                item['time']=item['time']+'_00'
                 item['sentiment']=0
+                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')
@@ -81,7 +87,7 @@ class KaoyanbangSpider(Spider):
                     urls = "http://www.kaoyan.com"+site
                 else:
                     urls=site
-                print urls
+                # print urls
                 if(self.bf.is_element_exist(urls)==False):
                     yield Request(urls,callback=self.parse_inPage)
                 else:

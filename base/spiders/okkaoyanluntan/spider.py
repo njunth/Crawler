@@ -2,9 +2,10 @@
 from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
-from base.items.okkaoyanluntan.items import OkkaoyanItem
+from base.items.okkaoyanluntan.items import OkkaoyanluntanItem
 from base.items.okkaoyanluntan.bloomfliter import BloomFilter
-import os
+from datetime import datetime
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -32,6 +33,9 @@ class OkkaoyanluntanSpider(Spider):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         r1 = 'http://bbs.okaoyan.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
         url = response.url
         item =OkkaoyanluntanItem()
@@ -57,6 +61,7 @@ class OkkaoyanluntanSpider(Spider):
                 item['sentiment']=0
                 authid_str=response.selector.xpath("//div[@class='authi']//a[@class='xw1']/text()").extract()
                 item['authid']=authid_str
+                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')
@@ -68,7 +73,7 @@ class OkkaoyanluntanSpider(Spider):
     def parse_mainPage(self,response):
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
-		while(1):
+        while(1):
             for site in sites:
                 if not site.startswith('http'):
                     urls = "http://bbs.okaoyan.com"+site

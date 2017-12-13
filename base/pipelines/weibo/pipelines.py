@@ -5,6 +5,7 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pymongo
+import time
 from base.configs.weibo.settings import MONGO_HOST,MONGO_PORT,MONGODB_COLLECTION,MONGODB_DBNAME
 import sys
 reload(sys)
@@ -15,6 +16,7 @@ class WeiboPipeline(object):
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
         db = client[MONGODB_DBNAME]
         self.collection = db[MONGODB_COLLECTION]
+        #self.collection.remove({})
 
     def process_item(self, item, spider):
         #print item
@@ -22,8 +24,10 @@ class WeiboPipeline(object):
         res = self.collection.find_one({'_id':id})
         #print res
         keyword = ''
+        createstr = ''
         if res != None:
             keywords = res['keyword']
+            createstr = res['create_time']
             keyset = set(keywords.split('_'))
             if item['keyword'] not in keyset:
                 keyword = keywords + '_' + item['keyword']
@@ -32,12 +36,13 @@ class WeiboPipeline(object):
         #keyword = (unicode(keyword) + unicode(item['keyword']) + '_').encode('UTF-8')
         else:
             keyword = item['keyword']
+            createstr = time.strftime('%Y_%m_%d_%H_%M_%S',time.localtime(time.time()))
         #print keyword
         self.collection.save({
             '_id': item['_id'],
             'content': item['content'],
             'source': 'sina_weibo',
-            'n_forword': item['n_forword'],
+            'n_forward': item['n_forward'],
             'n_comment': item['n_comment'],
             'n_like': item['n_like'],
             'attention': '0',
@@ -46,6 +51,7 @@ class WeiboPipeline(object):
             'keyword' : keyword,
             'time': item['time'],
             'url': item['url'],
-            'publisher': item['publisher']
+            'publisher': item['publisher'],
+            'create_time': createstr
         })
         return item

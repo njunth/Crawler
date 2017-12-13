@@ -4,7 +4,8 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.chinakaoyan.items import ChinakaoyanItem
 from base.items.chinakaoyan.bloomfliter import BloomFilter
-import os
+from datetime import datetime
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -35,6 +36,9 @@ class ChinakaoyanSpider(Spider):
 
     def parse_inPage(self,response):
         r1 = '.*/info/article/id.*'
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         url = response.url
         self.bf.insert_element(url)
         item =ChinakaoyanItem()
@@ -42,22 +46,26 @@ class ChinakaoyanSpider(Spider):
         content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content_div)>0):
-
+                print url
                 item['source']='chinakaoyan'
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
-                item['html']=response.body
+                # item['html']=''
+                item['html']=response.body.decode("unicode_escape")
                 item['content'] = "".join(content1)
 
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0
                 time_str=response.selector.xpath("//div[@class='time']/text()").extract()[0]
+                print 111
                 try:
-                    item['time'] = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
+                    time_str1 = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
+                    item['time'] =time_str1.replace('-','_').replace(' ','_').replace(':','_')
+                    item['time']=item['time']+'_00_00_00'
                 except:
-                    item['time']='no time'
+                    item['time']='0000_00_00_00_00_00'
                 item['sentiment']=0
-
+                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')
@@ -69,12 +77,13 @@ class ChinakaoyanSpider(Spider):
             else:
                 continue
 
-                
+
     def parse_mainPage(self,response):
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
         while (1):
             for site in sites:
+                # print site
                 if not site.startswith('http'):
                     urls = "http://www.chinakaoyan.com"+site
                 else:

@@ -4,7 +4,8 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.wangdaoluntan.items import WangdaoluntanItem
 from base.items.wangdaoluntan.bloomfliter import BloomFilter
-import os
+from datetime import datetime
+import os, random, time
 import re
 import sys
 reload(sys)
@@ -29,25 +30,34 @@ class WangdaoluntanSpider(Spider):
         self.__dict__.update(kwargs)
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
-
+        self.bf = BloomFilter( 0.0001, 100000 )
         self.mainpage="http://www.cskaoyan.com/forum.php"
 
     def start_requests(self):
         yield Request(self.mainpage,callback=self.parse_mainPage)
 
     def parse_inPage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         r1 = 'http://www.cskaoyan.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
         url = response.url
         item =WangdaoluntanItem()
+        print url
         content_div = response.selector.xpath('//table[@cellspacing="0" and @cellpadding="0"]//tr//td[@class="t_f"]')
         content1=content_div.xpath('string(.)').extract()
-        print content1
         try:
             if (re.match(r1, url) and len(content1)>0):
                 item['source']='wangdaoluntan'
                 item['source_url']='http://www.cskaoyan.com/forum.php'
                 item['url']=url
-                item['html']=response.body
+
+                #item['html']=response.body.decode("unicode_escape")
+                item['html']=' '
+                #contentlist = response.xpath("//html").extract()
+                #for con in contentlist:
+                #    utfcontent = con.encode('utf-8')
+                #    item['html'] += utfcontent
                 item['content'] = content1
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0
@@ -62,23 +72,55 @@ class WangdaoluntanSpider(Spider):
                 item['sentiment']=0
                 authid_str=response.selector.xpath("//div[@class='authi']//a[@class='xw1']/text()").extract()
                 item['authid']=authid_str
+                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')
-        for t in response.selector.xpath("//a[@href]/@href").extract():
+        for t in response.selector.xpath("//a[@class='nxt' and @href]/@href").extract():
             if not t.startswith('http'):
-                t="http://www.cskaoyan.com/"+t
-            yield Request(t,callback=self.parse_inPage)
+                t=response.url+t
+            self.bf.insert_element(t)
+            if(self.bf.is_element_exist(t)==False):
+                yield Request(t,callback=self.parse_inPage)
+            else:
+                continue
+
+    def parse_zhuye(self,response):
+        sel=Selector(response)
+        sites=sel.xpath("//th[@class='common']//a[@href]/@href").extract()
+        sites2=sel.xpath("//a[@class='nxt' and @href]/@href").extract()
+        sites3=sel.xpath("//th[@class='new']//a[@href]/@href").extract()
+        for site in sites:
+            if not site.startswith('http'):
+                urls = "http://www.cskaoyan.com/"+site
+            else:
+                urls=site
+            yield Request(urls,callback=self.parse_inPage)
+        for site in sites3:
+            if not site.startswith('http'):
+                urls = "http://www.cskaoyan.com/"+site
+            else:
+                urls=site
+            yield Request(urls,callback=self.parse_inPage)
+        for site in sites2:
+            if not site.startswith('http'):
+                urls = "http://www.cskaoyan.com/"+site
+            else:
+                urls=site
+            self.bf.insert_element(urls)
+            if(self.bf.is_element_exist(urls)==False):
+                yield Request(urls,callback=self.parse_zhuye)
+            else:
+                continue
+
 
     def parse_mainPage(self,response):
         sel=Selector(response)
-        sites=sel.xpath("//a[@href]/@href").extract()
+        sites=sel.xpath("//dl//dt//a[@href]/@href").extract()
         while(1):
             for site in sites:
-                # print site
                 if not site.startswith('http'):
-                    urls = "http://www.cskaoyan.com/forum.php"+site
+                    urls = "http://www.cskaoyan.com/"+site
                 else:
                     urls=site
-                yield Request(urls,callback=self.parse_inPage)
-
+                yield Request(urls,callback=self.parse_zhuye)

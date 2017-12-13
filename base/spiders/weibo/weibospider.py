@@ -4,9 +4,10 @@ from scrapy.spiders import Spider
 import urllib
 import scrapy
 import json
-import re
+import re, MySQLdb
 import time, random
 import datetime
+from base.configs.weibo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD
 from base.items.weibo.items import WeiboItem
 
 class WeiboSpider(Spider):
@@ -21,18 +22,31 @@ class WeiboSpider(Spider):
             #    'Upgrade-Insecure-Requests':'1',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
         }
-        keywords = ['高考', '出售', '提供', '发现', '考研', '研考', '硕士考试', '硕士生考试', '成考', '成人高考', '自考', '自学考试']
+        # keywords = ['高考', '出售', '提供', '发现', '考研', '研考', '硕士考试', '硕士生考试', '成考', '成人高考', '自考', '自学考试']
+        # keywords = ['高考', '出售', '提供']
         url_p1 = 'https://m.weibo.cn/api/container/getIndex?type=wb&queryVal='
         url_p2 = '&featurecode=20000320&luicode=10000011&lfid=106003type%3D1&title='
         url_p3 = '&containerid=100103type%3D2%26q%3D'
         url_p4 = '&page='
         urls = []
         while 1:
-            for keyword in keywords:
-                key = urllib.quote(keyword)
+            db = MySQLdb.connect( MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE, charset='utf8' )
+            cursor = db.cursor()
+            sql = "SELECT * FROM keyword_t"
+            cursor.execute( sql )
+            keywords = cursor.fetchall()
+            for keyword in keywords[::-1]:
+                print keyword[1].decode('utf-8')
+                # print keyword
+                key = keyword[1]
                 for i in range(1, 50):
+                    # print i
                     url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
                     yield scrapy.Request(url=url, callback=self.parse_search, headers=headers)
+                    # print url
+            db.close()
+            print "sleep 60s"
+            time.sleep(60)
 
     def parse_search(self, response):
         sleep_time = random.random()

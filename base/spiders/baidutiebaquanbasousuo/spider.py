@@ -4,9 +4,11 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.baidutiebaquanbasousuo.items import BaidutiebaquanbasousuoItem
 from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
+from base.configs.weibo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD
+
 from datetime import datetime
 import os, random, time
-import urllib
+import urllib, MySQLdb
 import re
 import sys
 reload(sys)
@@ -31,23 +33,32 @@ class BaidutiebaquanbasousuoSpider(Spider):
 
 
     def start_requests(self):
-        keywords = ['出售', '提供', '发现', '高考', '考研', '研考', '硕士考试', '硕士生考试', '成考', '成人高考', '自考', '自学考试']
+        # keywords = ['出售', '提供', '发现', '高考', '考研', '研考', '硕士考试', '硕士生考试', '成考', '成人高考', '自考', '自学考试']
         url_p1 = 'http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw='
         url_p2 = '&rn=10&un=&only_thread=0&sm=1&sd=&ed=&pn='
         while 1:
-            for keyword in keywords:
-                print keyword
-                key = urllib.quote(keyword)
-                for i in range(1, 200):
+            db = MySQLdb.connect( MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE, charset='utf8' )
+            cursor = db.cursor()
+            sql = "SELECT * FROM keyword_t"
+            cursor.execute( sql )
+            keywords = cursor.fetchall()
+            for keyword in keywords[::-1]:
+                print keyword[1].decode('utf-8')
+                # key = urllib.quote(keyword)
+                key = keyword[1]
+                for i in range(1, 50):
                     url = url_p1 + key + url_p2 + str(i)
                     yield Request(url=url,callback=self.parse_mainPage)
+            db.close()
+            print "sleep 60s"
+            time.sleep(10)
 
     def parse_inPage(self,response):
         url = response.url
         sleep_time = random.random()
         print 5*sleep_time
         time.sleep( 5*sleep_time )
-        print url
+        # print url
         item =BaidutiebaquanbasousuoItem()
         #contains(@class , 'ico-tag')
         content_div1 = response.selector.xpath('//div[@class="d_post_content_main d_post_content_firstfloor"]')

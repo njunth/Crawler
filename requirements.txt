@@ -1,3 +1,4 @@
 pymongo==3.5.1
 Scrapy==1.4.0
 BitVector==3.4.7
+MySQL-python==1.2.5

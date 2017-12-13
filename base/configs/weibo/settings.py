@@ -19,6 +19,13 @@ MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Weibo'
 
+MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
+MYSQL_PORT = (int)(os.getenv("MYSQL_PORT", 3306))
+MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "woodpecker")
+MYSQL_USER = os.getenv("MYSQL_USER", "root")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "123456")
+MYSQL_TABLE = 'keyword_t'
+
 LOG_LEVEL = 'INFO'
 
 # IPPOOL=[

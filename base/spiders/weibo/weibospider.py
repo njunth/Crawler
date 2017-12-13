@@ -42,11 +42,11 @@ class WeiboSpider(Spider):
                 for i in range(1, 50):
                     # print i
                     url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
-                    yield scrapy.Request(url=url, callback=self.parse_search, headers=headers)
+                    yield scrapy.Request(url=url, callback=self.parse_search, headers=headers, dont_filter=True)
                     # print url
             db.close()
-            print "sleep 60s"
-            time.sleep(60)
+            print "sleep 10s"
+            time.sleep(10)
 
     def parse_search(self, response):
         sleep_time = random.random()

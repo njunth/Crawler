@@ -1,7 +1,7 @@
 FROM registry.njuics.cn/library/scrapy:latest
 
 # Install ssh and git
-RUN apk --update add openssh git 
+RUN apk --update add openssh git mariadb-dev mariadb-client mariadb-libs
 
 # Set pull access
 ADD https://gist.githubusercontent.com/lxs137/57ebc9060bbe03c6706ec56abe789fd9/raw/41fe1324bd59b8de527b13976800772deffe8776/crawler.id_rsa /root/.ssh/id_rsa

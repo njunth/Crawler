@@ -30,7 +30,7 @@ class WeiboSpider(Spider):
         url_p4 = '&page='
         urls = []
         while 1:
-            db = MySQLdb.connect( MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE, charset='utf8' )
+            db = MySQLdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, password=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             cursor = db.cursor()
             sql = "SELECT * FROM keyword_t"
             cursor.execute( sql )

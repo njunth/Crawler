@@ -59,7 +59,11 @@ MY_USER_AGENT = [
 
 DOWNLOADER_MIDDLEWARES = {
          'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
+         'scrapy.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
+         'scrapy.downloadermiddleware.retry.RetryMiddleware': None,
+         'base.downloaders.retry.RetryMiddleware': 500,
          'base.downloaders.baidutiebaquanbasousuo.middlewares.MyUserAgentMiddleware': 400,
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
     }
 
 # Obey robots.txt rules
@@ -116,6 +120,13 @@ MONGODB_HOST = os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Baidutiebaquanbasousuo'
+
+MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
+MYSQL_PORT = (int)(os.getenv("MYSQL_PORT", 3306))
+MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "woodpecker")
+MYSQL_USER = os.getenv("MYSQL_USER", "root")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "123456")
+MYSQL_TABLE = 'keyword_t'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

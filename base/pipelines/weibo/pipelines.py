@@ -42,7 +42,7 @@ class WeiboPipeline(object):
             '_id': item['_id'],
             'content': item['content'],
             'source': 'sina_weibo',
-            'n_forward': item['n_forword'],
+            'n_forward': item['n_forward'],
             'n_comment': item['n_comment'],
             'n_like': item['n_like'],
             'attention': '0',

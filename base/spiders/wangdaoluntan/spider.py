@@ -30,7 +30,7 @@ class WangdaoluntanSpider(Spider):
         self.__dict__.update(kwargs)
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
-
+        self.bf = BloomFilter( 0.0001, 100000 )
         self.mainpage="http://www.cskaoyan.com/forum.php"
 
     def start_requests(self):
@@ -86,7 +86,6 @@ class WangdaoluntanSpider(Spider):
                 continue
 
     def parse_zhuye(self,response):
-        self.bf=BloomFilter(0.0001,100000)
         sel=Selector(response)
         sites=sel.xpath("//th[@class='common']//a[@href]/@href").extract()
         sites2=sel.xpath("//a[@class='nxt' and @href]/@href").extract()

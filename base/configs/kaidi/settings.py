@@ -14,7 +14,7 @@ BOT_NAME = 'kaidi'
 
 SPIDER_MODULES = ['base.spiders.kaidi']
 NEWSPIDER_MODULE = 'base.spiders.kaidi'
-
+LOG_LEVEL = 'INFO'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'kaidi (+http://www.yourdomain.com)'

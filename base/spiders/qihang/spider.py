@@ -75,3 +75,15 @@ class spider(scrapy.Spider):
 			item['content'] += content
 		yield item
 
+		urls = response.xpath("//*/a/@href").extract()
+		for url in urls:
+			urlc = 'http://www.qihang.com.cn'
+			for urllist in url:
+				urll = urllist.encode('utf-8')
+				urlc += urll
+			if (self.bf.is_element_exist(urlc) == False):
+				yield Request(urlc, callback=self.parse_inPage)
+
+			else:
+				continue
+

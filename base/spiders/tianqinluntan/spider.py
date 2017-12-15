@@ -51,8 +51,8 @@ class TianqinluntanSpider(Spider):
                 item['source']='tianqinluntan'
                 item['source_url']='http://www.csbiji.com/'
                 item['url']=url
-                #item['html']=response.body.decode("unicode_escape")
-                item['html']=''
+                item['html']=response.body.decode("unicode_escape")
+                # item['html']=''
                 click1 = response.selector.xpath("//span[@class='xi1']/text()").extract()
                 if(len(click1)>0): item['n_click'] = int(click1[0])
                 else:item['n_click']=0
@@ -81,7 +81,6 @@ class TianqinluntanSpider(Spider):
                 continue
 
     def parse_zhuye(self,response):
-        ＃self.bf=BloomFilter(0.0001,100000)
         sel=Selector(response)
         sites=sel.xpath("//th[@class='common']//a[@href]/@href").extract()
         sites2=sel.xpath("//a[@class='nxt' and @href]/@href").extract()

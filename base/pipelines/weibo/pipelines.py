@@ -51,7 +51,7 @@ class WeiboPipeline(object):
             'keyword' : keyword,
             'time': item['time'],
             'url': item['url'],
-            'publisher': item['publisher'],
+            'authid': item['authid'],
             'create_time': createstr
         })
         return item

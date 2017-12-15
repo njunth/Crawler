@@ -22,5 +22,5 @@ class WeiboItem(scrapy.Item):
     keyword = scrapy.Field()
     time = scrapy.Field()
     url = scrapy.Field()
-    publisher=scrapy.Field()
+    authid=scrapy.Field()
     pass

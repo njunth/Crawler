@@ -96,7 +96,7 @@ class WeiboSpider(Spider):
                 item['time'] = d.strftime('%Y_%m_%d_%H_%M_%S')
                 url_pos = key['scheme'].index("?mblogid")
                 item['url'] = key['scheme'][0:url_pos]
-                item['publisher'] = key['mblog']['user']['screen_name']
+                item['authid'] = key['mblog']['user']['screen_name']
                 yield item
                 #yield scrapy.Request(url=key['scheme'],callback=self.parse)
         else:

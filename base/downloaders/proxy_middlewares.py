@@ -38,7 +38,7 @@ class ProxyMiddleware(object):
         #     log.msg(msg, level=log.INFO)
         #     request.meta['change_proxy'] = False
         request.meta['proxy'] = 'http://'+self.proxy
-        print request.meta['proxy']
+        # print request.meta['proxy']
         self.proxy_use += 1
         if self.proxy_use > self.max_use:
             self.proxy_use = 0

@@ -35,7 +35,6 @@ class MongoDBPipeline(object):
             item['authid'][j]= v
             j=j+1
             #os.system("pause")
-
         k=0
         for s in item['time']:
             s2=s.replace('-','_').replace(' ','_').replace(':','_')
@@ -44,18 +43,27 @@ class MongoDBPipeline(object):
             k=k+1
         i=0
         ii=0
+        iii=0
         for t2 in item['content']:
             t = t2.replace('\r','').replace('\n','').replace('\t','').replace(' ','')
             time_=item['time'][i]
             authid_=item['authid'][ii]
-            njudata=dict({'create_time':item['create_time'],'source':item['source'],'source_url':item['source_url'],'url':item['url'],'html':item['html'],'n_click':item['n_click'],'n_reply':item['n_reply'],'content':str(t),'title':item['title'],'attention':item['attention'],'time':time_,'authid':authid_,'sentiment':item['sentiment']})
-            if(self.bf.is_element_exist(str( item['time'][i] ) + str( item['authid'][i] ))==False):
-                self.bf.insert_element( str( item['time'][i] ) + str( item['authid'][i] ) )
+            source_=item['source'][iii]
+            source_url_=item['url'][iii]
+            title_=item['title'][iii]
+            if not source_url_.startswith('http'):
+                source_url_="http://tieba.baidu.com"+source_url_
+            njudata=dict({'create_time':item['create_time'],'source':source_,'source_url':item['source_url'],'url':source_url_,'html':item['html'],'n_click':item['n_click'],'n_reply':item['n_reply'],'content':str(t),'title':title_,'attention':item['attention'],'time':time_,'authid':authid_,'sentiment':item['sentiment']})
+            njudata1=time_+authid_+t
+            if(self.bf.is_element_exist(str(njudata1))==False):
+                self.bf.insert_element( str(njudata1) )
                 self.post.insert(njudata)
             i = i + 1
             ii = ii + 1
-            # print "insert",
-            # print i
+            iii = iii+1
+            ##print "insert",
+            ##print i
+
         # njudata = dict(item)
         # self.post.insert(njudata)
         return item

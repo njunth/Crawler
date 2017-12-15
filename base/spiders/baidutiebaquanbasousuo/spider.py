@@ -53,7 +53,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
                 print keyword[1].decode('utf-8')
                 for i in range(1, 50):
                     url = url_p1 + key + url_p2 + str(i)
-                    yield Request(url=url,callback=self.parse_mainPage)
+                    yield Request(url=url,callback=self.parse_inPage)
             db.close()
             print "sleep 10s"
             time.sleep(10)
@@ -65,45 +65,44 @@ class BaidutiebaquanbasousuoSpider(Spider):
         time.sleep( 5*sleep_time )
         # print url
         item =BaidutiebaquanbasousuoItem()
-        #contains(@class , 'ico-tag')
-        content_div1 = response.selector.xpath('//div[@class="d_post_content_main d_post_content_firstfloor"]')
-        content_div2 = response.selector.xpath('//div[@class="d_post_content_main"] | //div[@class="d_post_content_main "]')
-        #content_div2 = response.selector.xpath('//div[contains(@class,"d_post_content_main")]|//div[contains(@class,"d_post_content_main ")]')
-        content1=content_div1.xpath('string(.)').extract()
-        content2=content_div2.xpath('string(.)').extract()
-        content1.extend(content2)
+        content_div1 = response.selector.xpath('//div[@class="p_content"]')
+        content1 = content_div1.xpath('string(.)').extract()
         try:
             if (len(content1)>0):
-                item['source']='Baidutieba'
-                item['source_url']='https://tieba.baidu.com/index.html'
-                item['url']=url
-                item['html']=response.body
+                source_str=response.selector.xpath('//font[@class="p_violet"]')
+                source_str1 = source_str.xpath('string(.)').extract()
+                source_list=list()
+                authid_list=list()
+                i=0
+                for t in source_str1:
+                    if(i%2==0):
+                        source_list.append(t)
+                    else:
+                        authid_list.append(t)
+                    i=i+1
+                #print len(source_list)
+                #print len(authid_list)
+                #os.system("pause")
+                item['source']=source_list
+                item['authid']=authid_list
+                #print item['source']
+                #print item['authid']
+                item['url']=response.selector.xpath("//a[@data-tid and @data-fid]/@href").extract()
+                #print item['source_url']
+                #os.system("pause")
+                item['source_url']="https://tieba.baidu.com/index.html"
+                item['html']=response.body.decode("unicode_escape")
                 item['n_click']=0
-                item['n_reply']=len(content1)-1
+                item['n_reply']=0
                 item['content'] = content1
-                item['title'] = response.selector.xpath("//title/text()").extract()[0]
+                title_div1 = response.selector.xpath('//a[@data-tid and @data-fid]')
+                title1=title_div1.xpath('string(.)').extract()
+                item['title'] =title1
                 item['attention'] = 0
-                text=str(response.body)
-                time_str=re.findall(r'\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}',text)
+                time_str=response.selector.xpath("//font[@class='p_green p_date']/text()").extract()
                 item['time']=time_str
-                authid_str=response.selector.xpath("//li[@class='d_name']")
-                authid_str2=authid_str.xpath('string(.)').extract()
-                item['authid']=authid_str2
                 item['sentiment']=0
                 item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')
-
-    def parse_mainPage(self,response):
-        sel=Selector(response)
-        sites=sel.xpath("//a[@data-tid and @data-fid]/@href").extract()
-        # for t in sites:
-        #     print t
-        for site in sites:
-            if not site.startswith('http'):
-                urls = "http://tieba.baidu.com"+site
-            else:
-                urls=site
-            # print urls
-            yield Request(urls,callback=self.parse_inPage)

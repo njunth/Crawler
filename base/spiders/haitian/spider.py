@@ -15,6 +15,7 @@ class htkaoyan(scrapy.Spider):
 		self.bf=BloomFilter(0.0001,1000000)
 		while 1:
 			urls = response.xpath("//*/a[starts-with(@href,'http')]/@href").extract()
+			# print urls
 			for url in urls:
 				if(self.bf.is_element_exist(url)==False):
 					yield Request(url,callback=self.parse_inPage)
@@ -23,8 +24,8 @@ class htkaoyan(scrapy.Spider):
 
 	def parse_inPage(self,response):
 		sleep_time = random.random()
-		print sleep_time
-		time.sleep(sleep_time)
+		print 5*sleep_time
+		time.sleep(5*sleep_time)
 		item = HaiItem()
 		item['title'] = ''
 		item['source'] = "HaiTianKaoYan"

@@ -54,8 +54,8 @@ class MongoDBPipeline(object):
                 self.post.insert(njudata)
             i = i + 1
             ii = ii + 1
-            print "insert",
-            print i
+            # print "insert",
+            # print i
         # njudata = dict(item)
         # self.post.insert(njudata)
         return item

@@ -39,18 +39,23 @@ class BaidutiebaquanbasousuoSpider(Spider):
         while 1:
             db = MySQLdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             cursor = db.cursor()
-            sql = "SELECT * FROM keyword_t"
+            sql = "SELECT DISTINCT * FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
+            keyword_list = []
             for keyword in keywords[::-1]:
-                print keyword[1].decode('utf-8')
+                # print keyword[1].decode('utf-8')
                 # key = urllib.quote(keyword)
                 key = keyword[1]
+                if key in keyword_list:
+                    continue
+                keyword_list.append(key)
+                print keyword[1].decode('utf-8')
                 for i in range(1, 50):
                     url = url_p1 + key + url_p2 + str(i)
                     yield Request(url=url,callback=self.parse_mainPage)
             db.close()
-            print "sleep 60s"
+            print "sleep 10s"
             time.sleep(10)
 
     def parse_inPage(self,response):

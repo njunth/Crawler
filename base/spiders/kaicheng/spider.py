@@ -67,7 +67,7 @@ class spider(scrapy.Spider):
 				i=0
 				while (i <= 16):
 					timelist = response.xpath("//div[@class='label']/p/text()").extract_first()[i+3]
-					if timelist=='-' or timelist==' ' or timelist==':' :
+					if timelist=='-' or timelist==' ' or timelist==':' or timelist==',':
 						item['time']+= '_'
 					else:
 						item['time']+=timelist.encode('utf-8')

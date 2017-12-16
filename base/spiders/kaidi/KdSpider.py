@@ -1,4 +1,4 @@
-#-*-coding:utf8-*-
+# coding=utf-8
 import scrapy
 from base.items.kaidi.items import KaidiItem
 import re

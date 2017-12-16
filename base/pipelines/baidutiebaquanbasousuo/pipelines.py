@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#encoding=utf-8
 
 # Define your item pipelines here
 #
@@ -48,7 +48,8 @@ class MongoDBPipeline(object):
             t = t2.replace('\r','').replace('\n','').replace('\t','').replace(' ','')
             time_=item['time'][i]
             authid_=item['authid'][ii]
-            source_=item['source'][iii]
+            # source_=item['source'][iii]
+            source_ = u"百度贴吧"
             source_url_=item['url'][iii]
             title_=item['title'][iii]
             if not source_url_.startswith('http'):

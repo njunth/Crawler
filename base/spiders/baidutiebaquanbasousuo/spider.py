@@ -83,7 +83,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
                 #print len(source_list)
                 #print len(authid_list)
                 #os.system("pause")
-                item['source']="百度贴吧"
+                item['source']="百度贴吧".decode('utf-8')
                 item['authid']=authid_list
                 #print item['source']
                 #print item['authid']

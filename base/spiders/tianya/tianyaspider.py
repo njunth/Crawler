@@ -1,4 +1,4 @@
-#-*-coding:utf8-*-
+# coding=utf-8
 import scrapy
 from base.items.tianya.items import Tianyav2Item
 from base.items.tianya.BloomFilter import BloomFilter

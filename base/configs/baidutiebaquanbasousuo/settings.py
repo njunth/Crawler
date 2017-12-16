@@ -59,11 +59,11 @@ MY_USER_AGENT = [
 
 DOWNLOADER_MIDDLEWARES = {
          'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
-         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
-         'base.downloaders.retry.RetryMiddleware': 500,
+         # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+         # 'base.downloaders.retry.RetryMiddleware': 500,
          'base.downloaders.baidutiebaquanbasousuo.middlewares.MyUserAgentMiddleware': 400,
-         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+         # 'base.downloaders.proxy_middlewares.ProxyMiddleware':100
     }
 
 # Obey robots.txt rules

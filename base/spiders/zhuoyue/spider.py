@@ -1,3 +1,4 @@
+# coding=utf-8
 import scrapy
 
 from base.items.zhuoyue.items import ZhuoyueItem

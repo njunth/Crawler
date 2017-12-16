@@ -1,4 +1,4 @@
-#-*-coding:utf8-*-
+# coding=utf-8
 import scrapy
 from base.items.sina.items import SinaItem
 import re

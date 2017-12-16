@@ -57,7 +57,7 @@ class DmozSpider(scrapy.Spider):
                         item['html'] = response.body.decode('gbk')
                     except:
                         item['html'] = response.body
-"""
+                    """
                     item['html'] = ''
                     contentlist = response.xpath('//html').extract()
                     for con in contentlist:

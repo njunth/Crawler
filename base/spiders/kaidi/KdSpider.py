@@ -38,7 +38,7 @@ class KdSpider(scrapy.Spider):
         con_div = content.xpath('string(.)').extract()
 
         if re.match('^http://club.kdnet.net.*.id=[0-9.]*', response.url) and len(con_div) > 0:
-            item['source'] = '凯迪社区'
+            item['source'] = "凯迪社区"
             item['source_url'] = 'http://club.kdnet.net/index.asp'
 
             item['html'] = ''

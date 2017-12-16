@@ -29,7 +29,7 @@ class spider(scrapy.Spider):
 		time.sleep( sleep_time )
 		item=HaiwenItem()
 		item['title']=''
-		item['source']="HaiWen"
+		item['source']="海文考研"
 		item['source_url']="http://kaoyan.wanxue.cn"
 		item['url']=response.url
 		item['html'] = ''

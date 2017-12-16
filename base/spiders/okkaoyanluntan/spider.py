@@ -43,7 +43,7 @@ class OkkaoyanluntanSpider(Spider):
         content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content_div)>0):
-                item['source']='okkaoyanluntan'
+                item['source']="OK考研论坛"
                 item['source_url']='http://bbs.okaoyan.com/'
                 item['url']=url
                 item['html']=response.body

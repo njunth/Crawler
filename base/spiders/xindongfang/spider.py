@@ -27,7 +27,7 @@ class spider(scrapy.Spider):
 		time.sleep( sleep_time )
 		item=XinItem()
 		item['title']=''
-		item['source']="XingDongFangKaoYan"
+		item['source']="新东方"
 		item['source_url']="http://kaoyan.koolearn.com"
 		item['url']=response.url
 		item['html']=''

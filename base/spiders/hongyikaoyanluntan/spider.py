@@ -43,7 +43,7 @@ class HongyikaoyanluntanSpider(Spider):
         content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content1)>0):
-                item['source']='hongyikaoyanluntan'
+                item['source']="弘毅考研论坛"
                 item['source_url']='http://www.hykaoyan.org/'
                 item['url']=url
                 item['html']=response.body

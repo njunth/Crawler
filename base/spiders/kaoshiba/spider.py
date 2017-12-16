@@ -46,7 +46,7 @@ class KaoshibaSpider(Spider):
         content1=content_div.xpath('string(.)').extract()
         try:
             if ((re.match(r1, url)and len(content_div)>0)) :
-                item['source']='kaoshiba'
+                item['source']="考试吧"
                 item['source_url']='http://www.exam8.com/xueli/kaoyan/'
                 item['url']=url
                 item['html']=''

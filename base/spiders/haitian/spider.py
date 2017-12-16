@@ -28,7 +28,7 @@ class htkaoyan(scrapy.Spider):
 		time.sleep(5*sleep_time)
 		item = HaiItem()
 		item['title'] = ''
-		item['source'] = "HaiTianKaoYan"
+		item['source'] = "海天教育考研"
 		item['source_url'] = "http://www.htkaoyan.com"
 		item['url'] = response.url
 		item['html'] = ''

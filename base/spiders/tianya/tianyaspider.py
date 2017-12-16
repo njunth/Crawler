@@ -40,7 +40,7 @@ class Tianyaspider(scrapy.Spider):
         con_div = content.xpath('string(.)').extract()
 
         if re.match('^http://bbs.tianya.*.shtml', response.url) and len(con_div)>0:
-            item['source'] = '天涯'
+            item['source'] = "天涯论坛"
             item['source_url'] = 'http://bbs.tianya.cn/'
             """try:
                 item['html'] = response.body.decode('gbk')

@@ -60,7 +60,7 @@ class Sinaspider(scrapy.Spider):
 
         #if re.match('^http://club.[a-z.]*.sina.*.html', response.url):
         if re.match('^http://club.[a-z.]*.sina.com.cn/thread-[0-9]+-[0-9]+-[0-9]+.html', response.url) and len(reply1)>0:
-            item['source'] = '新浪论坛'
+            item['source'] = "新浪论坛"
             item['source_url'] = 'http://people.sina.com.cn/'
 
             item['html'] = ''

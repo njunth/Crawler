@@ -58,9 +58,9 @@ MY_USER_AGENT = [
     ]
 
 DOWNLOADER_MIDDLEWARES = {
-         'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
-         'scrapy.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
-         'scrapy.downloadermiddleware.retry.RetryMiddleware': None,
+         'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
          'base.downloaders.retry.RetryMiddleware': 500,
          'base.downloaders.baidutiebaquanbasousuo.middlewares.MyUserAgentMiddleware': 400,
          'base.downloaders.proxy_middlewares.ProxyMiddleware':100

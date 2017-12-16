@@ -32,7 +32,7 @@ class spider(scrapy.Spider):
 		time.sleep( sleep_time )
 		item=QihangItem()
 		item['title'] = ''
-		item['source'] = "QiHangKaoYan"
+		item['source'] = "启航考研"
 		item['source_url'] = "http://www.qihang.com.cn/"
 		item['url'] = response.url
 		item['html'] = ''

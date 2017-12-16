@@ -34,7 +34,7 @@ class spider(scrapy.Spider):
 		time.sleep( sleep_time )
 		item=KaichengItem()
 		item['title'] = ''
-		item['source'] = "KaiChengKaoYan"
+		item['source'] = "凯程考研"
 		item['source_url'] = "http://www.kaichengschool.com"
 		item['url'] = response.url
 		item['html'] = ''

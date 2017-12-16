@@ -45,7 +45,7 @@ class YixuekaoyanSpider(Spider):
         content1=content_div.xpath('string(.)').extract()
         try:
             if ((re.match(r1, url)and len(content_div)>0)) :
-                item['source']='yixuekaoyan'
+                item['source']="医学考研网"
                 item['source_url']='http://www.medkaoyan.net/'
                 item['url']=url
                 item['html']=response.body

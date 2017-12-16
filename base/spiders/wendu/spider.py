@@ -31,7 +31,7 @@ class wendu(scrapy.Spider):
 		time.sleep( sleep_time )
 		item = WenduItem()
 		item['title'] = ''
-		item['source'] = "WenDuKaoYan"
+		item['source'] = "文都教育考研"
 		item['source_url'] = "http://kaoyan.wendu.com"
 		item['url'] = response.url
 		item['html'] = ''

@@ -45,7 +45,7 @@ class KaoyanluntanSpider(Spider):
         try:
             if (re.match(r1, url) and len(content_div)>0):
                 print url
-                item['source']='kaoyanluntan'
+                item['source']="考研论坛"
                 item['source_url']='http://bbs.kaoyan.com/'
                 item['url']=url
                 item['html']=response.body

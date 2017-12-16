@@ -48,7 +48,7 @@ class TianqinluntanSpider(Spider):
         try:
             if (re.match(r1, url) and len(content_div)>0):
                 print "crawl"
-                item['source']='tianqinluntan'
+                item['source']="天勤论坛"
                 item['source_url']='http://www.csbiji.com/'
                 item['url']=url
                 item['html']=response.body.decode("unicode_escape")

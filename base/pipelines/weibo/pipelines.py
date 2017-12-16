@@ -41,7 +41,7 @@ class WeiboPipeline(object):
         self.collection.save({
             '_id': item['_id'],
             'content': item['content'],
-            'source': 'sina_weibo',
+            'source': "新浪微博",
             'n_forward': item['n_forward'],
             'n_comment': item['n_comment'],
             'n_like': item['n_like'],

@@ -47,7 +47,7 @@ class ChinakaoyanSpider(Spider):
         try:
             if (re.match(r1, url) and len(content_div)>0):
                 print url
-                item['source']='chinakaoyan'
+                item['source']="中国考研网"
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
                 # item['html']=''

@@ -45,7 +45,7 @@ class Meiqispider(scrapy.Spider):
         con_div = content.xpath('string(.)').extract()
 
         if re.match('^http://bbs.biketo.com.*.html', response.url) and len(con_div)>0:
-            item['source'] = '美骑社区'
+            item['source'] = "美骑社区"
             item['source_url'] = 'http://bbs.biketo.com/index.html'
 
             item['html'] = ''

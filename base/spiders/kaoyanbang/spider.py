@@ -47,7 +47,7 @@ class KaoyanbangSpider(Spider):
         content1=content_div.xpath('string(.)').extract()
         try:
             if (((re.match(r1, url) or re.match(r2, url))and len(content_div)>0) and (str(url).find("index")==-1)) :
-                item['source']='kaoyanbang'
+                item['source']="考研帮"
                 item['source_url']='http://www.kaoyan.com/'
                 item['url']=url
                 item['html']=response.body

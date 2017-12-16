@@ -40,7 +40,7 @@ class Xiaomispider(scrapy.Spider):
 
         if re.match('^http://bbs.xiaomi.cn/t-[0-9.]*', response.url) and len(reply_div)>0:
             # if re.match('^http://bbs.xiaomi.cn.*', response.url):
-            item['source'] = '小米论坛'
+            item['source'] = "小米论坛"
             item['source_url'] = 'http://bbs.xiaomi.cn/'
 
             item['html'] = ''

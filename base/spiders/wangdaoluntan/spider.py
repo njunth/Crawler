@@ -48,7 +48,7 @@ class WangdaoluntanSpider(Spider):
         content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content1)>0):
-                item['source']='wangdaoluntan'
+                item['source']="王道论坛"
                 item['source_url']='http://www.cskaoyan.com/forum.php'
                 item['url']=url
 

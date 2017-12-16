@@ -40,7 +40,7 @@ class Tianyaspider(scrapy.Spider):
 
 
         if re.match('^http://bbs1.people.com.cn.*.html', response.url) and len(con_div) > 0:
-            item['source'] = '强国论坛'
+            item['source'] = "强国论坛"
             item['source_url'] = 'http://bbs1.people.com.cn/'
 
             item['html'] = ''

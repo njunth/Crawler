@@ -34,7 +34,7 @@ class spider(scrapy.Spider):
 		time.sleep( sleep_time )
 		item=ZhuoyueItem()
 		item['title'] = ''
-		item['source'] = "ZhuoYueKaoYan"
+		item['source'] = "卓越考研"
 		item['source_url'] = "http://www.zhuoyuekaoyan.com"
 		item['url'] = response.url
 		item['html'] = ''

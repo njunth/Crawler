@@ -29,14 +29,14 @@ class Sinaspider(scrapy.Spider):
         while 1:
 
             for url1 in response.selector.xpath("//a/@href").re(r'^http://club.[a-z.]*.sina.*'):
-                sleep_time = random.random()
-                print sleep_time
-                time.sleep( sleep_time )
                 #if (self.bf.is_element_exist(url1) == False):  # reduce a /
                 yield scrapy.Request(url=url1, callback=self.parse_inpage)
+                sleep_time = random.random()
+                # print sleep_time
+                time.sleep( sleep_time )
                 #else:
                     #continue
-                #yield scrapy.Request(url=url1, callback=self.parse)
+            yield scrapy.Request(url="http://people.sina.com.cn/", callback=self.parse)
 
             #for url1 in response.selector.xpath("//a/@href").re(r'^http://club.[a-z.]*.sina.*'):
              #   yield scrapy.Request(url=url1, callback=self.parse)
@@ -75,6 +75,7 @@ class Sinaspider(scrapy.Spider):
             except:
                 item['html'] = response.body"""
             item['url'] = response.url
+            print item['url']
 
             #item['title'] = response.xpath("//head/title/text()").extract()[0].encode('utf-8')
             t = response.xpath("//head/title/text()").extract()#[0].encode('utf-8')

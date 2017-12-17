@@ -54,16 +54,19 @@ class BaidutiebaquanbasousuoSpider(Spider):
                 for i in range(1, 50):
                     url = url_p1 + key + url_p2 + str(i)
                     yield Request(url=url,callback=self.parse_inPage)
+                    sleep_time = random.random()
+                    print 5 * sleep_time
+                    time.sleep( 5 * sleep_time )
             db.close()
             print "sleep 10s"
             time.sleep(10)
 
     def parse_inPage(self,response):
         url = response.url
-        sleep_time = random.random()
-        print 5*sleep_time
-        time.sleep( 5*sleep_time )
-        # print url
+        # sleep_time = random.random()
+        # print 5*sleep_time
+        # time.sleep( 5*sleep_time )
+        print url
         item =BaidutiebaquanbasousuoItem()
         content_div1 = response.selector.xpath('//div[@class="p_content"]')
         content1 = content_div1.xpath('string(.)').extract()

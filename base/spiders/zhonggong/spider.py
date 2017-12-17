@@ -21,6 +21,7 @@ class spider(scrapy.Spider):
 					yield Request(url,callback=self.parse_inPage)
 				else:
 					continue
+			yield Request("http://www.kaoyan365.cn/", callback=self.parse)
 
 
 	def parse_inPage(self,response):

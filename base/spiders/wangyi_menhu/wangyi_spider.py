@@ -105,3 +105,4 @@ class DmozSpider(scrapy.Spider):
                 if re.match(self.r3, url) == None and re.match(self.r4, url) == None:
                     if (self.bf.is_element_exist(url) == False):
                         yield scrapy.Request(url=url, callback=self.parse_inpage, priority=1)
+        yield scrapy.Request( url="http://www.163.com/", callback=self.parse, priority=0 )

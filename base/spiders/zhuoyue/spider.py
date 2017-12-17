@@ -24,9 +24,9 @@ class spider(scrapy.Spider):
 					urlc += urll
 				if(self.bf.is_element_exist(urlc)==False):
 					yield Request(urlc,callback=self.parse_inPage)
-
 				else:
 					continue
+			yield Request("http://www.zhuoyuekaoyan.com", callback=self.parse)
 
 
 	def parse_inPage(self,response):

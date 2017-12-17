@@ -25,6 +25,7 @@ class spider(scrapy.Spider):
 					yield Request(urlc,callback=self.parse_inPage)
 				else:
 					continue
+			yield Request('http://www.qihang.com.cn',callback=self.parse)
 
 
 	def parse_inPage(self,response):

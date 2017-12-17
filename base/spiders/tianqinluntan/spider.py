@@ -30,7 +30,9 @@ class TianqinluntanSpider(Spider):
         self.bf=BloomFilter(0.0001,100000)
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage)
+        while 1:
+            yield Request(self.mainpage,callback=self.parse_mainPage)
+            time.sleep( 60 )
 
     def parse_inPage(self,response):
         

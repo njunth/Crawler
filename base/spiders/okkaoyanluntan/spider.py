@@ -34,10 +34,12 @@ class OkkaoyanluntanSpider(Spider):
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        print sleep_time
-        time.sleep( sleep_time )
-        r1 = 'http://bbs.okaoyan.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
+        print 5*sleep_time
+        time.sleep( 5*sleep_time )
+        # r1 = 'http://bbs.okaoyan.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
+        r1 = 'http://bbs.okaoyan.com/thread.*'
         url = response.url
+        # print url
         item =OkkaoyanluntanItem()
         content_div = response.selector.xpath('//table[@cellspacing="0" and @cellpadding="0"]//tr//td[@class="t_f"]')
         content1=content_div.xpath('string(.)').extract()
@@ -46,6 +48,7 @@ class OkkaoyanluntanSpider(Spider):
                 item['source']="OK考研论坛"
                 item['source_url']='http://bbs.okaoyan.com/'
                 item['url']=url
+                print item['url']
                 item['html']=response.body
                 click1 = response.selector.xpath("//span[@class='xi1']/text()").extract()
                 if(len(click1)>0): item['n_click'] = int(click1[0])
@@ -79,4 +82,6 @@ class OkkaoyanluntanSpider(Spider):
                     urls = "http://bbs.okaoyan.com"+site
                 else:
                     urls=site
+                # print urls
                 yield Request(urls,callback=self.parse_inPage)
+            yield Request( self.mainpage, callback=self.parse_mainPage )

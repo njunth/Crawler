@@ -48,6 +48,7 @@ class OkkaoyanSpider(Spider):
                 item['source']="OK考研"
                 item['source_url']='http://www.okaoyan.com/'
                 item['url']=url
+                print item['url']
                 item['html']=response.body
                 i=0
                 for t in content1:
@@ -90,3 +91,4 @@ class OkkaoyanSpider(Spider):
                     yield Request(urls,callback=self.parse_inPage)
                 else:
                     continue
+            yield Request(self.mainpage,callback=self.parse_mainPage)

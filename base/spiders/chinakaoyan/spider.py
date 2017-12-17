@@ -93,3 +93,4 @@ class ChinakaoyanSpider(Spider):
                     yield Request(urls,callback=self.parse_inPage)
                 else:
                     continue
+            yield Request('http://www.chinakaoyan.com/info/main/ClassID/2.shtml', callback=self.parse_mainPage)

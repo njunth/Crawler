@@ -21,13 +21,14 @@ class spider(scrapy.Spider):
 					yield Request(url,callback=self.parse_inPage)
 				else:
 					continue
+			yield Request("http://kaoyan.wanxue.cn",callback=self.parse)
 
 
 
 	def parse_inPage(self,response):
 		sleep_time = random.random()
-		print sleep_time
-		time.sleep( sleep_time )
+		print 5*sleep_time
+		time.sleep( 5*sleep_time )
 		item=HaiwenItem()
 		item['title']=''
 		item['source']="海文考研"

@@ -21,8 +21,8 @@ class DmozSpider(scrapy.Spider):
         url = response.url
         #print url
         sleep_time = random.random()
-        print sleep_time
-        time.sleep( sleep_time )
+        print 5*sleep_time
+        time.sleep( 5*sleep_time )
         if re.match(self.r2, url) or re.match(self.r3, url)or re.match(self.r4, url):
             try:
                 print url
@@ -106,4 +106,5 @@ class DmozSpider(scrapy.Spider):
                     else:
                         if (self.bf.is_element_exist(url) == False):
                             yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
+                yield scrapy.Request(url='http://www.cnr.cn/', callback=self.parse,priority=0)
 

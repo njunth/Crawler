@@ -27,6 +27,7 @@ class Tianyaspider(scrapy.Spider):
                 yield scrapy.Request(url=url1, callback=self.parse_inpage)
             #else:
              #   continue
+            yield scrapy.Request( url="http://bbs1.people.com.cn/", callback=self.parse )
 
     def parse_inpage(self, response):
         sleep_time = random.random()
@@ -40,7 +41,7 @@ class Tianyaspider(scrapy.Spider):
 
 
         if re.match('^http://bbs1.people.com.cn.*.html', response.url) and len(con_div) > 0:
-            item['source'] = "强国论坛"
+            item['source'] = u"强国论坛"
             item['source_url'] = 'http://bbs1.people.com.cn/'
 
             item['html'] = ''

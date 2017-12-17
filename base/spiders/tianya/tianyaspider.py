@@ -29,7 +29,7 @@ class Tianyaspider(scrapy.Spider):
                 yield scrapy.Request(url=url1, callback=self.parse_inpage)
                 #else:
                     #continue
-                 #   yield scrapy.Request(url=url1, callback=self.parse)
+            yield scrapy.Request(url="http://bbs.tianya.cn/", callback=self.parse)
 
     def parse_inpage(self,response):
         sleep_time = random.random()

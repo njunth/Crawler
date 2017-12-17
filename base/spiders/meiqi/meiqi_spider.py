@@ -33,7 +33,7 @@ class Meiqispider(scrapy.Spider):
                 yield scrapy.Request(url=url1, callback=self.parse_inpage)
                 #else:
                     #continue
-                 #   yield scrapy.Request(url=url1, callback=self.parse)
+            yield scrapy.Request(url="http://bbs.biketo.com/index.html", callback=self.parse)
 
             #for url in response.selector.xpath("//a/@href").re(r'^http://bbs.biketo.com.*.html'):
              #   if re.match('^http://bbs.biketo.com.*.html', url) is None:
@@ -45,7 +45,7 @@ class Meiqispider(scrapy.Spider):
         con_div = content.xpath('string(.)').extract()
 
         if re.match('^http://bbs.biketo.com.*.html', response.url) and len(con_div)>0:
-            item['source'] = "美骑社区"
+            item['source'] = u"美骑社区"
             item['source_url'] = 'http://bbs.biketo.com/index.html'
 
             item['html'] = ''
@@ -55,6 +55,7 @@ class Meiqispider(scrapy.Spider):
                 item['html'] += utfcontent
 
             item['url'] = response.url
+            print item['url']
 
             t = response.xpath(
                 "//div[@id='postlist']//span[@id='thread_subject']/text()").extract()  # [0].encode('utf-8')

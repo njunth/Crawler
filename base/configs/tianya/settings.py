@@ -63,6 +63,14 @@ ROBOTSTXT_OBEY = True
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+         'base.downloaders.retry.RetryMiddleware': 500,
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+    }
+
+
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {

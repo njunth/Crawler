@@ -36,8 +36,8 @@ class KaoyanbangSpider(Spider):
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        print sleep_time
-        time.sleep( sleep_time )
+        print 5*sleep_time
+        time.sleep( 5*sleep_time )
         r1 = '.*/zhaosheng/.+.html'
         r2 = '.*/xinwen/.+.html'
         url = response.url
@@ -46,10 +46,12 @@ class KaoyanbangSpider(Spider):
         content_div = response.selector.xpath('//div[@class="article"]')
         content1=content_div.xpath('string(.)').extract()
         try:
-            if (((re.match(r1, url) or re.match(r2, url))and len(content_div)>0) and (str(url).find("index")==-1)) :
+            if (((re.match( r1, url ) or re.match( r2, url )) and len( content_div ) > 0)):
+            # if (((re.match(r1, url) or re.match(r2, url))and len(content_div)>0) and (str(url).find("index")==-1)) :
                 item['source']="考研帮"
                 item['source_url']='http://www.kaoyan.com/'
                 item['url']=url
+                print item['url']
                 item['html']=response.body
                 i=0
                 for t in content1:
@@ -92,3 +94,4 @@ class KaoyanbangSpider(Spider):
                     yield Request(urls,callback=self.parse_inPage)
                 else:
                     continue
+            yield Request( self.mainpage, callback=self.parse_mainPage )

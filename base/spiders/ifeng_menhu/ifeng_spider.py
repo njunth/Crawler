@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 import scrapy
 import re
 import sys
@@ -23,8 +23,8 @@ class DmozSpider(scrapy.Spider):
     r7='^http://.*house.ifeng.*'
     def parse_inpage(self, response):
         sleep_time = random.random()
-        print sleep_time
-        time.sleep( sleep_time )
+        print 3*sleep_time
+        time.sleep( 3*sleep_time )
 
         url = response.url
         self.bf.insert_element(url)
@@ -59,6 +59,7 @@ class DmozSpider(scrapy.Spider):
                 #print 'a'
                 # name= item['name']
                 item['url'] = url
+                print url
                 item['sentiment'] = 0
                 item['attention'] = 0
 
@@ -69,7 +70,7 @@ class DmozSpider(scrapy.Spider):
                     utfcontent = con.encode('utf-8')
                     item['html'] += utfcontent
 
-                item['source'] = "凤凰网"
+                item['source'] = u"凤凰网"
                 item['source_url'] = "http://www.ifeng.com/"
 
                 time_item = []
@@ -142,3 +143,4 @@ class DmozSpider(scrapy.Spider):
                     #with open('aa', 'ab') as f:
                      #f.write(url+'\n')
                     yield scrapy.Request(url=url, callback=self.parse,priority=0)
+            yield scrapy.Request(url="http://www.ifeng.com", callback=self.parse,priority=0)

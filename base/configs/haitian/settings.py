@@ -67,12 +67,12 @@ COOKIES_ENABLED = False
 #    'haitian.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
-# DOWNLOADER_MIDDLEWARES = {
-#          'scrapy.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
-#          'scrapy.downloadermiddleware.retry.RetryMiddleware': None,
-#          'base.downloaders.retry.RetryMiddleware': 500,
-#          'base.downloaders.proxy_middlewares.ProxyMiddleware':100
-#     }
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddleware.httpproxy.HttpProxyMiddleware': None,
+         'scrapy.downloadermiddleware.retry.RetryMiddleware': None,
+         'base.downloaders.retry.RetryMiddleware': 500,
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+    }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html

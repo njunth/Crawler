@@ -88,3 +88,4 @@ class ChinakaoyanluntanSpider(Spider):
                 else:
                     urls=site
                 yield Request(urls,callback=self.parse_inPage)
+            yield Request( "http://www.chinakaoyan.com/club/clubHome/clubId/214.shtml", callback=self.parse_mainPage )

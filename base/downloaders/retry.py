@@ -17,6 +17,7 @@ class RetryMiddleware(object):
         self.priority_adjust = -1
 
     def process_response(self, request, response, spider):
+        # print response.status
         if request.meta.get('dont_retry', False):
             return response
         if response.status in self.retry_http_codes:

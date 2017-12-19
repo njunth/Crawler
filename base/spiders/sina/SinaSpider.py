@@ -32,7 +32,7 @@ class Sinaspider(scrapy.Spider):
                 #if (self.bf.is_element_exist(url1) == False):  # reduce a /
                 yield scrapy.Request(url=url1, callback=self.parse_inpage)
                 sleep_time = random.random()
-                # print sleep_time
+                print sleep_time
                 time.sleep( sleep_time )
                 #else:
                     #continue

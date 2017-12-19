@@ -94,7 +94,7 @@ class QiangguoPipeline(object):
 
             item['content'] = ''.join(item['content'])
             njudata = dict(
-                {'content': item['content'], 'url': item['url'], 'item': item['time'][0], 'authid': item['authid'][0],
+                {'content': item['content'], 'url': item['url'], 'time': item['time'][0], 'authid': item['authid'][0],
                  'html': item['html'], 'source': item['source'], 'source_url': item['source_url'],
                  'n_click': item['n_click'], 'n_reply': item['n_reply'],
                  'attention': item['attention'], 'sentiment': item['sentiment'],

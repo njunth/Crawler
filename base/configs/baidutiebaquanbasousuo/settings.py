@@ -59,11 +59,11 @@ MY_USER_AGENT = [
 
 DOWNLOADER_MIDDLEWARES = {
          'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-         # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
-         # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
-         # 'base.downloaders.retry.RetryMiddleware': 500,
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+         'base.downloaders.retry.RetryMiddleware': 500,
          'base.downloaders.baidutiebaquanbasousuo.middlewares.MyUserAgentMiddleware': 400,
-         # 'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
     }
 
 # Obey robots.txt rules
@@ -75,7 +75,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16

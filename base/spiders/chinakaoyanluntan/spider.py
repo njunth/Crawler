@@ -32,7 +32,7 @@ class ChinakaoyanluntanSpider(Spider):
 
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage)
+        yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         r1 = '.*/club/topicShow/clubId/[0-9]*/tid.*'
@@ -76,7 +76,7 @@ class ChinakaoyanluntanSpider(Spider):
         for t in response.selector.xpath("//a[@href]/@href").extract():
             if not t.startswith('http'):
                 t="http://www.chinakaoyan.com"+t
-            yield Request(t,callback=self.parse_inPage)
+            yield Request(t,callback=self.parse_inPage, dont_filter=True)
 
     def parse_mainPage(self,response):
         sel=Selector(response)
@@ -87,5 +87,5 @@ class ChinakaoyanluntanSpider(Spider):
                     urls = "http://www.chinakaoyan.com"+site
                 else:
                     urls=site
-                yield Request(urls,callback=self.parse_inPage)
-            yield Request( "http://www.chinakaoyan.com/club/clubHome/clubId/214.shtml", callback=self.parse_mainPage )
+                yield Request(urls,callback=self.parse_inPage, dont_filter=True)
+            yield Request( "http://www.chinakaoyan.com/club/clubHome/clubId/214.shtml", callback=self.parse_mainPage, dont_filter=True)

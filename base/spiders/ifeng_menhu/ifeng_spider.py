@@ -137,10 +137,10 @@ class DmozSpider(scrapy.Spider):
             if re.match(self.r4,url)is None and re.match(self.r5,url) is None and re.match(self.r7,url) is None:
                 if re.match(self.r2, url):
                     if (self.bf.is_element_exist(url) == False):
-                        yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
+                        yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1, dont_filter=True)
 
                 else:
                     #with open('aa', 'ab') as f:
                      #f.write(url+'\n')
-                    yield scrapy.Request(url=url, callback=self.parse,priority=0)
-            yield scrapy.Request(url="http://www.ifeng.com", callback=self.parse,priority=0)
+                    yield scrapy.Request(url=url, callback=self.parse,priority=0, dont_filter=True)
+            yield scrapy.Request(url="http://www.ifeng.com", callback=self.parse,priority=0, dont_filter=True)

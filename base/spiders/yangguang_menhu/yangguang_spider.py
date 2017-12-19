@@ -102,9 +102,9 @@ class DmozSpider(scrapy.Spider):
                     """
                 for url in response.selector.xpath("//a/@href").re(self.r1):
                     if re.match(self.r2, url) is None and re.match(self.r3, url) is None and re.match(self.r4, url) is None:
-                            yield scrapy.Request(url=url, callback=self.parse,priority=0)
+                            yield scrapy.Request(url=url, callback=self.parse,priority=0, dont_filter=True)
                     else:
                         if (self.bf.is_element_exist(url) == False):
-                            yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
-                yield scrapy.Request(url='http://www.cnr.cn/', callback=self.parse,priority=0)
+                            yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1, dont_filter=True)
+                yield scrapy.Request(url='http://www.cnr.cn/', callback=self.parse,priority=0, dont_filter=True)
 

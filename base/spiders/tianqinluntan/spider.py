@@ -31,7 +31,7 @@ class TianqinluntanSpider(Spider):
 
     def start_requests(self):
         while 1:
-            yield Request(self.mainpage,callback=self.parse_mainPage)
+            yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
             time.sleep( 60 )
 
     def parse_inPage(self,response):
@@ -78,7 +78,7 @@ class TianqinluntanSpider(Spider):
                 t=response.url+t
             self.bf.insert_element(t)
             if(self.bf.is_element_exist(t)==False):
-                yield Request(t,callback=self.parse_inPage)
+                yield Request(t,callback=self.parse_inPage, dont_filter=True)
             else:
                 continue
 
@@ -99,7 +99,7 @@ class TianqinluntanSpider(Spider):
                 urls=site
             self.bf.insert_element(urls)
             if(self.bf.is_element_exist(urls)==False):
-                yield Request(urls,callback=self.parse_zhuye)
+                yield Request(urls,callback=self.parse_zhuye, dont_filter=True)
             else:
                 continue
 
@@ -113,4 +113,4 @@ class TianqinluntanSpider(Spider):
                     urls = "http://www.csbiji.com/"+site
                 else:
                     urls=site
-                yield Request(urls,callback=self.parse_zhuye)
+                yield Request(urls,callback=self.parse_zhuye, dont_filter=True)

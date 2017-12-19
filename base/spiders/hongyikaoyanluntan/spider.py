@@ -30,7 +30,7 @@ class HongyikaoyanluntanSpider(Spider):
         self.mainpage="http://www.hykaoyan.org/"
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage)
+        yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         sleep_time = random.random()
@@ -68,7 +68,7 @@ class HongyikaoyanluntanSpider(Spider):
         for t in response.selector.xpath("//a[@href]/@href").extract():
             if not t.startswith('http'):
                 t="http://www.hykaoyan.org/"+t
-            yield Request(t,callback=self.parse_inPage)
+            yield Request(t,callback=self.parse_inPage, dont_filter=True)
 
     def parse_mainPage(self,response):
         sel=Selector(response)
@@ -79,4 +79,4 @@ class HongyikaoyanluntanSpider(Spider):
                     urls = "http://www.hykaoyan.org"+site
                 else:
                     urls=site
-                yield Request(urls,callback=self.parse_inPage)
+                yield Request(urls,callback=self.parse_inPage, dont_filter=True)

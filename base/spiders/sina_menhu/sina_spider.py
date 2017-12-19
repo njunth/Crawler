@@ -99,11 +99,11 @@ class DmozSpider(scrapy.Spider):
             if re.match(self.r2, url) is None and re.match(self.r3, url) is None and re.match(self.r4, url) is None \
                     and re.match(self.r4, url) is None and re.match(self.r5, url) is None and re.match(self.r6, url) is None\
                     and re.match(self.r7, url) is None and re.match(self.r8, url) is None:
-                yield scrapy.Request(url=url, callback=self.parse, priority=0)
+                yield scrapy.Request(url=url, callback=self.parse, priority=0, dont_filter=True)
 
             else:
                 if re.match(self.r3, url) == None and re.match(self.r4, url) == None and re.match(self.r6, url) is None\
                     and re.match(self.r7, url) is None and re.match(self.r8, url) is None:
                     if (self.bf.is_element_exist(url) == False):
 
-                        yield scrapy.Request(url=url, callback=self.parse_inpage, priority=1)
+                        yield scrapy.Request(url=url, callback=self.parse_inpage, priority=1, dont_filter=True)

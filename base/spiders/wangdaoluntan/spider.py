@@ -34,7 +34,7 @@ class WangdaoluntanSpider(Spider):
         self.mainpage="http://www.cskaoyan.com/forum.php"
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage)
+        yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         sleep_time = random.random()
@@ -81,7 +81,7 @@ class WangdaoluntanSpider(Spider):
                 t=response.url+t
             self.bf.insert_element(t)
             if(self.bf.is_element_exist(t)==False):
-                yield Request(t,callback=self.parse_inPage)
+                yield Request(t,callback=self.parse_inPage, dont_filter=True)
             else:
                 continue
 
@@ -95,13 +95,13 @@ class WangdaoluntanSpider(Spider):
                 urls = "http://www.cskaoyan.com/"+site
             else:
                 urls=site
-            yield Request(urls,callback=self.parse_inPage)
+            yield Request(urls,callback=self.parse_inPage, dont_filter=True)
         for site in sites3:
             if not site.startswith('http'):
                 urls = "http://www.cskaoyan.com/"+site
             else:
                 urls=site
-            yield Request(urls,callback=self.parse_inPage)
+            yield Request(urls,callback=self.parse_inPage, dont_filter=True)
         for site in sites2:
             if not site.startswith('http'):
                 urls = "http://www.cskaoyan.com/"+site
@@ -109,7 +109,7 @@ class WangdaoluntanSpider(Spider):
                 urls=site
             self.bf.insert_element(urls)
             if(self.bf.is_element_exist(urls)==False):
-                yield Request(urls,callback=self.parse_zhuye)
+                yield Request(urls,callback=self.parse_zhuye, dont_filter=True)
             else:
                 continue
 
@@ -123,4 +123,4 @@ class WangdaoluntanSpider(Spider):
                     urls = "http://www.cskaoyan.com/"+site
                 else:
                     urls=site
-                yield Request(urls,callback=self.parse_zhuye)
+                yield Request(urls,callback=self.parse_zhuye, dont_filter=True)

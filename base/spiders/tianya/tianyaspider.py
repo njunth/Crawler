@@ -26,10 +26,10 @@ class Tianyaspider(scrapy.Spider):
         while 1:
             for url1 in response.selector.xpath("//li/div[@class='title']/a/@href").re(r'^http://bbs.tianya.*'):
                 #if (self.bf.is_element_exist(url1) == False):  # reduce a /
-                yield scrapy.Request(url=url1, callback=self.parse_inpage)
+                yield scrapy.Request(url=url1, callback=self.parse_inpage, dont_filter=True)
                 #else:
                     #continue
-            yield scrapy.Request(url="http://bbs.tianya.cn/", callback=self.parse)
+            yield scrapy.Request(url="http://bbs.tianya.cn/", callback=self.parse, dont_filter=True)
 
     def parse_inpage(self,response):
         sleep_time = random.random()

@@ -120,8 +120,8 @@ class DmozSpider(scrapy.Spider):
                     if (self.bf.is_element_exist(url) is False):
                         #with open('a', 'ab') as f:
                             #f.write(response.url + '::' + url + '\n')
-                        yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
+                        yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1, dont_filter=True)
 
                 else:
                     #print url+'\n'
-                        yield scrapy.Request(url=url, callback=self.parse, priority=0)
+                        yield scrapy.Request(url=url, callback=self.parse, priority=0, dont_filter=True)

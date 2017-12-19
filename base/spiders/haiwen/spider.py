@@ -18,10 +18,10 @@ class spider(scrapy.Spider):
 			urls = response.xpath("//ul[@class='con_l']//a[starts-with(@href,'http')]/@href  |  //ul[@class='con_r']//a[starts-with(@href,'http')]/@href   |   //div[@class='tab_box']//a[starts-with(@href,'http')]/@href").extract()
 			for url in urls:
 				if(self.bf.is_element_exist(url)==False):
-					yield Request(url,callback=self.parse_inPage)
+					yield Request(url,callback=self.parse_inPage, dont_filter=True)
 				else:
 					continue
-			yield Request("http://kaoyan.wanxue.cn",callback=self.parse)
+			yield Request("http://kaoyan.wanxue.cn",callback=self.parse, dont_filter=True)
 
 
 

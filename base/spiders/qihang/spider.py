@@ -22,10 +22,10 @@ class spider(scrapy.Spider):
 					urll = urllist.encode('utf-8')
 					urlc += urll
 				if(self.bf.is_element_exist(urlc)==False):
-					yield Request(urlc,callback=self.parse_inPage)
+					yield Request(urlc,callback=self.parse_inPage, dont_filter=True)
 				else:
 					continue
-			yield Request('http://www.qihang.com.cn',callback=self.parse)
+			yield Request('http://www.qihang.com.cn',callback=self.parse, dont_filter=True)
 
 
 	def parse_inPage(self,response):
@@ -84,7 +84,7 @@ class spider(scrapy.Spider):
 				urll = urllist.encode('utf-8')
 				urlc += urll
 			if (self.bf.is_element_exist(urlc) == False):
-				yield Request(urlc, callback=self.parse_inPage)
+				yield Request(urlc, callback=self.parse_inPage, dont_filter=True)
 
 			else:
 				continue

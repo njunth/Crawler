@@ -24,11 +24,11 @@ ROBOTSTXT_OBEY = True
 
 DOWNLOAD_DELAY = 2
 
-COOKIES_ENABLED = False
+# COOKIES_ENABLED = False
 
-DOWNLOAD_TIMEOUT = 20
-
-RETRY_ENABLED = False
+# DOWNLOAD_TIMEOUT = 20
+#
+# RETRY_ENABLED = False
 
 
 
@@ -73,12 +73,12 @@ RETRY_ENABLED = False
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
-# DOWNLOADER_MIDDLEWARES = {
-#          'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
-#          # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
-#          # 'base.downloaders.retry.RetryMiddleware': 500,
-#          'base.downloaders.proxy_middlewares.ProxyMiddleware':100
-#     }
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+         'base.downloaders.retry.RetryMiddleware': 500,
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+    }
 
 
 # Configure item pipelines

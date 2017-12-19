@@ -32,7 +32,7 @@ class KaoshibaSpider(Spider):
 
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage)
+        yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         sleep_time = random.random()
@@ -87,7 +87,7 @@ class KaoshibaSpider(Spider):
             if not t.startswith('http'):
                 t="http://www.exam8.com/xueli/kaoyan"+t
             if (self.bf.is_element_exist(t)==False):
-                yield Request(t,callback=self.parse_inPage)
+                yield Request(t,callback=self.parse_inPage, dont_filter=True)
             else:
                 continue
 
@@ -103,6 +103,6 @@ class KaoshibaSpider(Spider):
                 else:
                     urls=site
                 if((self.bf.is_element_exist(urls.encode('utf-8'))==False) and (str(urls)!='http://www.medkaoyan.net/') and(str(urls)!='http://www.medkaoyan.net') and(str(urls).find('javascript')==-1)):
-                    yield Request(urls,callback=self.parse_inPage)
+                    yield Request(urls,callback=self.parse_inPage, dont_filter=True)
                 else:
                     continue

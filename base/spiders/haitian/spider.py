@@ -19,10 +19,10 @@ class htkaoyan(scrapy.Spider):
 			# print urls
 			for url in urls:
 				if(self.bf.is_element_exist(url)==False):
-					yield Request(url,callback=self.parse_inPage)
+					yield Request(url,callback=self.parse_inPage, dont_filter=True)
 				else:
 					continue
-			yield Request( "http://www.htkaoyan.com", callback=self.parse )
+			yield Request( "http://www.htkaoyan.com", callback=self.parse, dont_filter=True)
 
 	def parse_inPage(self,response):
 		sleep_time = random.random()

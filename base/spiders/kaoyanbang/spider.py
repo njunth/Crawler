@@ -32,7 +32,7 @@ class KaoyanbangSpider(Spider):
 
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage)
+        yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         sleep_time = random.random()
@@ -76,7 +76,7 @@ class KaoyanbangSpider(Spider):
             if not t.startswith('http'):
                 t="http://www.kaoyan.com"+t
             if (self.bf.is_element_exist(t)==False):  # reduce a /
-                yield Request(t,callback=self.parse_inPage)
+                yield Request(t,callback=self.parse_inPage, dont_filter=True)
             else:
                 continue
 
@@ -91,7 +91,7 @@ class KaoyanbangSpider(Spider):
                     urls=site
                 # print urls
                 if(self.bf.is_element_exist(urls)==False):
-                    yield Request(urls,callback=self.parse_inPage)
+                    yield Request(urls,callback=self.parse_inPage, dont_filter=True)
                 else:
                     continue
-            yield Request( self.mainpage, callback=self.parse_mainPage )
+            yield Request( self.mainpage, callback=self.parse_mainPage, dont_filter=True)

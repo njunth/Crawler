@@ -18,7 +18,7 @@ class spider(scrapy.Spider):
 			urls = response.xpath("//li/a/@href|//div/a/@href|//td/a/@href").extract()
 			for url in urls:
 				if(self.bf.is_element_exist(url)==False):
-					yield Request(url,callback=self.parse_inPage)
+					yield Request(url,callback=self.parse_inPage, dont_filter=True)
 				else:
 					continue
 

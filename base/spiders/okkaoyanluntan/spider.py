@@ -30,7 +30,7 @@ class OkkaoyanluntanSpider(Spider):
 
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage)
+        yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         sleep_time = random.random()
@@ -71,7 +71,7 @@ class OkkaoyanluntanSpider(Spider):
         for t in response.selector.xpath("//a[@href]/@href").extract():
             if not t.startswith('http'):
                 t="http://bbs.okaoyan.com"+t
-            yield Request(t,callback=self.parse_inPage)
+            yield Request(t,callback=self.parse_inPage, dont_filter=True)
 
     def parse_mainPage(self,response):
         sel=Selector(response)
@@ -83,5 +83,5 @@ class OkkaoyanluntanSpider(Spider):
                 else:
                     urls=site
                 # print urls
-                yield Request(urls,callback=self.parse_inPage)
-            yield Request( self.mainpage, callback=self.parse_mainPage )
+                yield Request(urls,callback=self.parse_inPage, dont_filter=True)
+            yield Request( self.mainpage, callback=self.parse_mainPage, dont_filter=True )

@@ -53,7 +53,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
                 print keyword[1].decode('utf-8')
                 for i in range(1, 50):
                     url = url_p1 + key + url_p2 + str(i)
-                    yield Request(url=url,callback=self.parse_inPage)
+                    yield Request(url=url,callback=self.parse_inPage, dont_filter=True)
                     sleep_time = random.random()
                     print 5 * sleep_time
                     time.sleep( 5 * sleep_time )

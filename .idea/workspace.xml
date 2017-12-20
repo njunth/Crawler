@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="782425e8-1cb4-45e1-b426-98e0e79b2149" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/weibo/weibospider.py" afterPath="$PROJECT_DIR$/base/spiders/weibo/weibospider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scrapy.cfg" afterPath="$PROJECT_DIR$/scrapy.cfg" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -68,13 +67,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="weibospider.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="weibospider.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/base/spiders/weibo/weibospider.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="47" column="31" lean-forward="false" selection-start-line="47" selection-start-column="31" selection-end-line="47" selection-end-column="31" />
+            <state relative-caret-position="296">
+              <caret line="53" column="35" lean-forward="false" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
               <folding>
-                <marker date="1513759059464" expanded="true" signature="1557:1580" ph="SELECT * FRO... keyword_t" />
+                <marker date="1513774408148" expanded="true" signature="1557:1580" ph="SELECT * FRO... keyword_t" />
               </folding>
             </state>
           </provider>
@@ -102,7 +101,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="retry.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="retry.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/base/downloaders/retry.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="380">
@@ -535,7 +534,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="126" y="26" width="1734" height="936" extended-state="1" />
+    <frame x="126" y="26" width="1734" height="936" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -543,7 +543,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32961586" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14827995" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27757126" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27757126" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14294188" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291815" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -920,16 +920,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/weibo/weibospider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="47" column="31" lean-forward="false" selection-start-line="47" selection-start-column="31" selection-end-line="47" selection-end-column="31" />
-          <folding>
-            <marker date="1513759059464" expanded="true" signature="1557:1580" ph="SELECT * FRO... keyword_t" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base/spiders/xindongfang/spider.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="356">
@@ -944,6 +934,16 @@
           <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/spiders/weibo/weibospider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="53" column="35" lean-forward="false" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
+          <folding>
+            <marker date="1513774408148" expanded="true" signature="1557:1580" ph="SELECT * FRO... keyword_t" />
           </folding>
         </state>
       </provider>

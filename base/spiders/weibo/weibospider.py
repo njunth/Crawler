@@ -35,12 +35,22 @@ class WeiboSpider(Spider):
             sql = "SELECT * FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
-            for keyword in keywords[::-1]:
-                print keyword[1].decode('utf-8')
-                # print keyword
-                key = keyword[1]
-                for i in range(1, 50):
+            # for keyword in keywords[::-1]:
+            #     print keyword[1].decode('utf-8')
+            #     # print keyword
+            #     key = keyword[1]
+            #     for i in range(1, 20):
+            #         # print i
+            #         url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
+            #         yield scrapy.Request(url=url, callback=self.parse_search, headers=headers, dont_filter=True)
+            #         # print url
+            for i in range(20, 0, -1):
+                print "page: ",
+                print i
+                for keyword in keywords[::-1]:
                     # print i
+                    # print keyword[1].decode( 'utf-8' )
+                    # key = keyword[1]
                     url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
                     yield scrapy.Request(url=url, callback=self.parse_search, headers=headers, dont_filter=True)
                     # print url
@@ -50,8 +60,8 @@ class WeiboSpider(Spider):
 
     def parse_search(self, response):
         sleep_time = random.random()
-        print 5*sleep_time
-        time.sleep( 5*sleep_time )
+        print sleep_time
+        time.sleep( sleep_time )
         #print response.status
         #print str(response.text)
         keyword = str(response.url)

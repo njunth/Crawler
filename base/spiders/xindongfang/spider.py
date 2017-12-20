@@ -21,6 +21,7 @@ class spider(scrapy.Spider):
 					yield Request(url,callback=self.parse_inPage, dont_filter=True)
 				else:
 					continue
+			yield Request( "http://kaoyan.koolearn.com", callback=self.parse, dont_filter=True )
 
 	def parse_inPage(self,response):
 		sleep_time = random.random()

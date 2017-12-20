@@ -49,7 +49,7 @@ class WeiboSpider(Spider):
                 print i
                 for keyword in keywords[::-1]:
                     # print i
-                    # print keyword[1].decode( 'utf-8' )
+                    print keyword[1].decode( 'utf-8' )
                     key = keyword[1]
                     url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
                     yield scrapy.Request(url=url, callback=self.parse_search, headers=headers, dont_filter=True)

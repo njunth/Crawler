@@ -6,6 +6,7 @@ import scrapy
 import json
 import re
 import MySQLdb
+# import pymysql
 import time, random
 import datetime
 from base.configs.weibo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD
@@ -31,6 +32,7 @@ class WeiboSpider(Spider):
         url_p4 = '&page='
         urls = []
         while 1:
+            # db = pymysql.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             db = MySQLdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             cursor = db.cursor()
             sql = "SELECT * FROM keyword_t"
@@ -47,7 +49,7 @@ class WeiboSpider(Spider):
                     url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
                     yield scrapy.Request(url=url, callback=self.parse_search, headers=headers, dont_filter=True)
                     # print url
-            # db.close()
+            db.close()
             print "sleep 10s"
             time.sleep(10)
 

@@ -14,8 +14,8 @@ BOT_NAME = 'weibo'
 SPIDER_MODULES = ['base.spiders.weibo']
 NEWSPIDER_MODULE = 'base.spiders.weibo'
 
-MONGO_HOST = os.getenv("MONGO_HOST", "localhost")
-MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))
+MONGO_HOST = os.getenv("MONGO_HOST", "114.212.189.147")
+MONGO_PORT = (int)(os.getenv("MONGO_PORT", 10100))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Weibo'
 
@@ -23,7 +23,7 @@ MYSQL_HOST = os.getenv("MYSQL_HOST", "114.212.189.147")
 MYSQL_PORT = (int)(os.getenv("MYSQL_PORT", 10103))
 MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "woodpecker")
 MYSQL_USER = os.getenv("MYSQL_USER", "root")
-MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "123456")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "crawl_nju903")
 MYSQL_TABLE = 'keyword_t'
 
 LOG_LEVEL = 'INFO'
@@ -167,7 +167,7 @@ ROBOTSTXT_OBEY = True
 DOWNLOADER_MIDDLEWARES = {
          'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
          'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
-         'base.downloaders.retry.RetryMiddleware': 500,
+         'base.downloaders.weibo_retry.RetryMiddleware': 500,
          'base.downloaders.weibo_proxy_middlewares.ProxyMiddleware':100
     }
 

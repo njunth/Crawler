@@ -4,7 +4,8 @@ from scrapy.spiders import Spider
 import urllib
 import scrapy
 import json
-import re, MySQLdb
+import re
+import MySQLdb
 import time, random
 import datetime
 from base.configs.weibo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD
@@ -35,15 +36,6 @@ class WeiboSpider(Spider):
             sql = "SELECT * FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
-            # for keyword in keywords[::-1]:
-            #     print keyword[1].decode('utf-8')
-            #     # print keyword
-            #     key = keyword[1]
-            #     for i in range(1, 20):
-            #         # print i
-            #         url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
-            #         yield scrapy.Request(url=url, callback=self.parse_search, headers=headers, dont_filter=True)
-            #         # print url
             for i in range(20, 0, -1):
                 print "page: ",
                 print i
@@ -51,10 +43,11 @@ class WeiboSpider(Spider):
                     # print i
                     print keyword[1].decode( 'utf-8' )
                     key = keyword[1]
+                    # key = keyword.decode('utf-8')
                     url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
                     yield scrapy.Request(url=url, callback=self.parse_search, headers=headers, dont_filter=True)
                     # print url
-            db.close()
+            # db.close()
             print "sleep 10s"
             time.sleep(10)
 

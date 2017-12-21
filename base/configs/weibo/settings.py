@@ -19,8 +19,8 @@ MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Weibo'
 
-MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
-MYSQL_PORT = (int)(os.getenv("MYSQL_PORT", 3306))
+MYSQL_HOST = os.getenv("MYSQL_HOST", "114.212.189.147")
+MYSQL_PORT = (int)(os.getenv("MYSQL_PORT", 10103))
 MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "woodpecker")
 MYSQL_USER = os.getenv("MYSQL_USER", "root")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "123456")
@@ -164,9 +164,12 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'weibo.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+         'base.downloaders.retry.RetryMiddleware': 500,
+         'base.downloaders.weibo_proxy_middlewares.ProxyMiddleware':100
+    }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html

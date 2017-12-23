@@ -5,9 +5,11 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pymongo
-import time
+# import time
+import datetime
 from base.configs.weibo.settings import MONGO_HOST,MONGO_PORT,MONGODB_COLLECTION,MONGODB_DBNAME
 import sys
+import pytz
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -16,6 +18,7 @@ class WeiboPipeline(object):
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
         db = client[MONGODB_DBNAME]
         self.collection = db[MONGODB_COLLECTION]
+        self.tz = pytz.timezone('Asia/Shanghai')
         #self.collection.remove({})
 
     def process_item(self, item, spider):
@@ -36,7 +39,10 @@ class WeiboPipeline(object):
         #keyword = (unicode(keyword) + unicode(item['keyword']) + '_').encode('UTF-8')
         else:
             keyword = item['keyword']
-            createstr = time.strftime('%Y_%m_%d_%H_%M_%S',time.localtime(time.time()))
+            d = datetime.datetime.now(self.tz)
+            createstr = d.strftime('%Y_%m_%d_%H_%M_%S')
+            print createstr
+            # createstr = time.strftime('%Y_%m_%d_%H_%M_%S',time.localtime(time.time()))
         #print keyword
         self.collection.save({
             '_id': item['_id'],

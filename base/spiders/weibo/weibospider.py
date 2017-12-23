@@ -6,6 +6,7 @@ import scrapy
 import json
 import re
 import MySQLdb
+import pytz
 # import pymysql
 import time, random
 import datetime
@@ -31,6 +32,7 @@ class WeiboSpider(Spider):
         url_p3 = '&containerid=100103type%3D2%26q%3D'
         url_p4 = '&page='
         urls = []
+        self.tz = pytz.timezone('Asia/Shanghai')
         while 1:
             # db = pymysql.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             db = MySQLdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
@@ -79,7 +81,8 @@ class WeiboSpider(Spider):
                 item['keyword'] = unicode(keyword)
                 timestr = str(key['mblog']['created_at'])
                 # print timestr
-                d = datetime.datetime.now()
+                d = datetime.datetime.now(self.tz)
+                # print d
                 if '分钟' in timestr:
                     minute = int(timestr[0:timestr.index('分钟')])
                     delta = datetime.timedelta(minutes=minute)

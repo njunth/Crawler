@@ -3,7 +3,8 @@ from scrapy.spider import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.chinakaoyan.items import ChinakaoyanItem
-from base.items.chinakaoyan.bloomfliter import BloomFilter
+# from base.items.chinakaoyan.bloomfliter import BloomFilter
+from base.items.Bloomfilter import BloomFilter
 from datetime import datetime
 import os, random, time
 import re
@@ -27,7 +28,7 @@ class ChinakaoyanSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
 
-        self.bf=BloomFilter(0.0001,100000)
+        self.bf=BloomFilter()
         self.mainpage="http://www.chinakaoyan.com/info/main/ClassID/2.shtml"
 
 
@@ -36,9 +37,6 @@ class ChinakaoyanSpider(Spider):
 
     def parse_inPage(self,response):
         r1 = '.*/info/article/id.*'
-        sleep_time = random.random()
-        print sleep_time
-        time.sleep( sleep_time )
         url = response.url
         self.bf.insert_element(url)
         item =ChinakaoyanItem()
@@ -57,7 +55,7 @@ class ChinakaoyanSpider(Spider):
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0
                 time_str=response.selector.xpath("//div[@class='time']/text()").extract()[0]
-                print 111
+                # print 111
                 try:
                     time_str1 = re.search(r'\d{4}-\d+-\d+',time_str).group(0)
                     item['time'] =time_str1.replace('-','_').replace(' ','_').replace(':','_')
@@ -91,6 +89,9 @@ class ChinakaoyanSpider(Spider):
                 # print urls
                 if(self.bf.is_element_exist(urls)==False):
                     yield Request(urls,callback=self.parse_inPage, dont_filter=True)
+                    sleep_time = random.random()
+                    print sleep_time
+                    time.sleep(sleep_time)
                 else:
                     continue
             yield Request('http://www.chinakaoyan.com/info/main/ClassID/2.shtml', callback=self.parse_mainPage, dont_filter=True)

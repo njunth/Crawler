@@ -121,11 +121,11 @@ MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Baidutiebaquanbasousuo'
 
-MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
-MYSQL_PORT = (int)(os.getenv("MYSQL_PORT", 3306))
+MYSQL_HOST = os.getenv("MYSQL_HOST", "114.212.189.147")
+MYSQL_PORT = (int)(os.getenv("MYSQL_PORT", 10103))
 MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "woodpecker")
 MYSQL_USER = os.getenv("MYSQL_USER", "root")
-MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "123456")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "crawl_nju903")
 MYSQL_TABLE = 'keyword_t'
 
 # Enable and configure the AutoThrottle extension (disabled by default)

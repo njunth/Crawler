@@ -4,29 +4,34 @@ import scrapy
 from base.items.zhuoyue.items import ZhuoyueItem
 from scrapy.http import Request
 import datetime, random, time
-from base.items.zhuoyue.BloomFilter import BloomFilter
+from base.items.Bloomfilter import BloomFilter
 
 class spider(scrapy.Spider):
 	name="spider"
 	allowed_domains=["www.zhuoyuekaoyan.com"]
 
 	start_urls=["http://www.zhuoyuekaoyan.com"]
+	headers = {
+		'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
+	}
 
 
 	def parse(self,response):
-		self.bf=BloomFilter(0.0001, 1000000)
+		self.bf = BloomFilter()
 		while 1:
 			urls = response.xpath("//*/a/@href").extract()
 			for url in urls:
 				urlc = 'http://www.zhuoyuekaoyan.com'
-				for urllist in url:
-					urll = urllist.encode('utf-8')
-					urlc += urll
+				if not url.startswith('http'):
+					for urllist in url:
+						urll = urllist.encode('utf-8')
+						urlc += urll
+				print urlc
 				if(self.bf.is_element_exist(urlc)==False):
 					yield Request(urlc,callback=self.parse_inPage, dont_filter=True)
 				else:
 					continue
-			yield Request("http://www.zhuoyuekaoyan.com", callback=self.parse, dont_filter=True)
+			yield Request("http://www.zhuoyuekaoyan.com", callback=self.parse, headers = headers, dont_filter=True)
 
 
 	def parse_inPage(self,response):

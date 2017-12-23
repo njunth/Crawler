@@ -4,7 +4,7 @@ from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.baidutiebaquanbasousuo.items import BaidutiebaquanbasousuoItem
 from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
-from base.configs.weibo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD
+from base.configs.baidutiebaquanbasousuo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD
 
 from datetime import datetime
 import os, random, time
@@ -37,6 +37,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
         url_p1 = 'http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw='
         url_p2 = '&rn=10&un=&only_thread=0&sm=1&sd=&ed=&pn='
         while 1:
+            print MYSQL_HOST
             db = MySQLdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             cursor = db.cursor()
             sql = "SELECT DISTINCT * FROM keyword_t"

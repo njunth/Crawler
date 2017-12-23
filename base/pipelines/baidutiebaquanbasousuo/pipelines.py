@@ -8,7 +8,8 @@
 import pymongo
 # from scrapy.conf import settings
 from base.configs.baidutiebaquanbasousuo.settings import MONGODB_HOST, MONGODB_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
-from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
+# from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
+from base.items.Bloomfilter import BloomFilter
 import os
 import sys
 import re
@@ -20,7 +21,7 @@ class MongoDBPipeline(object):
     # def process_item(self, item, spider):
     #     return item
     def __init__(self):
-        self.bf=BloomFilter(0.0001,100000)
+        self.bf=BloomFilter()
         port = MONGODB_PORT
         host = MONGODB_HOST
         db_name = MONGODB_DBNAME

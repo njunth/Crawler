@@ -19,13 +19,10 @@ class DmozSpider(scrapy.Spider):
 
     def parse_inpage(self, response):
         url = response.url
-        #print url
-        sleep_time = random.random()
-        print 5*sleep_time
-        time.sleep( 5*sleep_time )
+        print url
         if re.match(self.r2, url) or re.match(self.r3, url)or re.match(self.r4, url):
             try:
-                print url
+                # print url
                 self.bf.insert_element(url)
                 #print "aaaaaaa!!!!!!!@*#()@_______"
                 #for sel in response:
@@ -59,7 +56,7 @@ class DmozSpider(scrapy.Spider):
                 item['content'] = ''.join(item['content'])
 
 
-                time_item = []
+                # time_item = []
                 publish_time = response.xpath("//body//div[@class='source']/span/text()").extract()[0]
                 #time1 = response.xpath("//body//div[@class='source']/span").extract()
                 # time1 = response.xpath("//head/meta[@property='article:published_time']//@content").extract()[1]
@@ -69,7 +66,7 @@ class DmozSpider(scrapy.Spider):
                 #print time1
                 #print '/n'
 
-                time_item.append(publish_time[0:4])
+                time_item = publish_time[0:4]
                 time_item += '_'
                 time_item += publish_time[5:7]
                 time_item += '_'
@@ -78,7 +75,13 @@ class DmozSpider(scrapy.Spider):
                 time_item += publish_time[11:13]
                 time_item += '_'
                 time_item += publish_time[14:16]
-                time_item = ''.join(time_item)
+                # time_item = ''.join(time_item)
+                if len(time_item) == 16:
+                    time_item += '_00'
+                if len(time_item) == 17:
+                    time_item += '00'
+                if len(time_item) == 18:
+                    time_item += '0'
                 item['time'] = time_item
 
                 item['sentiment'] = 0
@@ -101,10 +104,14 @@ class DmozSpider(scrapy.Spider):
                     f.write('\n')
                     """
                 for url in response.selector.xpath("//a/@href").re(self.r1):
+                    print url
                     if re.match(self.r2, url) is None and re.match(self.r3, url) is None and re.match(self.r4, url) is None:
                             yield scrapy.Request(url=url, callback=self.parse,priority=0, dont_filter=True)
                     else:
                         if (self.bf.is_element_exist(url) == False):
                             yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1, dont_filter=True)
+                    sleep_time = random.random()
+                    print 5 * sleep_time
+                    time.sleep(5 * sleep_time)
                 yield scrapy.Request(url='http://www.cnr.cn/', callback=self.parse,priority=0, dont_filter=True)
 

@@ -62,7 +62,7 @@ class DmozSpider(scrapy.Spider):
                 item['source'] = "腾讯网"
                 item['source_url'] = "http://www.qq.com/"
 
-                time_item = []
+                # time_item = []
                 try:
                     publish_time = response.xpath("//span[@class='article-time']/text()").extract()[0]
                 except:
@@ -82,7 +82,7 @@ class DmozSpider(scrapy.Spider):
                 #print publish_time
                 # print '\n'
                 #print url
-                time_item.append(publish_time[0:4])
+                time_item = publish_time[0:4]
                 #print time_item
                 time_item += '_'
                 time_item += publish_time[5:7]
@@ -90,12 +90,16 @@ class DmozSpider(scrapy.Spider):
                 time_item += publish_time[8:10]
                 time_item += '_'
                 time_item += publish_time[11:13]
-
                 time_item += '_'
                 time_item += publish_time[14:16]
-                time_item = ''.join(time_item)
+                # time_item = ''.join(time_item)
+                if len(time_item) == 16:
+                    time_item += '_00'
+                if len(time_item) == 17:
+                    time_item += '00'
+                if len(time_item) == 18:
+                    time_item += '0'
                 item['time'] = time_item
-
                 item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
                 if item['content']:
                     yield item

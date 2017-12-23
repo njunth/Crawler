@@ -23,6 +23,7 @@ LOG_LEVEL = 'INFO'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+DEPTH_LIMIT=10
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 

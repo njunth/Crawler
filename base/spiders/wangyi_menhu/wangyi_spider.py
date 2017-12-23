@@ -28,9 +28,6 @@ class DmozSpider(scrapy.Spider):
         self.bf.insert_element(url)
         item = WangyiScrapyItem()
         print url
-        sleep_time = random.random()
-        print sleep_time
-        time.sleep( sleep_time )
         try:
             if re.match(self.r2, url):
                 # with open('aaaaa', 'ab') as f:
@@ -39,14 +36,17 @@ class DmozSpider(scrapy.Spider):
                 # print '\n'
                 # print "aaaaaaa!!!!!!!@*#()@_______"
                 # for sel in response:
+                # print 1111
                 item['title'] = response.xpath("//head/title/text()").extract()[0]
                 # name= item['name']
                 item['content'] = response.xpath(
                     "//div[@class='post_content_main']//div[@id='endText']//p/text()").extract()
                 item['content'] = ''.join(item['content'])
+                # print item['content']
                 if item['content']:
                     # with open('aaaaa', 'ab') as f:
                     # f.write(url+'\n')
+                    # print 2222
                     item['sentiment'] = 0
                     item['attention'] = 0
                     item['url'] = url
@@ -64,14 +64,13 @@ class DmozSpider(scrapy.Spider):
                         utfcontent = con.encode('utf-8')
                         item['html'] += utfcontent
 
-                    time_item = []
                     publish_time = response.xpath("//*[@class='post_time_source']/text()").extract()
                     # time1 = response.xpath("//head/meta[@property='article:published_time']//@content").extract()[1]
                     publish_time = ''.join(publish_time)
                     publish_time = re.sub(r'\s', '', publish_time)
-                    # print time
+                    # print publish_time
                     # print "\naaaaaaaaaaa\n"
-                    time_item.append(publish_time[0:4])
+                    time_item = publish_time[0:4]
                     time_item += '_'
 
                     time_item += publish_time[5:7]
@@ -81,8 +80,13 @@ class DmozSpider(scrapy.Spider):
                     time_item += publish_time[10:12]
                     time_item += '_'
                     time_item += publish_time[13:15]
-
-                    time_item = ''.join(time_item)
+                    if len(time_item) == 16:
+                        time_item += '_00'
+                    if len(time_item) == 17:
+                        time_item += '00'
+                    if len(time_item) == 18:
+                        time_item += '0'
+                    # time_item = ''.join(time_item)
                     item['time'] = time_item
                     item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
                     # print name
@@ -105,4 +109,7 @@ class DmozSpider(scrapy.Spider):
                 if re.match(self.r3, url) == None and re.match(self.r4, url) == None:
                     if (self.bf.is_element_exist(url) == False):
                         yield scrapy.Request(url=url, callback=self.parse_inpage, priority=1, dont_filter=True)
+            sleep_time = random.random()
+            print sleep_time
+            time.sleep(sleep_time)
         yield scrapy.Request( url="http://www.163.com/", callback=self.parse, priority=0, dont_filter=True )

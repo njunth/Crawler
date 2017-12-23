@@ -73,7 +73,7 @@ class DmozSpider(scrapy.Spider):
                 item['source'] = u"凤凰网"
                 item['source_url'] = "http://www.ifeng.com/"
 
-                time_item = []
+                # time_item = ''
                 publish_time = response.xpath("normalize-space(//p[@class='p_time']//span/text())").extract()[0]
                 if len(publish_time) == 0:
                     publish_time = response.xpath("normalize-space(//div[@class='titL']//span/text())").extract()[0]
@@ -84,7 +84,7 @@ class DmozSpider(scrapy.Spider):
                         publish_time = response.xpath("normalize-space(//div[@class='cont']//span/text())").extract()[0]
                         if re.match("^[0-9]",publish_time) is None:
                             publish_time = response.xpath("normalize-space(//div[@id='title']/p/span[2]/text())").extract()[0]
-                        time_item.append(publish_time[0:4])
+                        time_item = publish_time[0:4]
                         time_item += '_'
                         time_item += publish_time[5:7]
                         time_item += '_'
@@ -93,12 +93,18 @@ class DmozSpider(scrapy.Spider):
                         time_item += publish_time[11:13]
                         time_item += '_'
                         time_item += publish_time[14:16]
-                        time_item = ''.join(time_item)
+                        # time_item = ''.join(time_item)
+                        if len(time_item) == 16:
+                            time_item += '_00'
+                        if len(time_item) == 17:
+                            time_item += '00'
+                        if len(time_item) == 18:
+                            time_item += '0'
                         item['time'] = time_item
                 else:
                 #print time
                 # print '\n'
-                    time_item.append(publish_time[0:4])
+                    time_item = publish_time[0:4]
                     time_item += '_'
                     time_item += publish_time[5:7]
                     time_item += '_'
@@ -107,7 +113,13 @@ class DmozSpider(scrapy.Spider):
                     time_item += publish_time[12:14]
                     time_item += '_'
                     time_item += publish_time[15:17]
-                    time_item = ''.join(time_item)
+                    # time_item = ''.join(time_item)
+                    if len(time_item) == 16:
+                        time_item += '_00'
+                    if len(time_item) == 17:
+                        time_item += '00'
+                    if len(time_item) == 18:
+                        time_item += '0'
                     item['time'] = time_item
 
                 item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')

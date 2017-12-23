@@ -25,9 +25,11 @@ class WeiboPipeline(object):
         #print res
         keyword = ''
         createstr = ''
+        timestr = ''
         if res != None:
             keywords = res['keyword']
             createstr = res['create_time']
+            timestr = res['time']
             keyset = set(keywords.split('_'))
             if item['keyword'] not in keyset:
                 keyword = keywords + '_' + item['keyword']
@@ -37,6 +39,7 @@ class WeiboPipeline(object):
         else:
             keyword = item['keyword']
             createstr = time.strftime('%Y_%m_%d_%H_%M_%S',time.localtime(time.time()))
+            timestr = item['time']
         #print keyword
         self.collection.save({
             '_id': item['_id'],
@@ -49,7 +52,7 @@ class WeiboPipeline(object):
             'sentiment': '0',
             #'keyword': item['keyword'],
             'keyword' : keyword,
-            'time': item['time'],
+            'time': timestr,
             'url': item['url'],
             'authid': item['authid'],
             'create_time': createstr

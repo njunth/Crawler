@@ -14,8 +14,8 @@ BOT_NAME = 'weibo'
 SPIDER_MODULES = ['base.spiders.weibo']
 NEWSPIDER_MODULE = 'base.spiders.weibo'
 
-MONGO_HOST = os.getenv("MONGO_HOST", "114.212.189.147")
-MONGO_PORT = (int)(os.getenv("MONGO_PORT", 10100))
+MONGO_HOST = os.getenv("MONGO_HOST", "localhost")
+MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = 'Weibo'
 
@@ -164,12 +164,12 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#          'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
-#          'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
-#          'base.downloaders.weibo_retry.RetryMiddleware': 500,
-#          'base.downloaders.weibo_proxy_middlewares.ProxyMiddleware':100
-#     }
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+         'base.downloaders.weibo_retry.RetryMiddleware': 500,
+         'base.downloaders.weibo_proxy_middlewares.ProxyMiddleware':100
+    }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html

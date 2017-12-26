@@ -4,7 +4,8 @@ import scrapy
 from base.items.zhuoyue.items import ZhuoyueItem
 from scrapy.http import Request
 import datetime, random, time
-from base.items.Bloomfilter import BloomFilter
+from base.items.zhuoyue.BloomFilter import BloomFilter
+# from base.items.Bloomfilter import BloomFilter
 
 class spider(scrapy.Spider):
 	name="spider"
@@ -17,7 +18,7 @@ class spider(scrapy.Spider):
 
 
 	def parse(self,response):
-		self.bf = BloomFilter()
+		self.bf = BloomFilter(0.0001,100000)
 		while 1:
 			urls = response.xpath("//*/a/@href").extract()
 			for url in urls:
@@ -26,18 +27,18 @@ class spider(scrapy.Spider):
 					for urllist in url:
 						urll = urllist.encode('utf-8')
 						urlc += urll
-				print urlc
+				# print urlc
 				if(self.bf.is_element_exist(urlc)==False):
 					yield Request(urlc,callback=self.parse_inPage, dont_filter=True)
 				else:
 					continue
-			yield Request("http://www.zhuoyuekaoyan.com", callback=self.parse, headers = headers, dont_filter=True)
+				sleep_time = random.random()
+				print sleep_time
+				time.sleep( sleep_time )
+			yield Request("http://www.zhuoyuekaoyan.com", callback=self.parse, dont_filter=True)
 
 
 	def parse_inPage(self,response):
-		sleep_time = random.random()
-		print sleep_time
-		time.sleep( sleep_time )
 		item=ZhuoyueItem()
 		item['title'] = ''
 		item['source'] = "卓越考研"

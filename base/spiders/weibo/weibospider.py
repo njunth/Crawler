@@ -50,15 +50,15 @@ class WeiboSpider(Spider):
                     # key = keyword.decode('utf-8')
                     url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
                     yield scrapy.Request(url=url, callback=self.parse_search, headers=headers, dont_filter=True)
+                    sleep_time = random.random()
+                    print sleep_time
+                    time.sleep( sleep_time )
                     # print url
             db.close()
             print "sleep 10s"
             time.sleep(10)
 
     def parse_search(self, response):
-        sleep_time = random.random()
-        print sleep_time
-        time.sleep( sleep_time )
         #print response.status
         #print str(response.text)
         keyword = str(response.url)

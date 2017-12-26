@@ -3,8 +3,8 @@ from scrapy.spider import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.chinakaoyan.items import ChinakaoyanItem
-# from base.items.chinakaoyan.bloomfliter import BloomFilter
-from base.items.Bloomfilter import BloomFilter
+from base.items.chinakaoyan.bloomfliter import BloomFilter
+# from base.items.Bloomfilter import BloomFilter
 from datetime import datetime
 import os, random, time
 import re
@@ -28,7 +28,7 @@ class ChinakaoyanSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
 
-        self.bf=BloomFilter()
+        self.bf=BloomFilter(0.0001,100000)
         self.mainpage="http://www.chinakaoyan.com/info/main/ClassID/2.shtml"
 
 

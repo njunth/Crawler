@@ -37,6 +37,7 @@ class ProxyMiddleware(object):
         proxy_user_pass = "dailaoshi:D9xvyfrgPwqBx39u"
         encoded_user_pass = base64.encodestring(proxy_user_pass)
         request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass
+        print request.meta['proxy']
 
         # if request.meta.get('change_proxy', False):
         #     self.proxy = self.update_proxy()

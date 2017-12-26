@@ -27,6 +27,7 @@ class WeiboPipeline(object):
         createstr = ''
         timestr = ''
         if res != None:
+            print "update"
             keywords = res['keyword']
             createstr = res['create_time']
             timestr = res['time']
@@ -37,24 +38,25 @@ class WeiboPipeline(object):
                 keyword = keywords
         #keyword = (unicode(keyword) + unicode(item['keyword']) + '_').encode('UTF-8')
         else:
+            print "new data"
             keyword = item['keyword']
             createstr = time.strftime('%Y_%m_%d_%H_%M_%S',time.localtime(time.time()))
             timestr = item['time']
         #print keyword
-        self.collection.save({
-            '_id': item['_id'],
-            'content': item['content'],
-            'source': "新浪微博",
-            'n_forward': item['n_forward'],
-            'n_comment': item['n_comment'],
-            'n_like': item['n_like'],
-            'attention': '0',
-            'sentiment': '0',
-            #'keyword': item['keyword'],
-            'keyword' : keyword,
-            'time': timestr,
-            'url': item['url'],
-            'authid': item['authid'],
-            'create_time': createstr
-        })
+        # self.collection.save({
+        #     '_id': item['_id'],
+        #     'content': item['content'],
+        #     'source': "新浪微博",
+        #     'n_forward': item['n_forward'],
+        #     'n_comment': item['n_comment'],
+        #     'n_like': item['n_like'],
+        #     'attention': '0',
+        #     'sentiment': '0',
+        #     #'keyword': item['keyword'],
+        #     'keyword' : keyword,
+        #     'time': timestr,
+        #     'url': item['url'],
+        #     'authid': item['authid'],
+        #     'create_time': createstr
+        # })
         return item

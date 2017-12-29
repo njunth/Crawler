@@ -1,5 +1,7 @@
 FROM registry.njuics.cn/library/scrapy:latest
 
+RUN echo "http://mirrors.aliyun.com/alpine/v3.7/main/" > /etc/apk/repositories
+
 # Install ssh and git
 RUN apk --update add openssh git mariadb-dev mariadb-client mariadb-libs
 

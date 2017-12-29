@@ -4,7 +4,9 @@ import scrapy
 from base.items.haiwen.items import HaiwenItem
 from scrapy.http import Request
 import datetime, random, time
-from base.items.haiwen.BloomFilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
+# from base.items.haiwen.BloomFilter import BloomFilter
 
 class spider(scrapy.Spider):
 	name="spider"
@@ -12,16 +14,23 @@ class spider(scrapy.Spider):
 
 	start_urls=["http://kaoyan.wanxue.cn"]
 
-	def parse(self,response):
-		self.bf=BloomFilter(0.0001,1000000)
+	def start_requests(self):
 		while 1:
-			urls = response.xpath("//ul[@class='con_l']//a[starts-with(@href,'http')]/@href  |  //ul[@class='con_r']//a[starts-with(@href,'http')]/@href   |   //div[@class='tab_box']//a[starts-with(@href,'http')]/@href").extract()
-			for url in urls:
-				if(self.bf.is_element_exist(url)==False):
-					yield Request(url,callback=self.parse_inPage, dont_filter=True)
-				else:
-					continue
-			yield Request("http://kaoyan.wanxue.cn",callback=self.parse, dont_filter=True)
+			yield Request( "http://kaoyan.wanxue.cn", callback=self.parse, dont_filter=True )
+			# time.sleep( 10 )
+
+	def parse(self,response):
+		self.bf=pyreBloom.pyreBloom('haiwen', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+		# while 1:
+		urls = response.xpath("//ul[@class='con_l']//a[starts-with(@href,'http')]/@href  |  //ul[@class='con_r']//a[starts-with(@href,'http')]/@href   |   //div[@class='tab_box']//a[starts-with(@href,'http')]/@href").extract()
+		for url in urls:
+			if(self.bf.contains(url)==False):
+				print url
+				yield Request(url,callback=self.parse_inPage, dont_filter=True)
+			else:
+				continue
+		print "finish"
+			# yield Request("http://kaoyan.wanxue.cn",callback=self.parse, dont_filter=True)
 
 
 
@@ -42,7 +51,7 @@ class spider(scrapy.Spider):
 		item['create_time']= datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
 		contentlist = response.xpath("//html").extract()
 
-		self.bf.insert_element(response.url)
+		self.bf.extend(response.url)
 
 		for con in contentlist:
 			utfcontent = con.encode('utf-8')

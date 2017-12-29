@@ -19,17 +19,19 @@ class Tianyaspider(scrapy.Spider):
 
     #bf = BloomFilter(0.1, 10)
 
-    def parse(self,response):
-
-        #item = Tianyav2Item()
-        #self.bf = BloomFilter(0.0001, 1000000)
+    def start_requests(self):
         while 1:
+            yield scrapy.Request(url="http://bbs.tianya.cn/", callback=self.parse, dont_filter=True)
+
+
+    def parse(self,response):
+        # while 1:
+        if 1==1:
             for url1 in response.selector.xpath("//li/div[@class='title']/a/@href").re(r'^http://bbs.tianya.*'):
                 #if (self.bf.is_element_exist(url1) == False):  # reduce a /
                 yield scrapy.Request(url=url1, callback=self.parse_inpage, dont_filter=True)
                 #else:
                     #continue
-            yield scrapy.Request(url="http://bbs.tianya.cn/", callback=self.parse, dont_filter=True)
 
     def parse_inpage(self,response):
         sleep_time = random.random()

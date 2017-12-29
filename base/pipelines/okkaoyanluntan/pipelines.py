@@ -8,7 +8,9 @@
 import pymongo
 # from scrapy.conf import settings
 from base.configs.okkaoyanluntan.settings import MONGODB_HOST, MONGODB_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
-from base.items.okkaoyanluntan.bloomfliter import BloomFilter
+# from base.items.okkaoyanluntan.bloomfliter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 import os
 import sys
 import re
@@ -19,7 +21,7 @@ class MongoDBPipeline(object):
     # def process_item(self, item, spider):
     #     return item
     def __init__(self):
-        self.bf=BloomFilter(0.0001,100000)
+        self.bf=pyreBloom.pyreBloom('okkaoyanluntan', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         port = MONGODB_PORT
         host = MONGODB_HOST
         db_name = MONGODB_DBNAME
@@ -60,8 +62,8 @@ class MongoDBPipeline(object):
             time_=item['time'][i]
             authid_=item['authid'][ii]
             njudata=dict({'create_time':item['create_time'],'source':item['source'],'source_url':item['source_url'],'url':item['url'],'html':item['html'],'n_click':item['n_click'],'n_reply':item['n_reply'],'content':str(t),'title':item['title'],'attention':item['attention'],'time':time_,'authid':authid_,'sentiment':item['sentiment']})
-            if(self.bf.is_element_exist(str(item['time'][i])+str(item['authid'][i]))==False):
-                self.bf.insert_element(str(item['time'][i])+str(item['authid'][i]))
+            if(self.bf.contains(str(item['time'][i])+str(item['authid'][i]))==False):
+                self.bf.extend(str(item['time'][i])+str(item['authid'][i]))
                 self.post.insert(njudata)
             i = i + 1
             ii = ii + 1

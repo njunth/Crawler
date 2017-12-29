@@ -8,7 +8,9 @@ import pymongo
 # from scrapy.conf import settings
 from base.configs.tianya.settings import MONGO_HOST, MONGO_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
 from scrapy.exceptions import DropItem
-from base.items.tianya.BloomFilter import BloomFilter
+# from base.items.tianya.BloomFilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 import re
 
 import datetime
@@ -16,7 +18,7 @@ import datetime
 class Tianyav2Pipeline(object):
     def __init__(self):
             # 链接数据库
-        self.bf = BloomFilter(0.0001, 100000)
+        self.bf = pyreBloom.pyreBloom('tianyaluntan', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
             # 数据库登录需要帐号密码的话
             # self.client.admin.authenticate(settings['MINGO_USER'], settings['MONGO_PSW'])
@@ -82,8 +84,8 @@ class Tianyav2Pipeline(object):
                      'title': item['title'],'create_time':item['create_time']})
                 # self.collection.insert(njudata)
                 data = dict({'t': time_, 'au': authid_})
-                if (self.bf.is_element_exist(str(data)) == False):
-                    self.bf.insert_element(str(data))
+                if (self.bf.contains(str(data)) == False):
+                    self.bf.extend(str(data))
                     self.collection.insert(njudata)
 
 

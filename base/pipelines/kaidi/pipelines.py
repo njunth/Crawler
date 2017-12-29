@@ -11,11 +11,14 @@ from base.configs.kaidi.settings import MONGO_HOST, MONGO_PORT, MONGODB_DBNAME, 
 from scrapy.exceptions import DropItem
 import os
 import re
-from base.items.kaidi.bloomfilter import BloomFilter
+# from base.items.kaidi.bloomfilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
+
 
 class TencentPipeline(object):
     def __init__(self):
-        self.bf = BloomFilter(0.0001, 100000)
+        self.bf = pyreBloom.pyreBloom( 'kaidi', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
         # 数据库登录需要帐号密码的话
         # self.client.admin.authenticate(settings['MINGO_USER'], settings['MONGO_PSW'])
@@ -89,8 +92,8 @@ class TencentPipeline(object):
 
 
             data = dict({'t': item['testtime'], 'au': item['authid'][0]})
-            if (self.bf.is_element_exist(str(data)) == False):
-                self.bf.insert_element(str(data))
+            if (self.bf.contains(str(data)) == False):
+                self.bf.extend(str(data))
                 self.collection.insert(njudata)
 
 
@@ -113,8 +116,8 @@ class TencentPipeline(object):
                 ii = ii + 1
 
                 data = dict({'t': time_, 'au': authid_})
-                if (self.bf.is_element_exist(str(data)) == False):
-                    self.bf.insert_element(str(data))
+                if (self.bf.contains(str(data)) == False):
+                    self.bf.extend(str(data))
                     self.collection.insert(njudata)
                 #self.collection.insert(dict(njudata))
 

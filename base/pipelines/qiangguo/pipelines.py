@@ -11,14 +11,16 @@ from base.configs.qiangguo.settings import MONGO_HOST, MONGO_PORT, MONGODB_DBNAM
 from scrapy.exceptions import DropItem
 import os
 import re
-from base.items.qiangguo.bloomfilter import BloomFilter
+# from base.items.qiangguo.bloomfilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 import datetime
 
 
 class QiangguoPipeline(object):
     def __init__(self):
 
-        self.bf = BloomFilter(0.0001, 100000)
+        self.bf = pyreBloom.pyreBloom('qiangguo', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
         # 数据库登录需要帐号密码的话
         # self.client.admin.authenticate(settings['MINGO_USER'], settings['MONGO_PSW'])
@@ -101,8 +103,8 @@ class QiangguoPipeline(object):
                  'title': item['title'], 'create_time': item['create_time']})
 
             data = dict({'t': item['time'][0], 'au': item['authid'][0]})
-            if (self.bf.is_element_exist(str(data)) == False):
-                self.bf.insert_element(str(data))
+            if (self.bf.contains(str(data)) == False):
+                self.bf.extend(str(data))
                 self.collection.insert(njudata)
 
             i = 1
@@ -123,8 +125,8 @@ class QiangguoPipeline(object):
                 ii = ii + 1
 
                 data = dict({'t': time_, 'au': authid_})
-                if (self.bf.is_element_exist(str(data)) == False):
-                    self.bf.insert_element(str(data))
+                if (self.bf.contains(str(data)) == False):
+                    self.bf.extend(str(data))
                     self.collection.insert(njudata)
                     self.collection.insert(dict(njudata))
 

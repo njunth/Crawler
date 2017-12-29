@@ -4,7 +4,7 @@ from base.items.kaidi.items import KaidiItem
 import re
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
-from base.items.kaidi.bloomfilter import BloomFilter
+# from base.items.kaidi.bloomfilter import BloomFilter
 import datetime, random, time
 
 class KdSpider(scrapy.Spider):
@@ -15,20 +15,23 @@ class KdSpider(scrapy.Spider):
     start_urls = {
         "http://club.kdnet.net/index.asp"
     }
+    # bf = pyreBloom.pyreBloom( 'kaicheng', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
 
-    bf = BloomFilter(0.0001, 100000)
+    def start_requests(self):
+        while 1:
+            yield scrapy.Request( url="http://club.kdnet.net/index.asp", callback=self.parse, dont_filter=True )
 
 
     def parse(self,response):
-
-        while 1:
+        # while 1:
+        if 1==1:
             for url1 in response.selector.xpath("//a/@href").re(r'^http://club.kdnet.net.*.id=[0-9.]*'):
                 # yield scrapy.Request(url=url1, callback=self.parse)
             #if (self.bf.is_element_exist(url1) == False):  # reduce a /
                 yield scrapy.Request(url=url1, callback=self.parse_inpage, dont_filter=True)
             #else:
              #   continue
-            yield scrapy.Request( url="http://club.kdnet.net/index.asp", callback=self.parse, dont_filter=True )
+
 
     def parse_inpage(self,response):
         sleep_time = random.random()

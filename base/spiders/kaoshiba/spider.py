@@ -3,7 +3,9 @@ from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.kaoshiba.items import KaoshibaItem
-from base.items.kaoshiba.bloomfliter import BloomFilter
+# from base.items.kaoshiba.bloomfliter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 from datetime import datetime
 import os, random, time
 import re
@@ -27,12 +29,13 @@ class KaoshibaSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
 
-        self.bf=BloomFilter(0.0001,100000)
+        self.bf=pyreBloom.pyreBloom('kaoshiba', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         self.mainpage="http://www.exam8.com/xueli/kaoyan/"
 
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
+        while 1:
+            yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         sleep_time = random.random()
@@ -40,7 +43,7 @@ class KaoshibaSpider(Spider):
         time.sleep( sleep_time )
         r1 = '.*html'
         url = response.url
-        self.bf.insert_element(url)
+        self.bf.extend(url)
         item =KaoshibaItem()
         content_div = response.selector.xpath('.//p')
         content1=content_div.xpath('string(.)').extract()
@@ -49,6 +52,7 @@ class KaoshibaSpider(Spider):
                 item['source']="考试吧"
                 item['source_url']='http://www.exam8.com/xueli/kaoyan/'
                 item['url']=url
+                print url
                 item['html']=''
                 i=0
                 for t in content1:
@@ -60,6 +64,7 @@ class KaoshibaSpider(Spider):
                 item['attention'] = 0
                 time_str=response.selector.xpath("//div[@class='titiefu']")
                 time_str1=time_str.xpath('string(.)').extract()[0]
+                print time_str1
                 try:
                     s2=time_str1.replace('-','_').replace(' ','_').replace(':','_')
                     time_str3= re.findall(r'\w*([0-9]{4}_[0-9]+_[0-9]+_[0-9]+_[0-9]+_[0-9]+)\w*',s2)[0]
@@ -86,7 +91,7 @@ class KaoshibaSpider(Spider):
         for t in response.selector.xpath("//a[@href]/@href").extract():
             if not t.startswith('http'):
                 t="http://www.exam8.com/xueli/kaoyan"+t
-            if (self.bf.is_element_exist(t)==False):
+            if (self.bf.contains(t)==False):
                 yield Request(t,callback=self.parse_inPage, dont_filter=True)
             else:
                 continue
@@ -96,13 +101,14 @@ class KaoshibaSpider(Spider):
         sites=sel.xpath("//a[@href]/@href").extract()
         while '' in sites:
             sites.remove('')
-        while(1):
+        # while(1):
+        if 1==1:
             for site in sites:
                 if not site.startswith('http'):
                     urls = "http://www.exam8.com/xueli/kaoyan"+site
                 else:
                     urls=site
-                if((self.bf.is_element_exist(urls.encode('utf-8'))==False) and (str(urls)!='http://www.medkaoyan.net/') and(str(urls)!='http://www.medkaoyan.net') and(str(urls).find('javascript')==-1)):
+                if((self.bf.contains(urls.encode('utf-8'))==False) and (str(urls)!='http://www.medkaoyan.net/') and(str(urls)!='http://www.medkaoyan.net') and(str(urls).find('javascript')==-1)):
                     yield Request(urls,callback=self.parse_inPage, dont_filter=True)
                 else:
                     continue

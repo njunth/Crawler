@@ -3,15 +3,18 @@ import scrapy
 import re
 import sys
 from base.items.yangguang_menhu.items import YangguangMenhuItem
-from base.items.yangguang_menhu.bloomfilter import BloomFilter
+# from base.items.yangguang_menhu.bloomfilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 import datetime, random, time
+
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["cnr.cn"]
     start_urls = [
         "http://www.cnr.cn/"
     ]
-    bf = BloomFilter(0.1, 10)
+    bf = pyreBloom.pyreBloom('yangguangwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
     r1 = '^http://.*.cnr.*'
     r2 = '^http://.*.cnr.*.shtml.*'
     r3 = '^http://.*.cnr.*.html.*'
@@ -23,7 +26,7 @@ class DmozSpider(scrapy.Spider):
         if re.match(self.r2, url) or re.match(self.r3, url)or re.match(self.r4, url):
             try:
                 # print url
-                self.bf.insert_element(url)
+                self.bf.extend(url)
                 #print "aaaaaaa!!!!!!!@*#()@_______"
                 #for sel in response:
                 item = YangguangMenhuItem()
@@ -108,10 +111,10 @@ class DmozSpider(scrapy.Spider):
                     if re.match(self.r2, url) is None and re.match(self.r3, url) is None and re.match(self.r4, url) is None:
                             yield scrapy.Request(url=url, callback=self.parse,priority=0, dont_filter=True)
                     else:
-                        if (self.bf.is_element_exist(url) == False):
+                        if (self.bf.contains(url) == False):
                             yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1, dont_filter=True)
                     sleep_time = random.random()
                     print 5 * sleep_time
                     time.sleep(5 * sleep_time)
-                yield scrapy.Request(url='http://www.cnr.cn/', callback=self.parse,priority=0, dont_filter=True)
+                # yield scrapy.Request(url='http://www.cnr.cn/', callback=self.parse,priority=0, dont_filter=True)
 

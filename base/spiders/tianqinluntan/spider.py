@@ -32,10 +32,10 @@ class TianqinluntanSpider(Spider):
     def start_requests(self):
         while 1:
             yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
-            time.sleep( 60 )
+            # time.sleep( 60 )
 
     def parse_inPage(self,response):
-        
+
 
         sleep_time = random.random()
         print sleep_time

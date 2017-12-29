@@ -4,7 +4,9 @@ import scrapy
 from base.items.zhonggong.items import ZhonggongItem
 from scrapy.http import Request
 import datetime, random, time
-from base.items.zhonggong.BloomFilter import BloomFilter
+# from base.items.zhonggong.BloomFilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 
 class spider(scrapy.Spider):
 	name="spider"
@@ -12,16 +14,20 @@ class spider(scrapy.Spider):
 
 	start_urls=["http://www.kaoyan365.cn/"]
 
-	def parse(self,response):
-		self.bf=BloomFilter(0.0001,1000000)
+	def start_requests(self):
 		while 1:
+			yield Request( "http://www.kaoyan365.cn/", callback=self.parse, dont_filter=True )
+
+	def parse(self,response):
+		self.bf=pyreBloom.pyreBloom('zhonggong', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+		# while 1:
+		if 1==1:
 			urls = response.xpath("//div[@class='offcn_index_m1_center fl']//a[starts-with(@href,'http')]/@href   |  //div[@class='offcn_m2_right fr']//a[starts-with(@href,'http')]/@href   |   //div[@class='offcn_main3 offcn_mt20 layout']//*/a[starts-with(@href,'http')]/@href   |   //div[@class='offcn_main4 layout']//a[starts-with(@href,'http')]/@href   |   //div[@class='offcn_main7 offcn_mt20 layout']//a[starts-with(@href,'http')]/@href").extract()
 			for url in urls:
-				if(self.bf.is_element_exist(url)==False):
+				if(self.bf.contains(url)==False):
 					yield Request(url,callback=self.parse_inPage, dont_filter=True)
 				else:
 					continue
-			yield Request("http://www.kaoyan365.cn/", callback=self.parse, dont_filter=True)
 
 
 	def parse_inPage(self,response):
@@ -41,7 +47,7 @@ class spider(scrapy.Spider):
 		item['create_time']= datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
 		contentlist = response.xpath("//html").extract()
 
-		self.bf.insert_element(response.url)
+		self.bf.extend(response.url)
 
 		for con in contentlist:
 			utfcontent = con.encode('utf-8')

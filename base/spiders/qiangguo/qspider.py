@@ -17,17 +17,21 @@ class Tianyaspider(scrapy.Spider):
     start_urls = {
         "http://bbs1.people.com.cn/"
     }
-    bf = BloomFilter(0.0001, 100000)
+    # bf = BloomFilter(0.0001, 100000)
+
+    def start_requests(self):
+        while 1:
+            yield scrapy.Request( url="http://bbs1.people.com.cn/", callback=self.parse, dont_filter=True )
+
 
     def parse(self, response):
-
-        while 1:
+        # while 1:
+        if 1==1:
             for url1 in response.selector.xpath("//a/@href").re(r'^http://bbs1.people.com.cn.*.html'):
             #if (self.bf.is_element_exist(url1) == False):
                 yield scrapy.Request(url=url1, callback=self.parse_inpage, dont_filter=True)
             #else:
              #   continue
-            yield scrapy.Request( url="http://bbs1.people.com.cn/", callback=self.parse, dont_filter=True )
 
     def parse_inpage(self, response):
         sleep_time = random.random()

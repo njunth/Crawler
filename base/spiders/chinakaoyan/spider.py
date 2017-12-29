@@ -1,14 +1,20 @@
 #encoding=utf-8
-from scrapy.spider import Spider
-from scrapy.http import Request
-from scrapy.selector import Selector
-from base.items.chinakaoyan.items import ChinakaoyanItem
-from base.items.chinakaoyan.bloomfliter import BloomFilter
-# from base.items.Bloomfilter import BloomFilter
-from datetime import datetime
-import os, random, time
+import random
 import re
 import sys
+import time
+import pyreBloom
+# from base.items.Bloomfilter import BloomFilter
+from datetime import datetime
+
+from scrapy.http import Request
+from scrapy.selector import Selector
+from scrapy.spider import Spider
+
+from base.items.chinakaoyan.bloomfliter import BloomFilter
+from base.items.chinakaoyan.items import ChinakaoyanItem
+from base.configs.settings import REDIS_HOST, REDIS_PORT
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -28,17 +34,21 @@ class ChinakaoyanSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
 
-        self.bf=BloomFilter(0.0001,100000)
+        self.bf=pyreBloom.pyreBloom('chinakaoyan', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         self.mainpage="http://www.chinakaoyan.com/info/main/ClassID/2.shtml"
 
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
+        while 1:
+            yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         r1 = '.*/info/article/id.*'
         url = response.url
-        self.bf.insert_element(url)
+        self.bf.extend(url)
         item =ChinakaoyanItem()
         content_div = response.selector.xpath('//font[@face="Arial"]')
         content1=content_div.xpath('string(.)').extract()
@@ -70,7 +80,7 @@ class ChinakaoyanSpider(Spider):
         for t in response.selector.xpath("//a[@href]/@href").extract():
             if not t.startswith('http'):
                 t="http://www.chinakaoyan.com"+t
-            if (self.bf.is_element_exist(t)==False):  # reduce a /
+            if (self.bf.contains(t)==False):  # reduce a /
                 yield Request(t,callback=self.parse_inPage, dont_filter=True)
             else:
                 continue
@@ -79,7 +89,8 @@ class ChinakaoyanSpider(Spider):
     def parse_mainPage(self,response):
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
-        while (1):
+        # while (1):
+        if 1==1:
             for site in sites:
                 # print site
                 if not site.startswith('http'):
@@ -87,11 +98,8 @@ class ChinakaoyanSpider(Spider):
                 else:
                     urls=site
                 # print urls
-                if(self.bf.is_element_exist(urls)==False):
+                if(self.bf.contains(urls)==False):
                     yield Request(urls,callback=self.parse_inPage, dont_filter=True)
-                    sleep_time = random.random()
-                    print sleep_time
-                    time.sleep(sleep_time)
                 else:
                     continue
-            yield Request('http://www.chinakaoyan.com/info/main/ClassID/2.shtml', callback=self.parse_mainPage, dont_filter=True)
+            # yield Request('http://www.chinakaoyan.com/info/main/ClassID/2.shtml', callback=self.parse_mainPage, dont_filter=True)

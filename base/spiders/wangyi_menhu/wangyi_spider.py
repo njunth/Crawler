@@ -2,7 +2,9 @@
 import scrapy
 import re
 from base.items.wangyi_menhu.items import WangyiScrapyItem
-from base.items.wangyi_menhu.bloomfilter import BloomFilter
+# from base.items.wangyi_menhu.bloomfilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 import sys
 
 import datetime, random, time
@@ -19,13 +21,13 @@ class DmozSpider(scrapy.Spider):
     r3 = '^http://.*v.163.*'
     r4 = '^http://.*house.163.*'
     r5 = '^http://.*.163.*.shtml'
-    bf = BloomFilter(0.0001, 1000000)
+    bf = pyreBloom.pyreBloom('wangyiwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
     def parse_inpage(self, response):
         # print response.url
         # print '\n'
 
         url = response.url
-        self.bf.insert_element(url)
+        self.bf.extend(url)
         item = WangyiScrapyItem()
         print url
         try:
@@ -107,9 +109,9 @@ class DmozSpider(scrapy.Spider):
 
             else:
                 if re.match(self.r3, url) == None and re.match(self.r4, url) == None:
-                    if (self.bf.is_element_exist(url) == False):
+                    if (self.bf.contains(url) == False):
                         yield scrapy.Request(url=url, callback=self.parse_inpage, priority=1, dont_filter=True)
             sleep_time = random.random()
             print sleep_time
             time.sleep(sleep_time)
-        yield scrapy.Request( url="http://www.163.com/", callback=self.parse, priority=0, dont_filter=True )
+        # yield scrapy.Request( url="http://www.163.com/", callback=self.parse, priority=0, dont_filter=True )

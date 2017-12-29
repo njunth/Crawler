@@ -3,7 +3,9 @@ from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.okkaoyan.items import OkkaoyanItem
-from base.items.okkaoyan.bloomfliter import BloomFilter
+# from base.items.okkaoyan.bloomfliter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 from datetime import datetime
 import os, random, time
 import re
@@ -26,12 +28,13 @@ class OkkaoyanSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
 
-        self.bf=BloomFilter(0.0001,100000)
+        self.bf=pyreBloom.pyreBloom('okkaoyan', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         self.mainpage="http://www.okaoyan.com/"
 
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
+        while 1:
+            yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         sleep_time = random.random()
@@ -39,7 +42,7 @@ class OkkaoyanSpider(Spider):
         time.sleep( sleep_time )
         r1 = '.*html'
         url = response.url
-        self.bf.insert_element(url)
+        self.bf.extend(url)
         item =OkkaoyanItem()
         content_div = response.selector.xpath('//div[@class="article-body"]')
         content1=content_div.xpath('string(.)').extract()
@@ -73,7 +76,7 @@ class OkkaoyanSpider(Spider):
         for t in response.selector.xpath("//a[@href]/@href").extract():
             if not t.startswith('http'):
                 t="http://www.okaoyan.com"+t
-            if (self.bf.is_element_exist(t)==False):  # reduce a /
+            if (self.bf.contains(t)==False):  # reduce a /
                 yield Request(t,callback=self.parse_inPage, dont_filter=True)
             else:
                 continue
@@ -81,14 +84,15 @@ class OkkaoyanSpider(Spider):
     def parse_mainPage(self,response):
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
-        while(1):
+        # while(1):
+        if 1==1:
             for site in sites:
                 if not site.startswith('http'):
                     urls = "http://www.okaoyan.com"+site
                 else:
                     urls=site
-                if(self.bf.is_element_exist(urls)==False):
+                if(self.bf.contains(urls)==False):
                     yield Request(urls,callback=self.parse_inPage, dont_filter=True)
                 else:
                     continue
-            yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
+            # yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)

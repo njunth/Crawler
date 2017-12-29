@@ -3,7 +3,7 @@ from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.chinakaoyanluntan.items import ChinakaoyanluntanItem
-from base.items.chinakaoyanluntan.bloomfliter import BloomFilter
+# from base.items.chinakaoyanluntan.bloomfliter import BloomFilter
 from datetime import datetime
 import os, random, time
 import re
@@ -32,7 +32,8 @@ class ChinakaoyanluntanSpider(Spider):
 
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
+        while 1:
+            yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         r1 = '.*/club/topicShow/clubId/[0-9]*/tid.*'
@@ -81,11 +82,11 @@ class ChinakaoyanluntanSpider(Spider):
     def parse_mainPage(self,response):
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
-        while(1):
-            for site in sites:
-                if not site.startswith('http'):
-                    urls = "http://www.chinakaoyan.com"+site
-                else:
-                    urls=site
-                yield Request(urls,callback=self.parse_inPage, dont_filter=True)
-            yield Request( "http://www.chinakaoyan.com/club/clubHome/clubId/214.shtml", callback=self.parse_mainPage, dont_filter=True)
+        # while(1):
+        for site in sites:
+            if not site.startswith('http'):
+                urls = "http://www.chinakaoyan.com"+site
+            else:
+                urls=site
+            yield Request(urls,callback=self.parse_inPage, dont_filter=True)
+            # yield Request( "http://www.chinakaoyan.com/club/clubHome/clubId/214.shtml", callback=self.parse_mainPage, dont_filter=True)

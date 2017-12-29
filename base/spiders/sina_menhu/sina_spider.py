@@ -2,9 +2,12 @@
 import scrapy
 import re
 from base.items.sina_menhu.items import SinaScrapyItem
-from base.items.sina_menhu.bloomfilter import BloomFilter
+# from base.items.sina_menhu.bloomfilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 import sys
 import datetime, random, time
+
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["sina.com.cn"]
@@ -20,7 +23,8 @@ class DmozSpider(scrapy.Spider):
     r6='^http://.*blog.sina.*'
     r7='^http://.*slide.*.sina.*'
     r8='^http://.*jiaju.*.sina.*'
-    bf = BloomFilter(0.0001, 1000000)
+    bf = pyreBloom.pyreBloom('xinlangwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+
     def parse_inpage(self, response):
         r_content1="//div[@id='artibody']//p/text()"
         url = response.url
@@ -32,7 +36,7 @@ class DmozSpider(scrapy.Spider):
         try:
             if re.match(self.r2, url) or re.match(self.r5, url):
                 # print "crawl"
-                self.bf.insert_element(url)
+                self.bf.extend(url)
                 item = SinaScrapyItem()
                 item['title'] = response.xpath("//head/title/text()").extract_first().encode('utf-8')
                 #item['title'] = response.xpath("//h1/text()").extract_first().encode('utf-8')
@@ -111,6 +115,5 @@ class DmozSpider(scrapy.Spider):
             else:
                 if re.match(self.r3, url) == None and re.match(self.r4, url) == None and re.match(self.r6, url) is None\
                     and re.match(self.r7, url) is None and re.match(self.r8, url) is None:
-                    if (self.bf.is_element_exist(url) == False):
-
+                    if (self.bf.contains(url) == False):
                         yield scrapy.Request(url=url, callback=self.parse_inpage, priority=1, dont_filter=True)

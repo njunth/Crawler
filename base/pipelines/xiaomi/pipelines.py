@@ -11,14 +11,16 @@ from base.configs.xiaomi.settings import MONGO_HOST, MONGO_PORT, MONGODB_DBNAME,
 from scrapy.exceptions import DropItem
 import os
 import re
-from base.items.xiaomi.bloomfilter import BloomFilter
+# from base.items.xiaomi.bloomfilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 import datetime
 import datetime
 
 class XiaomiPipeline(object):
     def __init__(self):
         # 链接数据库
-        self.bf = BloomFilter(0.0001, 100000)
+        self.bf = pyreBloom.pyreBloom('xiaomiluntan', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
         # 数据库登录需要帐号密码的话
         # self.client.admin.authenticate(settings['MINGO_USER'], settings['MONGO_PSW'])
@@ -90,8 +92,8 @@ class XiaomiPipeline(object):
                             'title': item['title'],'create_time':item['create_time']})
 
             data = dict({'t': item['time'][0], 'au': item['mainauth']})
-            if (self.bf.is_element_exist(str(data)) == False):
-                self.bf.insert_element(str(data))
+            if (self.bf.contains(str(data)) == False):
+                self.bf.extend(str(data))
                 self.collection.insert(njudata)
                 #return item
 
@@ -127,8 +129,8 @@ class XiaomiPipeline(object):
                 ii = ii + 1
 
                 data = dict({'t': time_, 'au': authid_})
-                if (self.bf.is_element_exist(str(data)) == False):
-                    self.bf.insert_element(str(data))
+                if (self.bf.contains(str(data)) == False):
+                    self.bf.extend(str(data))
                     self.collection.insert(njudata)
             #self.collection.insert(dict(item))
 

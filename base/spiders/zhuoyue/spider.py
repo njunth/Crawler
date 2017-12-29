@@ -4,8 +4,10 @@ import scrapy
 from base.items.zhuoyue.items import ZhuoyueItem
 from scrapy.http import Request
 import datetime, random, time
-from base.items.zhuoyue.BloomFilter import BloomFilter
+# from base.items.zhuoyue.BloomFilter import BloomFilter
 # from base.items.Bloomfilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 
 class spider(scrapy.Spider):
 	name="spider"
@@ -16,10 +18,14 @@ class spider(scrapy.Spider):
 		'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
 	}
 
+	def start_requests(self):
+		while 1:
+			yield Request( "http://www.zhuoyuekaoyan.com", callback=self.parse, dont_filter=True )
 
 	def parse(self,response):
-		self.bf = BloomFilter(0.0001,100000)
-		while 1:
+		self.bf = pyreBloom.pyreBloom('zhuoyue', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+		# while 1:
+		if 1==1:
 			urls = response.xpath("//*/a/@href").extract()
 			for url in urls:
 				urlc = 'http://www.zhuoyuekaoyan.com'
@@ -28,14 +34,13 @@ class spider(scrapy.Spider):
 						urll = urllist.encode('utf-8')
 						urlc += urll
 				# print urlc
-				if(self.bf.is_element_exist(urlc)==False):
+				if(self.bf.contains(urlc)==False):
 					yield Request(urlc,callback=self.parse_inPage, dont_filter=True)
 				else:
 					continue
 				sleep_time = random.random()
 				print sleep_time
 				time.sleep( sleep_time )
-			yield Request("http://www.zhuoyuekaoyan.com", callback=self.parse, dont_filter=True)
 
 
 	def parse_inPage(self,response):
@@ -52,7 +57,7 @@ class spider(scrapy.Spider):
 		item['create_time']= datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
 		contentlist = response.xpath("//html").extract()
 
-		self.bf.insert_element(response.url)
+		self.bf.extend(response.url)
 
 		for con in contentlist:
 			utfcontent = con.encode('utf-8')
@@ -90,7 +95,7 @@ class spider(scrapy.Spider):
 			for urllist in url:
 				urll = urllist.encode('utf-8')
 				urlc += urll
-			if(self.bf.is_element_exist(urlc)==False):
+			if(self.bf.contains(urlc)==False):
 				yield Request(urlc, callback=self.parse_inPage, dont_filter=True)
 
 			else:

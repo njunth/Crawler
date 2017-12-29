@@ -30,7 +30,8 @@ class KaoyanluntanSpider(Spider):
 
 
     def start_requests(self):
-        yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
+        while 1:
+            yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         sleep_time = random.random()
@@ -71,7 +72,8 @@ class KaoyanluntanSpider(Spider):
     def parse_mainPage(self,response):
         sel=Selector(response)
         sites=sel.xpath("//a[@href]/@href").extract()
-        while(1):
+        # while(1):
+        if 1==1:
             for site in sites:
                 if not site.startswith('http'):
                     urls = "http://bbs.kaoyan.com"+site

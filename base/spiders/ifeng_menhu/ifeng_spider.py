@@ -3,16 +3,20 @@ import scrapy
 import re
 import sys
 import datetime, random, time
+import pyreBloom
 
 from base.items.ifeng_menhu.items import IfengScrapyItem
-from base.items.ifeng_menhu.bloomfilter import BloomFilter
+# from base.items.ifeng_menhu.bloomfilter import BloomFilter
+from base.configs.settings import REDIS_HOST, REDIS_PORT
+
+
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["ifeng.com"]
     start_urls = [
         "http://www.ifeng.com"
     ]
-    bf = BloomFilter(0.0001, 1000000)
+    bf = pyreBloom.pyreBloom('ifeng_menhu', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
 
     r1 = '^http://.*.ifeng.*'
     r2 = '^http://.*.ifeng.*.shtml.*'
@@ -27,7 +31,7 @@ class DmozSpider(scrapy.Spider):
         time.sleep( 3*sleep_time )
 
         url = response.url
-        self.bf.insert_element(url)
+        self.bf.extend(url)
 
         try:
             if re.match(self.r2, url) :
@@ -148,11 +152,11 @@ class DmozSpider(scrapy.Spider):
             #print url+'\n'
             if re.match(self.r4,url)is None and re.match(self.r5,url) is None and re.match(self.r7,url) is None:
                 if re.match(self.r2, url):
-                    if (self.bf.is_element_exist(url) == False):
+                    if (self.bf.contains(url) == False):
                         yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1, dont_filter=True)
 
                 else:
                     #with open('aa', 'ab') as f:
                      #f.write(url+'\n')
                     yield scrapy.Request(url=url, callback=self.parse,priority=0, dont_filter=True)
-            yield scrapy.Request(url="http://www.ifeng.com", callback=self.parse,priority=0, dont_filter=True)
+            # yield scrapy.Request(url="http://www.ifeng.com", callback=self.parse,priority=0, dont_filter=True)

@@ -20,9 +20,15 @@ class Meiqispider(scrapy.Spider):
     }
     #bf = BloomFilter(0.0001, 1000000)
 
+    def start_requests(self):
+        while 1:
+            yield scrapy.Request(url="http://bbs.biketo.com/index.html", callback=self.parse, dont_filter=True)
+
+
     def parse(self, response):
 
-        while 1:
+        # while 1:
+        if 1==1:
             # url = response.xpath("//a/@href").extract()
             for url1 in response.selector.xpath("//a/@href").re(r'^http://bbs.biketo.com.*.html'):
                 # for url1 in url:
@@ -33,8 +39,6 @@ class Meiqispider(scrapy.Spider):
                 yield scrapy.Request(url=url1, callback=self.parse_inpage, dont_filter=True)
                 #else:
                     #continue
-            yield scrapy.Request(url="http://bbs.biketo.com/index.html", callback=self.parse, dont_filter=True)
-
             #for url in response.selector.xpath("//a/@href").re(r'^http://bbs.biketo.com.*.html'):
              #   if re.match('^http://bbs.biketo.com.*.html', url) is None:
               #      yield scrapy.Request(url=url, callback=self.parse)

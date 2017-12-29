@@ -4,7 +4,9 @@ import scrapy
 from base.items.wendu.items import WenduItem
 from scrapy.http import Request
 import datetime, random, time
-from base.items.wendu.BloomFilter import BloomFilter
+# from base.items.wendu.BloomFilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 
 class wendu(scrapy.Spider):
 	name="spider"
@@ -12,20 +14,24 @@ class wendu(scrapy.Spider):
 
 	start_urls=["http://kaoyan.wendu.com"]
 
-	def parse(self,response):
-		self.bf=BloomFilter(0.0001,1000000)
+	def start_requests(self):
 		while 1:
+			yield Request( "http://kaoyan.wendu.com", callback=self.parse, dont_filter=True )
+
+	def parse(self,response):
+		self.bf=pyreBloom.pyreBloom('wendu', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+		# while 1:
+		if 1==1:
 			urls = response.xpath("//*/a[starts-with(@href,'http')]/@href").extract()
 			for url in urls:
 				urlc=''
 				for urllist in url:
 					urll = urllist.encode('utf-8')
 					urlc += urll
-				if(self.bf.is_element_exist(urlc)==False):
+				if(self.bf.contains(urlc)==False):
 					yield Request(url,callback=self.parse_inPage, dont_filter=True)
 				else:
 					continue
-			yield Request( "http://kaoyan.wendu.com", callback=self.parse, dont_filter=True )
 
 	def parse_inPage(self,response):
 		sleep_time = random.random()
@@ -42,7 +48,7 @@ class wendu(scrapy.Spider):
 		item['attention'] = 0
 		item['sentiment'] = 0
 		item['create_time']= datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
-		self.bf.insert_element(response.url)
+		self.bf.extend(response.url)
 
 		contentlist = response.xpath('//html').extract()
 		for con in contentlist:

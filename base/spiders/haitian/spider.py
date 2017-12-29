@@ -4,7 +4,9 @@ import scrapy
 from base.items.haitian.items import HaiItem
 from scrapy.http import Request
 import datetime, random, time
-from base.items.haitian.BloomFilter import BloomFilter
+# from base.items.haitian.BloomFilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 
 class htkaoyan(scrapy.Spider):
 	name="spider"
@@ -12,22 +14,27 @@ class htkaoyan(scrapy.Spider):
 
 	start_urls=["http://www.htkaoyan.com"]
 
-	def parse(self,response):
-		self.bf=BloomFilter(0.0001,1000000)
+	def start_requests(self):
 		while 1:
-			urls = response.xpath("//*/a[starts-with(@href,'http')]/@href").extract()
-			# print urls
-			for url in urls:
-				if(self.bf.is_element_exist(url)==False):
-					yield Request(url,callback=self.parse_inPage, dont_filter=True)
-				else:
-					continue
-			yield Request( "http://www.htkaoyan.com", callback=self.parse, dont_filter=True)
+			yield Request( "http://www.htkaoyan.com", callback=self.parse, dont_filter=True )
+
+	def parse(self,response):
+		self.bf=pyreBloom.pyreBloom('haitian', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+		# while 1:
+		urls = response.xpath("//*/a[starts-with(@href,'http')]/@href").extract()
+		# print urls
+		for url in urls:
+			if(self.bf.contains(url)==False):
+				print url
+				yield Request(url,callback=self.parse_inPage, dont_filter=True)
+			else:
+				continue
+
 
 	def parse_inPage(self,response):
 		sleep_time = random.random()
-		print 5*sleep_time
-		time.sleep(5*sleep_time)
+		print sleep_time
+		time.sleep( sleep_time )
 		item = HaiItem()
 		item['title'] = ''
 		item['source'] = "海天教育考研"
@@ -40,7 +47,7 @@ class htkaoyan(scrapy.Spider):
 		item['sentiment'] = 0
 		item['create_time']= datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
 
-		self.bf.insert_element(response.url)
+		self.bf.extend(response.url)
 
 		contentlist = response.xpath('//html').extract()
 
@@ -54,6 +61,7 @@ class htkaoyan(scrapy.Spider):
 			item['title'] += title
 
 		timelist = response.xpath("//*/div[@class='c_subtitle']//text()").extract_first()
+		# print timelist
 		if timelist is None:
 			item['time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
 		else:

@@ -2,16 +2,19 @@
 import scrapy
 import re
 from base.items.sohu_menhu.items import SohuScrapyItem
-from base.items.sohu_menhu.bloomfilter import BloomFilter
+# from base.items.sohu_menhu.bloomfilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 import sys
 import datetime, random, time
+
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["sohu.com"]
     start_urls = [
         "http://www.sohu.com"
     ]
-    bf = BloomFilter(0.0001, 1000000)
+    bf = pyreBloom.pyreBloom('souhuwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
     r1 = '.*.sohu.*'
     r2 = '^http://.*.sohu.*.shtml.*'
     r3 = '^http://.*.sohu.com/a/.*'
@@ -43,7 +46,7 @@ class DmozSpider(scrapy.Spider):
                 #for sel in response:
                 #with open('aaa', 'ab') as f:
                     #f.write(url + '\n')
-                self.bf.insert_element(url)
+                self.bf.extend(url)
                 item = SohuScrapyItem()
 
                 item['title'] = response.xpath("//head/title/text()").extract_first().encode('utf-8')
@@ -127,7 +130,7 @@ class DmozSpider(scrapy.Spider):
                 if re.match(self.r2,url) or re.match(self.r3,url) or re.match(self.r4,url):
                     #with open('aa', 'ab') as f:
                         #f.write(response.url + '::' + url + '\n')
-                    if (self.bf.is_element_exist(url) is False):
+                    if (self.bf.contains(url) is False):
                         #with open('a', 'ab') as f:
                             #f.write(response.url + '::' + url + '\n')
                         yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1, dont_filter=True)

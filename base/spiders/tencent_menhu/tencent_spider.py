@@ -5,14 +5,17 @@ import sys
 import datetime, random, time
 
 from base.items.tencent_menhu.items import TencentScrapyItem
-from base.items.tencent_menhu.bloomfilter import BloomFilter
+# from base.items.tencent_menhu.bloomfilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
+
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["qq.com"]
     start_urls = [
         "http://www.qq.com"
     ]
-    bf = BloomFilter(0.0001, 1000000)
+    bf = pyreBloom.pyreBloom('tengxunwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
     r1 = '^http://.*.qq.*'
     r2 = '^http://.*.qq.*.htm.*'
     r3 = '^http://.*.qq.com/a/.*'
@@ -24,7 +27,7 @@ class DmozSpider(scrapy.Spider):
     def parse_inpage(self, response):
 
         url = response.url
-        self.bf.insert_element(url)
+        self.bf.extend(url)
         #print url
         sleep_time = random.random()
         print sleep_time
@@ -122,7 +125,7 @@ class DmozSpider(scrapy.Spider):
 
             if re.match(self.r4,url)is None and re.match(self.r5,url) is None and re.match(self.r7,url) is None and re.match(self.r8,url) is None:
                 if re.match(self.r3, url):
-                    if (self.bf.is_element_exist(url) == False):
+                    if (self.bf.contains(url) == False):
                         yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1, dont_filter=True)
 
                 else:

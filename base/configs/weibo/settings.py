@@ -166,12 +166,12 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
-         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
-         'base.downloaders.weibo_retry.RetryMiddleware': 500,
-         'base.downloaders.weibo_proxy_middlewares.ProxyMiddleware':100
-    }
+# DOWNLOADER_MIDDLEWARES = {
+#          'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+#          'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+#          'base.downloaders.weibo_retry.RetryMiddleware': 500,
+#          'base.downloaders.weibo_proxy_middlewares.ProxyMiddleware':100
+#     }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html

@@ -9,6 +9,7 @@ import MySQLdb
 import pytz
 # import pymysql
 import time, random
+import os
 import datetime
 from base.configs.weibo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD
 from base.items.weibo.items import WeiboItem
@@ -16,6 +17,7 @@ from base.items.weibo.items import WeiboItem
 class WeiboSpider(Spider):
     name = "spider"
     def start_requests(self):
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         headers = {
             #    'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
             #    'Accept-Encoding':'gzip, deflate, br',

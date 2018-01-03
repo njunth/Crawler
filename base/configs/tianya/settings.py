@@ -73,12 +73,12 @@ DOWNLOAD_DELAY = 2
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 
-DOWNLOADER_MIDDLEWARES = {
-         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
-         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
-         'base.downloaders.retry.RetryMiddleware': 500,
-         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
-    }
+# DOWNLOADER_MIDDLEWARES = {
+#          'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+#          'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+#          'base.downloaders.retry.RetryMiddleware': 500,
+#          'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+#     }
 
 
 # Configure item pipelines

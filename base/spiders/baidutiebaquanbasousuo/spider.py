@@ -30,9 +30,11 @@ class BaidutiebaquanbasousuoSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
         self.mainpage="http://www.csbiji.com/forum.php"
+        os.environ["all_proxy"]="http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
 
 
     def start_requests(self):
+
         # keywords = ['出售', '提供', '发现', '高考', '考研', '研考', '硕士考试', '硕士生考试', '成考', '成人高考', '自考', '自学考试']
         url_p1 = 'http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw='
         url_p2 = '&rn=10&un=&only_thread=0&sm=1&sd=&ed=&pn='

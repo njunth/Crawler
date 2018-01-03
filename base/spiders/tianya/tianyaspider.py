@@ -3,6 +3,7 @@ import scrapy
 from base.items.tianya.items import Tianyav2Item
 from base.items.tianya.BloomFilter import BloomFilter
 import re
+import os
 import datetime, random, time
 
 
@@ -16,6 +17,7 @@ class Tianyaspider(scrapy.Spider):
         "http://bbs.tianya.cn/"
         #"http://bbs.tianya.cn/post-travel-821028-1.shtml"
     }
+    os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
 
     #bf = BloomFilter(0.1, 10)
 

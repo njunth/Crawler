@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import re
+import os
 from base.items.wangyi_menhu.items import WangyiScrapyItem
 # from base.items.wangyi_menhu.bloomfilter import BloomFilter
 import pyreBloom
@@ -22,6 +23,8 @@ class DmozSpider(scrapy.Spider):
     r4 = '^http://.*house.163.*'
     r5 = '^http://.*.163.*.shtml'
     bf = pyreBloom.pyreBloom('wangyiwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+    os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+
     def parse_inpage(self, response):
         # print response.url
         # print '\n'

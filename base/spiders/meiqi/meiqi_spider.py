@@ -2,6 +2,7 @@
 import scrapy
 from base.items.meiqi.items import MeiqiItem
 import re
+import os
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from base.items.meiqi.BloomFilter import BloomFilter
@@ -21,6 +22,7 @@ class Meiqispider(scrapy.Spider):
     #bf = BloomFilter(0.0001, 1000000)
 
     def start_requests(self):
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request(url="http://bbs.biketo.com/index.html", callback=self.parse, dont_filter=True)
 

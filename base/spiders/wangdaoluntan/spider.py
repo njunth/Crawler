@@ -34,6 +34,7 @@ class WangdaoluntanSpider(Spider):
         self.mainpage="http://www.cskaoyan.com/forum.php"
 
     def start_requests(self):
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 

@@ -1,6 +1,6 @@
 # coding=utf-8
 import scrapy
-
+import os
 from base.items.kuakao.items import KuakaoItem
 from scrapy.http import Request
 import datetime, random, time
@@ -15,6 +15,7 @@ class spider(scrapy.Spider):
 	start_urls=["http://www.kuakao.com"]
 
 	def start_requests(self):
+		os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
 		while 1:
 			yield Request( "http://www.kuakao.com", callback=self.parse, dont_filter=True )
 

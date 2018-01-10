@@ -1,9 +1,16 @@
 FROM registry.njuics.cn/library/scrapy:latest
 
-RUN echo "http://mirrors.aliyun.com/alpine/v3.7/main/" > /etc/apk/repositories
+RUN echo "http://mirrors.aliyun.com/alpine/v3.4/main/" > /etc/apk/repositories
 
 # Install ssh and git
-RUN apk --update add openssh git mariadb-dev mariadb-client mariadb-libs
+RUN apk --update add openssh git mariadb-dev mariadb-client mariadb-libs gcc hiredis-dev
+
+# Install pyreBloom
+RUN cd /root \
+	&& git clone https://github.com/seomoz/pyreBloom.git \
+	&& cd pyreBloom \
+	&& pip install -r requirements.txt \
+	&& python setup.py install
 
 # Set pull access
 ADD https://gist.githubusercontent.com/lxs137/57ebc9060bbe03c6706ec56abe789fd9/raw/41fe1324bd59b8de527b13976800772deffe8776/crawler.id_rsa /root/.ssh/id_rsa

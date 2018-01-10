@@ -89,7 +89,7 @@ ITEM_PIPELINES = {
 MONGO_HOST = os.getenv("MONGO_HOST", "localhost")  # 主机IP
 MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))  # 端口号
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")  # 库名
-MONGODB_COLLECTION = "Tianyaluntan"  # collection名
+MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "Tianyaluntan")  # collection名
 
 #LOG_LEVEL = 'INFO'
 # Enable and configure the AutoThrottle extension (disabled by default)

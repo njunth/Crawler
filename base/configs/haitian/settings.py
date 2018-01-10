@@ -24,7 +24,7 @@ LOG_LEVEL = 'INFO'
 MONGO_HOST = os.getenv("MONGO_HOST", "localhost")  # 主机IP
 MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))  # 端口号
 MONGO_DB = os.getenv("MONGO_DBNAME", "Crawler")  # 库名
-MONGO_COLL = 'Haitian'  # collection名
+MONGO_COLL = os.getenv("MONGODB_COLLECTION", "Haitian")  # collection名
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'haitian (+http://www.yourdomain.com)'

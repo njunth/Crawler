@@ -25,7 +25,7 @@ DEPTH_LIMIT=50
 MONGO_HOST = os.getenv("MONGO_HOST", "localhost")  # 主机IP
 MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))  # 端口号
 MONGO_DB = os.getenv("MONGO_DBNAME", "Crawler")  # 库名
-MONGO_COLL = 'Qihang'  # collection名
+MONGO_COLL = os.getenv("MONGODB_COLLECTION", "Qihang") # collection名
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'qihang (+http://www.yourdomain.com)'

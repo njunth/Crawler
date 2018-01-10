@@ -76,7 +76,7 @@ ITEM_PIPELINES = {
 MONGODB_SERVER=os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT=(int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME=os.getenv("MONGO_DBNAME", "Crawler")
-MONGODB_COLLECTION="Fenghuangwang"
+MONGODB_COLLECTION=os.getenv("MONGODB_COLLECTION", "Fenghuangwang")
 
 LOG_LEVEL = 'INFO'
 # Enable and configure the AutoThrottle extension (disabled by default)

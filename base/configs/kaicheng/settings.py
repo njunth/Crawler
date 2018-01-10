@@ -22,7 +22,7 @@ FLAG='Kaicheng'
 MONGO_HOST = os.getenv("MONGO_HOST", "localhost")  # 主机IP
 MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))  # 端口号
 MONGO_DB = os.getenv("MONGO_DBNAME", "Crawler")  # 库名
-MONGO_COLL = 'Kaicheng'  # collection
+MONGO_COLL = os.getenv("MONGODB_COLLECTION", "Kaicheng")  # collection
 
 DEPTH_LIMIT=50
 

@@ -119,7 +119,7 @@ ITEM_PIPELINES = {
 MONGODB_HOST = os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
-MONGODB_COLLECTION = 'Tianqinluntan'
+MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "Tianqinluntan")
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

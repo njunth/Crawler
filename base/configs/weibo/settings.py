@@ -19,7 +19,7 @@ NEWSPIDER_MODULE = 'base.spiders.weibo'
 MONGO_HOST = os.getenv("MONGO_HOST", "localhost")
 MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
-MONGODB_COLLECTION = 'Weibo'
+MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "Weibo")
 
 MYSQL_HOST = os.getenv("MYSQL_HOST", "114.212.189.147")
 MYSQL_PORT = (int)(os.getenv("MYSQL_PORT", 10103))

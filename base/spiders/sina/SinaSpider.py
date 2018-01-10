@@ -2,6 +2,7 @@
 import scrapy
 from base.items.sina.items import SinaItem
 import re
+import os
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from base.items.sina.bloomfilter import BloomFilter
@@ -21,6 +22,7 @@ class Sinaspider(scrapy.Spider):
     #bf = BloomFilter(0.0001,1000000)
 
     def start_requests(self):
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request(url="http://people.sina.com.cn/", callback=self.parse, dont_filter=True)
 

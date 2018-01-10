@@ -1,6 +1,6 @@
 # coding=utf-8
 import scrapy
-
+import os
 from base.items.haiwen.items import HaiwenItem
 from scrapy.http import Request
 import datetime, random, time
@@ -15,6 +15,7 @@ class spider(scrapy.Spider):
 	start_urls=["http://kaoyan.wanxue.cn"]
 
 	def start_requests(self):
+		os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
 		while 1:
 			yield Request( "http://kaoyan.wanxue.cn", callback=self.parse, dont_filter=True )
 			# time.sleep( 10 )

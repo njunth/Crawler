@@ -17,11 +17,11 @@ class Tianyaspider(scrapy.Spider):
         "http://bbs.tianya.cn/"
         #"http://bbs.tianya.cn/post-travel-821028-1.shtml"
     }
-    os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
 
     #bf = BloomFilter(0.1, 10)
 
     def start_requests(self):
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request(url="http://bbs.tianya.cn/", callback=self.parse, dont_filter=True)
 

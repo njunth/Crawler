@@ -2,6 +2,7 @@
 import scrapy
 from base.items.qiangguo.items import QiangguoItem
 import re
+import os
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from base.items.qiangguo.bloomfilter import BloomFilter
@@ -20,6 +21,7 @@ class Tianyaspider(scrapy.Spider):
     # bf = BloomFilter(0.0001, 100000)
 
     def start_requests(self):
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request( url="http://bbs1.people.com.cn/", callback=self.parse, dont_filter=True )
 

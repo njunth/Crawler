@@ -1,5 +1,6 @@
 # coding=utf-8
 import scrapy
+import os
 from base.items.kaidi.items import KaidiItem
 import re
 from scrapy.linkextractors import LinkExtractor
@@ -18,6 +19,7 @@ class KdSpider(scrapy.Spider):
     # bf = pyreBloom.pyreBloom( 'kaicheng', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
 
     def start_requests(self):
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request( url="http://club.kdnet.net/index.asp", callback=self.parse, dont_filter=True )
 

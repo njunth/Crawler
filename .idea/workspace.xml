@@ -3,40 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="782425e8-1cb4-45e1-b426-98e0e79b2149" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/baidutiebaquanbasousuo/settings.py" afterPath="$PROJECT_DIR$/base/configs/baidutiebaquanbasousuo/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/chinakaoyan/settings.py" afterPath="$PROJECT_DIR$/base/configs/chinakaoyan/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/chinakaoyanluntan/settings.py" afterPath="$PROJECT_DIR$/base/configs/chinakaoyanluntan/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/haitian/settings.py" afterPath="$PROJECT_DIR$/base/configs/haitian/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/haiwen/settings.py" afterPath="$PROJECT_DIR$/base/configs/haiwen/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/hongyikaoyanluntan/settings.py" afterPath="$PROJECT_DIR$/base/configs/hongyikaoyanluntan/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/ifeng_menhu/settings.py" afterPath="$PROJECT_DIR$/base/configs/ifeng_menhu/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/kaicheng/settings.py" afterPath="$PROJECT_DIR$/base/configs/kaicheng/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/kaidi/settings.py" afterPath="$PROJECT_DIR$/base/configs/kaidi/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/kaoshiba/settings.py" afterPath="$PROJECT_DIR$/base/configs/kaoshiba/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/kaoyanbang/settings.py" afterPath="$PROJECT_DIR$/base/configs/kaoyanbang/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/kaoyanluntan/settings.py" afterPath="$PROJECT_DIR$/base/configs/kaoyanluntan/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/kuakao/settings.py" afterPath="$PROJECT_DIR$/base/configs/kuakao/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/meiqi/settings.py" afterPath="$PROJECT_DIR$/base/configs/meiqi/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/okkaoyan/settings.py" afterPath="$PROJECT_DIR$/base/configs/okkaoyan/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/okkaoyanluntan/settings.py" afterPath="$PROJECT_DIR$/base/configs/okkaoyanluntan/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/qiangguo/settings.py" afterPath="$PROJECT_DIR$/base/configs/qiangguo/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/qihang/settings.py" afterPath="$PROJECT_DIR$/base/configs/qihang/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/sina/settings.py" afterPath="$PROJECT_DIR$/base/configs/sina/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/sina_menhu/settings.py" afterPath="$PROJECT_DIR$/base/configs/sina_menhu/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/sohu_menhu/settings.py" afterPath="$PROJECT_DIR$/base/configs/sohu_menhu/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/tencent_menhu/settings.py" afterPath="$PROJECT_DIR$/base/configs/tencent_menhu/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/tianqinluntan/settings.py" afterPath="$PROJECT_DIR$/base/configs/tianqinluntan/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/tianya/settings.py" afterPath="$PROJECT_DIR$/base/configs/tianya/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/wangdaoluntan/settings.py" afterPath="$PROJECT_DIR$/base/configs/wangdaoluntan/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/wangyi_menhu/settings.py" afterPath="$PROJECT_DIR$/base/configs/wangyi_menhu/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/weibo/settings.py" afterPath="$PROJECT_DIR$/base/configs/weibo/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/wendu/settings.py" afterPath="$PROJECT_DIR$/base/configs/wendu/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/xiaomi/settings.py" afterPath="$PROJECT_DIR$/base/configs/xiaomi/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/xindongfang/settings.py" afterPath="$PROJECT_DIR$/base/configs/xindongfang/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/yangguang_menhu/settings.py" afterPath="$PROJECT_DIR$/base/configs/yangguang_menhu/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/yixuekaoyan/settings.py" afterPath="$PROJECT_DIR$/base/configs/yixuekaoyan/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/zhonggong/settings.py" afterPath="$PROJECT_DIR$/base/configs/zhonggong/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/zhuoyue/settings.py" afterPath="$PROJECT_DIR$/base/configs/zhuoyue/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/qiangguo/qspider.py" afterPath="$PROJECT_DIR$/base/spiders/qiangguo/qspider.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scrapy.cfg" afterPath="$PROJECT_DIR$/scrapy.cfg" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -71,27 +40,49 @@
         <entry file="file://$PROJECT_DIR$/scrapy.cfg">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="160">
-              <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+              <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/configs/zhuoyue/settings.py">
+      <file leaf-file-name="qspider.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/base/spiders/qiangguo/qspider.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="24" column="55" lean-forward="true" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
+            <state relative-caret-position="60">
+              <caret line="3" column="9" lean-forward="true" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pipelines.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/base/pipelines/qiangguo/pipelines.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="102" column="58" lean-forward="false" selection-start-line="102" selection-start-column="58" selection-end-line="102" selection-end-column="58" />
+              <folding>
+                <element signature="e#193#207#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/base/configs/zhonggong/settings.py">
+        <entry file="file://$PROJECT_DIR$/base/configs/qiangguo/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="85" column="53" lean-forward="true" selection-start-line="85" selection-start-column="53" selection-end-line="85" selection-end-column="53" />
+            <state relative-caret-position="387">
+              <caret line="74" column="38" lean-forward="false" selection-start-line="74" selection-start-column="38" selection-end-line="74" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logstats.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/base/configs/logstats.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -119,6 +110,7 @@
       <find>server</find>
       <find>datetime</find>
       <find>bf</find>
+      <find>exte</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -127,11 +119,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/base/spiders/kaidi/KdSpider.py" />
         <option value="$PROJECT_DIR$/base/spiders/kuakao/spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/meiqi/meiqi_spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/okkaoyan/spider.py" />
-        <option value="$PROJECT_DIR$/base/spiders/qiangguo/qspider.py" />
         <option value="$PROJECT_DIR$/base/spiders/qihang/spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/sina/SinaSpider.py" />
         <option value="$PROJECT_DIR$/base/spiders/tianqinluntan/spider.py" />
@@ -159,7 +149,6 @@
         <option value="$PROJECT_DIR$/base/configs/meiqi/settings.py" />
         <option value="$PROJECT_DIR$/base/configs/okkaoyan/settings.py" />
         <option value="$PROJECT_DIR$/base/configs/okkaoyanluntan/settings.py" />
-        <option value="$PROJECT_DIR$/base/configs/qiangguo/settings.py" />
         <option value="$PROJECT_DIR$/base/configs/qihang/settings.py" />
         <option value="$PROJECT_DIR$/base/configs/sina/settings.py" />
         <option value="$PROJECT_DIR$/base/configs/sina_menhu/settings.py" />
@@ -175,9 +164,12 @@
         <option value="$PROJECT_DIR$/base/configs/xindongfang/settings.py" />
         <option value="$PROJECT_DIR$/base/configs/yangguang_menhu/settings.py" />
         <option value="$PROJECT_DIR$/base/configs/yixuekaoyan/settings.py" />
-        <option value="$PROJECT_DIR$/base/configs/zhonggong/settings.py" />
         <option value="$PROJECT_DIR$/base/configs/zhuoyue/settings.py" />
+        <option value="$PROJECT_DIR$/base/configs/zhonggong/settings.py" />
         <option value="$PROJECT_DIR$/scrapy.cfg" />
+        <option value="$PROJECT_DIR$/base/spiders/qiangguo/qspider.py" />
+        <option value="$PROJECT_DIR$/base/configs/logstats.py" />
+        <option value="$PROJECT_DIR$/base/configs/qiangguo/settings.py" />
       </list>
     </option>
   </component>
@@ -188,10 +180,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="347" />
-    <option name="y" value="69" />
-    <option name="width" value="1474" />
-    <option name="height" value="936" />
+    <option name="x" value="61" />
+    <option name="y" value="-4" />
+    <option name="width" value="1859" />
+    <option name="height" value="1084" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -267,7 +259,69 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="configs" />
+              <option name="myItemId" value="spiders" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spiders" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qiangguo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pipelines" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pipelines" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qiangguo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -286,32 +340,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="configs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zhuoyue" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Crawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Crawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="configs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zhonggong" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -329,9 +357,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/base/configs" />
       <recent name="F:\Crawler\Crawler\base\downloaders" />
       <recent name="$PROJECT_DIR$/base/downloaders" />
-      <recent name="$PROJECT_DIR$/base/configs" />
       <recent name="$PROJECT_DIR$/base/items/tianya" />
       <recent name="$PROJECT_DIR$/base/items/sina" />
     </key>
@@ -522,16 +550,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="347" y="69" width="1474" height="936" extended-state="0" />
+    <frame x="61" y="-4" width="1859" height="1084" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22230014" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31598514" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22650771" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.146328" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27329844" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11871894" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32886267" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -559,34 +588,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/base/spiders/qiangguo/qspider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-647">
-          <caret line="4" column="9" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/qihang/spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="9" lean-forward="false" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/sina/SinaSpider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="23" column="16" lean-forward="false" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/tianqinluntan/spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="32" column="14" lean-forward="true" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base/spiders/tianya/tianyaspider.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -647,18 +648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
           <caret line="35" column="47" lean-forward="false" selection-start-line="35" selection-start-column="47" selection-end-line="35" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/baidutiebaquanbasousuo/spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="31" column="55" lean-forward="false" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
-          <folding>
-            <element signature="e#16#48#0" expanded="true" />
-            <marker date="1514955986758" expanded="true" signature="1646:1678" ph="SELECT DISTI... keyword_t" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -666,15 +655,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="111">
           <caret line="31" column="29" lean-forward="false" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/configs/baidutiebaquanbasousuo/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="78" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -682,7 +662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
           <caret line="122" column="0" lean-forward="false" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="74" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -690,7 +669,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="121" column="21" lean-forward="true" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="80" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -698,7 +676,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
           <caret line="26" column="55" lean-forward="true" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -706,7 +683,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="117" column="74" lean-forward="false" selection-start-line="117" selection-start-column="74" selection-end-line="117" selection-end-column="74" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -714,7 +690,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="84" column="54" lean-forward="true" selection-start-line="84" selection-start-column="13" selection-end-line="84" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -722,7 +697,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="78" column="19" lean-forward="false" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="67" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -730,7 +704,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="24" column="56" lean-forward="true" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -738,7 +711,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="81" column="67" lean-forward="true" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="67" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -746,7 +718,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="117" column="21" lean-forward="false" selection-start-line="117" selection-start-column="21" selection-end-line="117" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -754,7 +725,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="117" column="21" lean-forward="true" selection-start-line="117" selection-start-column="21" selection-end-line="117" selection-end-column="66" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -762,7 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="121" column="21" lean-forward="false" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -770,7 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="84" column="13" lean-forward="false" selection-start-line="84" selection-start-column="13" selection-end-line="84" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -778,7 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="61" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -786,7 +753,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="121" column="21" lean-forward="true" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -794,15 +760,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="121" column="21" lean-forward="true" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/configs/qiangguo/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="80" column="21" lean-forward="true" selection-start-line="80" selection-start-column="21" selection-end-line="80" selection-end-column="70" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -810,7 +767,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="295">
           <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -818,7 +774,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="69" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -826,7 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
           <caret line="74" column="19" lean-forward="false" selection-start-line="74" selection-start-column="19" selection-end-line="74" selection-end-column="65" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -834,7 +788,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="78" column="19" lean-forward="true" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="63" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -842,7 +795,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="78" column="19" lean-forward="true" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="65" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -850,7 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="121" column="21" lean-forward="true" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="69" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -858,7 +809,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
           <caret line="91" column="21" lean-forward="false" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -866,7 +816,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="120" column="21" lean-forward="false" selection-start-line="120" selection-start-column="21" selection-end-line="120" selection-end-column="69" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -874,7 +823,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
           <caret line="81" column="19" lean-forward="false" selection-start-line="81" selection-start-column="19" selection-end-line="81" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -882,9 +830,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="314">
           <caret line="21" column="21" lean-forward="false" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="61" />
-          <folding>
-            <element signature="e#1188#1198#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -892,7 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="335">
           <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -900,7 +844,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="82" column="21" lean-forward="true" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -908,7 +851,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="85" column="13" lean-forward="false" selection-start-line="85" selection-start-column="13" selection-end-line="85" selection-end-column="59" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -916,7 +858,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="78" column="19" lean-forward="true" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="67" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -924,7 +865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="117" column="21" lean-forward="true" selection-start-line="117" selection-start-column="21" selection-end-line="117" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -932,30 +872,83 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/configs/zhuoyue/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="24" column="55" lean-forward="false" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/configs/baidutiebaquanbasousuo/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/spiders/baidutiebaquanbasousuo/spider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="61" column="48" lean-forward="true" selection-start-line="59" selection-start-column="19" selection-end-line="61" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/configs/zhonggong/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="79" column="18" lean-forward="false" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scrapy.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
-          <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+          <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base/configs/zhuoyue/settings.py">
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/scrapy/exceptions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="24" column="55" lean-forward="true" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
+        <state relative-caret-position="180">
+          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base/configs/zhonggong/settings.py">
+    <entry file="file://$PROJECT_DIR$/base/spiders/qiangguo/qspider.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="85" column="53" lean-forward="true" selection-start-line="85" selection-start-column="53" selection-end-line="85" selection-end-column="53" />
+        <state relative-caret-position="60">
+          <caret line="3" column="9" lean-forward="true" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/pipelines/qiangguo/pipelines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="102" column="58" lean-forward="false" selection-start-line="102" selection-start-column="58" selection-end-line="102" selection-end-column="58" />
+          <folding>
+            <element signature="e#193#207#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/configs/logstats.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/configs/qiangguo/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="74" column="38" lean-forward="false" selection-start-line="74" selection-start-column="38" selection-end-line="74" selection-end-column="38" />
           <folding />
         </state>
       </provider>

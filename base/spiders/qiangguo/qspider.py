@@ -37,24 +37,23 @@ class Tianyaspider(scrapy.Spider):
 
     def parse_inpage(self, response):
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         item = QiangguoItem()
         #item['content'] = response.xpath("//p//text()").extract()
         content = response.selector.xpath("//div//p")
         con_div = content.xpath('string(.)').extract()
-        print response.url
-
+        # print response.url
 
         if re.match('^http://bbs1.people.com.cn.*.html', response.url) and len(con_div) > 0:
             item['source'] = u"强国论坛"
             item['source_url'] = 'http://bbs1.people.com.cn/'
 
             item['html'] = ''
-            contentlist = response.xpath('//html').extract()
-            for con in contentlist:
-                utfcontent = con.encode('utf-8')
-                item['html'] += utfcontent
+            # contentlist = response.xpath('//html').extract()
+            # for con in contentlist:
+            #     utfcontent = con.encode('utf-8')
+            #     item['html'] += utfcontent
 
             item['url'] = response.url
             item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')

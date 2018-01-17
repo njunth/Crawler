@@ -45,14 +45,14 @@ class LogStats(object):
         print datetime.datetime.now().strftime( '%Y_%m_%d_%H_%M_%S' ),
 
         # print items, pages
-        #
-        # print "Crawled {} pages (at {} pages/min),scraped {} items (at {} items/min)".format(pages,prate,items,irate)
 
-        msg = ("Crawled %(pages)d pages (at %(pagerate)d pages/min), "
-               "scraped %(items)d items (at %(itemrate)d items/min)")
-        log_args = {'pages': pages, 'pagerate': prate,
-                    'items': items, 'itemrate': irate}
-        print logger.info(msg, log_args, extra={'spider': spider})
+        print "Crawled {} pages (at {} pages/min),scraped {} items (at {} items/min)".format(pages,prate,items,irate)
+
+        # msg = ("Crawled %(pages)d pages (at %(pagerate)d pages/min), "
+        #        "scraped %(items)d items (at %(itemrate)d items/min)")
+        # log_args = {'pages': pages, 'pagerate': prate,
+        #             'items': items, 'itemrate': irate}
+        # print logger.info(msg, log_args, extra={'spider': spider})
 
     def spider_closed(self, spider, reason):
         if self.task and self.task.running:

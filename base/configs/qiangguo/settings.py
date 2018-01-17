@@ -15,7 +15,7 @@ BOT_NAME = 'qiangguo'
 SPIDER_MODULES = ['base.spiders.qiangguo']
 NEWSPIDER_MODULE = 'base.spiders.qiangguo'
 
-# LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'CRITICAL'
 LOG_ENABLED = False
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'qiangguo (+http://www.yourdomain.com)'
@@ -71,7 +71,7 @@ ROBOTSTXT_OBEY = True
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
 EXTENSIONS = {
-    'scrapy.extensions.corestats.CoreStats': None,
+    'scrapy.extensions.logstats.LogStats': None,
     'base.configs.logstats.LogStats': 150,
 }
 

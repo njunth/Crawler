@@ -7,7 +7,7 @@
 
 docker run -e "SCRAPY_SETTINGS_MODULE=base.configs.wangyi_menhu.settings" -e "MONGO_HOST=114.212.189.147" -e "MONGO_PORT=10094" -e "MONGO_DBNAME=Crawler" -e "PYTHONPATH=/root/Crawler" -v /Users/lxs/workspace/Crawler:/root/Crawler -w=/root/Crawler -d --log-driver=fluentd --log-opt fluentd-address=114.212.189.147:10050 --log-opt tag=docker.{{.ID}} --log-opt fluentd-async-connect registry.njuics.cn/library/scrapy sh -c 'pip install -r requirements.txt && scrapy crawl spider'
 
-docker run -e "SCRAPY_SETTINGS_MODULE=base.configs.wangyi_menhu.settings" -e "MONGO_HOST=114.212.189.140:31483" -e "MONGO_PORT=10094" -e "MONGO_DBNAME=Crawler" -e "PYTHONPATH=/root/Crawler" -d --log-driver=fluentd --log-opt fluentd-address=114.212.189.135:31426 --log-opt tag=docker.{{.ID}} --log-opt fluentd-async-connect scrapy-crawler:latest sh -c 'scrapy crawl spider'
+docker run -e "SCRAPY_SETTINGS_MODULE=base.configs.qiangguo.settings" -e "MONGO_HOST=114.212.189.147" -e "MONGO_PORT=10100" -e "MONGO_DBNAME=Crawler" -e "MONGODB_COLLECTION=qiangguo" -e "REDIS_HOST=114.212.189.147" -e "REDIS_PORT=10111" -e "PYTHONPATH=/root/Crawler" -d --log-driver=fluentd --log-opt fluentd-address=114.212.189.147:10050 --log-opt tag=docker.qiangguo --log-opt fluentd-async-connect registry.njuics.cn/fluentd/scrapy-crawler:0118.1446 sh -c 'scrapy crawl spider'
 
 java -cp target/mesos-crawler-1.0-SNAPSHOT-jar-with-dependencies.jar -Djava.library.path=/Users/lxs/Library/mesos/build/src/.libs cn.njuics.menya.mesos.TestFramework 127.0.0.1:5050
 

@@ -32,21 +32,28 @@ class LogStats(object):
         self.pagesprev = 0
         self.itemsprev = 0
 
+        self.item_insert = 0.
+
+
         self.task = task.LoopingCall(self.log, spider)
         self.task.start(self.interval)
+
 
     def log(self, spider):
         items = self.stats.get_value('item_scraped_count', 0)
         pages = self.stats.get_value('response_received_count', 0)
+        items_insert = self.stats.get_value('item_insert_count', 0)
         irate = (items - self.itemsprev) * self.multiplier
         prate = (pages - self.pagesprev) * self.multiplier
+        insert_rate = (items_insert - self.item_insert) * self.multiplier
         self.pagesprev, self.itemsprev = pages, items
+        self.item_insert = items_insert
 
         print datetime.datetime.now().strftime( '%Y_%m_%d_%H_%M_%S' ),
 
         # print items, pages
 
-        print "Crawled {} pages (at {} pages/min),scraped {} items (at {} items/min)".format(pages,prate,items,irate)
+        print "Crawled {} pages (at {} pages/min),scraped {} items (at {} items/min)".format(pages,prate,items_insert,insert_rate)
 
         # msg = ("Crawled %(pages)d pages (at %(pagerate)d pages/min), "
         #        "scraped %(items)d items (at %(itemrate)d items/min)")

@@ -14,7 +14,8 @@ from scrapy.exceptions import DropItem
 
 class SohuScrapyPipeline(object):
 
-    def __init__(self):
+    def __init__(self, stats):
+        self.stats =stats
         connection = pymongo.MongoClient(
             MONGODB_SERVER,
             MONGODB_PORT
@@ -23,6 +24,9 @@ class SohuScrapyPipeline(object):
         self.collection = db[MONGODB_COLLECTION]
         print self.collection.database
 
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls( crawler.stats )
 
     def process_item(self, item, spider):
         valid = True
@@ -32,5 +36,6 @@ class SohuScrapyPipeline(object):
                 raise DropItem("Missing {0}!".format(data))
         if valid:
             self.collection.insert(dict(item))
+            self.stats.inc_value( 'item_insert_count' )
             #log.msg("added to MongoDB database!", level=log.INFO, spider=spider)
         return item

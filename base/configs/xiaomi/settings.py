@@ -16,7 +16,13 @@ BOT_NAME = 'xiaomi'
 SPIDER_MODULES = ['base.spiders.xiaomi']
 NEWSPIDER_MODULE = 'base.spiders.xiaomi'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'xiaomi (+http://www.yourdomain.com)'
 

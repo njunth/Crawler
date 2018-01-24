@@ -16,7 +16,13 @@ BOT_NAME = 'ifeng_scrapy'
 SPIDER_MODULES = ['base.spiders.ifeng_menhu']
 NEWSPIDER_MODULE = 'base.spiders.ifeng_menhu'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'tencent_scrapy (+http://www.yourdomain.com)'

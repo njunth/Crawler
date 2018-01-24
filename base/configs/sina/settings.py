@@ -15,7 +15,13 @@ BOT_NAME = 'sina'
 SPIDER_MODULES = ['base.spiders.sina']
 NEWSPIDER_MODULE = 'base.spiders.sina'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'sina (+http://www.yourdomain.com)'
 

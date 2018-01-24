@@ -18,7 +18,13 @@ NEWSPIDER_MODULE = 'base.spiders.haitian'
 
 FLAG='Haitian'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 
 
 MONGO_HOST = os.getenv("MONGO_HOST", "localhost")  # 主机IP

@@ -16,7 +16,13 @@ BOT_NAME = 'sohu_scrapy'
 SPIDER_MODULES = ['base.spiders.sohu_menhu']
 NEWSPIDER_MODULE = 'base.spiders.sohu_menhu'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

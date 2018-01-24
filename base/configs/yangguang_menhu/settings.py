@@ -15,7 +15,13 @@ BOT_NAME = 'yangguang_menhu'
 SPIDER_MODULES = ['base.spiders.yangguang_menhu']
 NEWSPIDER_MODULE = 'base.spiders.yangguang_menhu'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'yangguang_manhu (+http://www.yourdomain.com)'

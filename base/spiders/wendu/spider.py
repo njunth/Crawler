@@ -36,7 +36,7 @@ class wendu(scrapy.Spider):
 
 	def parse_inPage(self,response):
 		sleep_time = random.random()
-		print sleep_time
+		# print sleep_time
 		time.sleep( sleep_time )
 		item = WenduItem()
 		item['title'] = ''
@@ -52,9 +52,9 @@ class wendu(scrapy.Spider):
 		self.bf.extend(response.url)
 
 		contentlist = response.xpath('//html').extract()
-		for con in contentlist:
-			utfcontent = con.encode('utf-8')
-			item['html'] += utfcontent
+		# for con in contentlist:
+		# 	utfcontent = con.encode('utf-8')
+		# 	item['html'] += utfcontent
 
 		titlelist = response.xpath('//title/text()').extract()
 		for line in titlelist:

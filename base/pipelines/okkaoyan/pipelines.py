@@ -13,7 +13,8 @@ from base.configs.okkaoyan.settings import MONGODB_HOST, MONGODB_PORT, MONGODB_D
 class MongoDBPipeline(object):
     # def process_item(self, item, spider):
     #     return item
-    def __init__(self):
+    def __init__(self, stats):
+        self.stats = stats
         port = MONGODB_PORT
         host = MONGODB_HOST
         db_name = MONGODB_DBNAME
@@ -21,7 +22,12 @@ class MongoDBPipeline(object):
         db = client[db_name]
         self.post = db[MONGODB_COLLECTION]
 
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls( crawler.stats )
+
     def process_item(self, item, spider):
          njudata = dict(item)
          self.post.insert(njudata)
+         self.stats.inc_value( 'item_insert_count' )
          return item

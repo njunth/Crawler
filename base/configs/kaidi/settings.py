@@ -14,7 +14,13 @@ BOT_NAME = 'kaidi'
 
 SPIDER_MODULES = ['base.spiders.kaidi']
 NEWSPIDER_MODULE = 'base.spiders.kaidi'
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'kaidi (+http://www.yourdomain.com)'

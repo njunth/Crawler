@@ -15,7 +15,13 @@ BOT_NAME = 'tianyav2'
 SPIDER_MODULES = ['base.spiders.tianya']
 NEWSPIDER_MODULE = 'base.spiders.tianya'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'tianyav2 (+http://www.yourdomain.com)'
 

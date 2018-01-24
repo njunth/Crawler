@@ -39,7 +39,7 @@ class KaoshibaSpider(Spider):
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         r1 = '.*html'
         url = response.url
@@ -64,7 +64,7 @@ class KaoshibaSpider(Spider):
                 item['attention'] = 0
                 time_str=response.selector.xpath("//div[@class='titiefu']")
                 time_str1=time_str.xpath('string(.)').extract()[0]
-                print time_str1
+                # print time_str1
                 try:
                     s2=time_str1.replace('-','_').replace(' ','_').replace(':','_')
                     time_str3= re.findall(r'\w*([0-9]{4}_[0-9]+_[0-9]+_[0-9]+_[0-9]+_[0-9]+)\w*',s2)[0]

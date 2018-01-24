@@ -18,7 +18,8 @@ import datetime
 import datetime
 
 class XiaomiPipeline(object):
-    def __init__(self):
+    def __init__(self, stats):
+        self.stats = stats
         # 链接数据库
         self.bf = pyreBloom.pyreBloom('xiaomiluntan', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
@@ -26,6 +27,11 @@ class XiaomiPipeline(object):
         # self.client.admin.authenticate(settings['MINGO_USER'], settings['MONGO_PSW'])
         db = client[MONGODB_DBNAME]  # 获得数据库的句柄
         self.collection = db[MONGODB_COLLECTION]  # 获得collection的句柄
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls( crawler.stats )
+
     def process_item(self, item, spider):
         valid = True
         for data in item:
@@ -95,6 +101,7 @@ class XiaomiPipeline(object):
             if (self.bf.contains(str(data)) == False):
                 self.bf.extend(str(data))
                 self.collection.insert(njudata)
+                self.stats.inc_value( 'item_insert_count' )
                 #return item
 
 
@@ -132,6 +139,7 @@ class XiaomiPipeline(object):
                 if (self.bf.contains(str(data)) == False):
                     self.bf.extend(str(data))
                     self.collection.insert(njudata)
+                    self.stats.inc_value( 'item_insert_count' )
             #self.collection.insert(dict(item))
 
             #self.collection.insert(dict(item))

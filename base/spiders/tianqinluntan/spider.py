@@ -39,23 +39,24 @@ class TianqinluntanSpider(Spider):
 
 
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
 
         r1 = 'http://www.csbiji.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
         url = response.url
         item =TianqinluntanItem()
-        print url
+        # print url
         content_div = response.selector.xpath('//table[@cellspacing="0" and @cellpadding="0"]//tr//td[@class="t_f"]')
         content1=content_div.xpath('string(.)').extract()
         try:
             if (re.match(r1, url) and len(content_div)>0):
-                print "crawl"
+                # print "crawl"
                 item['source']="天勤论坛"
                 item['source_url']='http://www.csbiji.com/'
                 item['url']=url
-                item['html']=response.body.decode("unicode_escape")
-                # item['html']=''
+                print item['url']
+                # item['html']=response.body.decode("unicode_escape")
+                item['html']=''
                 click1 = response.selector.xpath("//span[@class='xi1']/text()").extract()
                 if(len(click1)>0): item['n_click'] = int(click1[0])
                 else:item['n_click']=0

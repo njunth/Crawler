@@ -18,7 +18,13 @@ NEWSPIDER_MODULE = 'base.spiders.qihang'
 
 FLAG='Qihang'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 
 DEPTH_LIMIT=50
 

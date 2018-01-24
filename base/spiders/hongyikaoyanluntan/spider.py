@@ -47,7 +47,8 @@ class HongyikaoyanluntanSpider(Spider):
                 item['source']="弘毅考研论坛"
                 item['source_url']='http://www.hykaoyan.org/'
                 item['url']=url
-                item['html']=response.body
+                # item['html']=response.body
+                item['html'] = ''
                 item['content'] = content1
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention'] = 0

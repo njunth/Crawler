@@ -46,7 +46,7 @@ class ChinakaoyanSpider(Spider):
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         r1 = '.*/info/article/id.*'
         url = response.url
@@ -60,8 +60,8 @@ class ChinakaoyanSpider(Spider):
                 item['source']="中国考研网"
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
-                # item['html']=''
-                item['html']=response.body.decode("unicode_escape")
+                item['html']=''
+                # item['html']=response.body.decode("unicode_escape")
                 item['content'] = "".join(content1)
 
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]

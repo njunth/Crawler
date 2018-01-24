@@ -40,12 +40,12 @@ class WangdaoluntanSpider(Spider):
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         r1 = 'http://www.cskaoyan.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
         url = response.url
         item =WangdaoluntanItem()
-        print url
+        # print url
         content_div = response.selector.xpath('//table[@cellspacing="0" and @cellpadding="0"]//tr//td[@class="t_f"]')
         content1=content_div.xpath('string(.)').extract()
         try:

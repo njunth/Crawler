@@ -16,7 +16,13 @@ SPIDER_MODULES = ['base.spiders.xindongfang']
 NEWSPIDER_MODULE = 'base.spiders.xindongfang'
 
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 
 FLAG='Xindongfang'
 

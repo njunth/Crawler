@@ -38,7 +38,7 @@ class YixuekaoyanSpider(Spider):
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         r1 = '.*html'
         url = response.url
@@ -51,7 +51,8 @@ class YixuekaoyanSpider(Spider):
                 item['source']="医学考研网"
                 item['source_url']='http://www.medkaoyan.net/'
                 item['url']=url
-                item['html']=response.body
+                # item['html']=response.body
+                item['html'] = ''
                 i=0
                 for t in content1:
                     tt = t.replace('\r','').replace('\n','').replace('\t','').replace(' ','')

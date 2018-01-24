@@ -26,18 +26,18 @@ class spider(scrapy.Spider):
 		urls = response.xpath("//ul[@class='con_l']//a[starts-with(@href,'http')]/@href  |  //ul[@class='con_r']//a[starts-with(@href,'http')]/@href   |   //div[@class='tab_box']//a[starts-with(@href,'http')]/@href").extract()
 		for url in urls:
 			if(self.bf.contains(url)==False):
-				print url
+				# print url
 				yield Request(url,callback=self.parse_inPage, dont_filter=True)
 			else:
 				continue
-		print "finish"
+		# print "finish"
 			# yield Request("http://kaoyan.wanxue.cn",callback=self.parse, dont_filter=True)
 
 
 
 	def parse_inPage(self,response):
 		sleep_time = random.random()
-		print 5*sleep_time
+		# print 5*sleep_time
 		time.sleep( 5*sleep_time )
 		item=HaiwenItem()
 		item['title']=''
@@ -54,9 +54,9 @@ class spider(scrapy.Spider):
 
 		self.bf.extend(response.url)
 
-		for con in contentlist:
-			utfcontent = con.encode('utf-8')
-			item['html'] += utfcontent
+		# for con in contentlist:
+		# 	utfcontent = con.encode('utf-8')
+		# 	item['html'] += utfcontent
 		titlelist = response.xpath('//title/text()').extract()
 
 		for line in titlelist:

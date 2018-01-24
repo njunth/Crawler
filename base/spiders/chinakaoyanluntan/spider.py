@@ -39,7 +39,7 @@ class ChinakaoyanluntanSpider(Spider):
     def parse_inPage(self,response):
         r1 = '.*/club/topicShow/clubId/[0-9]*/tid.*'
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         url = response.url
         item =ChinakaoyanluntanItem()
@@ -50,7 +50,8 @@ class ChinakaoyanluntanSpider(Spider):
                 item['source']="中国考研网论坛"
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
-                item['html']=response.body.decode("unicode_escape")
+                # item['html']=response.body.decode("unicode_escape")
+                item['html'] = ''
                 click_reply_str=response.selector.xpath("//h6/text()").extract()[0]
                 ccrr = re.findall(r'(\w*[0-9]+)\w*',click_reply_str)
                 if(len(ccrr)>0):

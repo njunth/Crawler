@@ -18,7 +18,13 @@ NEWSPIDER_MODULE = 'base.spiders.wendu'
 
 FLAG='Wendu'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 
 MONGO_HOST = os.getenv("MONGO_HOST", "localhost")  # 主机IP
 MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))  # 端口号

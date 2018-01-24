@@ -15,7 +15,13 @@ BOT_NAME = 'kuakao'
 SPIDER_MODULES = ['base.spiders.kuakao']
 NEWSPIDER_MODULE = 'base.spiders.kuakao'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 
 FLAG='Kuakao'
 

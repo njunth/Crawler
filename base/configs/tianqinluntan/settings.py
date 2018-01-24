@@ -15,7 +15,13 @@ BOT_NAME = 'tianqinluntan'
 SPIDER_MODULES = ['base.spiders.tianqinluntan']
 NEWSPIDER_MODULE = 'base.spiders.tianqinluntan'
 FEED_EXPORT_ENCODING = 'utf-8'
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'chinakaoyan (+http://www.yourdomain.com)'
 

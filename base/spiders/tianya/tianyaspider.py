@@ -37,7 +37,7 @@ class Tianyaspider(scrapy.Spider):
 
     def parse_inpage(self,response):
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         item = Tianyav2Item()
         content = response.selector.xpath('//div[@class="atl-main"]//div/div[@class="atl-content"]/div[2]/div[1]')#/text()').extract()
@@ -53,9 +53,9 @@ class Tianyaspider(scrapy.Spider):
 
             item['html'] = ''
             contentlist = response.xpath('//html').extract()
-            for con in contentlist:
-                utfcontent = con.encode('utf-8')
-                item['html'] += utfcontent
+            # for con in contentlist:
+            #     utfcontent = con.encode('utf-8')
+            #     item['html'] += utfcontent
 
             item['url'] = response.url
 

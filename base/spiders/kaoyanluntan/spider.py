@@ -35,7 +35,7 @@ class KaoyanluntanSpider(Spider):
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         r1 = 'http://bbs.kaoyan.com/t[0-9]*p1'
         url = response.url
@@ -49,7 +49,8 @@ class KaoyanluntanSpider(Spider):
                 item['source']="考研论坛"
                 item['source_url']='http://bbs.kaoyan.com/'
                 item['url']=url
-                item['html']=response.body
+                # item['html']=response.body
+                item['html'] = ''
                 item['content'] = content1
                 item['title'] = response.selector.xpath("//title/text()").extract()[0]
                 item['attention']=0

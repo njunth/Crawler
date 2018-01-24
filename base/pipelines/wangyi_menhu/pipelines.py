@@ -11,7 +11,8 @@ from scrapy.exceptions import DropItem
 
 
 class WangyiScrapyPipeline(object):
-    def __init__(self):
+    def __init__(self, stats):
+        self.stats = stats
         connection = pymongo.MongoClient(
             MONGODB_SERVER,
             MONGODB_PORT
@@ -19,6 +20,9 @@ class WangyiScrapyPipeline(object):
         db = connection[MONGODB_DBNAME]
         self.collection = db[MONGODB_COLLECTION]
 
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls( crawler.stats )
 
     def process_item(self, item, spider):
         valid = True
@@ -29,6 +33,7 @@ class WangyiScrapyPipeline(object):
         if valid:
             try:
                 self.collection.insert(dict(item))
+                self.stats.inc_value( 'item_insert_count' )
             except Exception as e:
                 print "URL: Item inset error"
             # self.collection.insert(dict(item))

@@ -32,7 +32,7 @@ class DmozSpider(scrapy.Spider):
 
         url = response.url
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
 
         try:
@@ -64,9 +64,9 @@ class DmozSpider(scrapy.Spider):
                 item['html'] = ''
 
                 contentlist = response.xpath('//html').extract()
-                for con in contentlist:
-                    utfcontent = con.encode('utf-8')
-                    item['html'] += utfcontent
+                # for con in contentlist:
+                #     utfcontent = con.encode('utf-8')
+                #     item['html'] += utfcontent
                 """
                 try:
                     item['html'] = response.body.decode('gbk')

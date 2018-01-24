@@ -15,7 +15,13 @@ BOT_NAME = 'zhuoyue'
 SPIDER_MODULES = ['base.spiders.zhuoyue']
 NEWSPIDER_MODULE = 'base.spiders.zhuoyue'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 
 FLAG='Zhuoyue'
 

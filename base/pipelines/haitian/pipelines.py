@@ -11,15 +11,20 @@ from base.configs.haitian.settings import MONGO_HOST,MONGO_PORT,MONGO_DB,MONGO_C
 
 
 class HaitianPipeline(object):
-    def __init__(self):
+    def __init__(self, stats):
+        self.stats = stats
         self.client = MongoClient(MONGO_HOST, MONGO_PORT)
         mdb = self.client[MONGO_DB]
         self.collection = mdb[MONGO_COLL]
-    
-    
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls( crawler.stats )
+
     def process_item(self, item, spider):
         data = dict(item)
         self.collection.insert(data)
+        self.stats.inc_value( 'item_insert_count' )
         return item
     
     def close_spider(self, spider):

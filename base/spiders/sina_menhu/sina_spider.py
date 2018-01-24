@@ -29,7 +29,7 @@ class DmozSpider(scrapy.Spider):
         r_content1="//div[@id='artibody']//p/text()"
         url = response.url
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         # print url
         publish_time=[]
@@ -49,9 +49,9 @@ class DmozSpider(scrapy.Spider):
 
                 item['html'] = ''
                 contentlist = response.xpath('//html').extract()
-                for con in contentlist:
-                    utfcontent = con.encode('utf-8')
-                    item['html'] += utfcontent
+                # for con in contentlist:
+                #     utfcontent = con.encode('utf-8')
+                #     item['html'] += utfcontent
 
                 item['source'] = "新浪网"
                 item['source_url'] = "http://www.sina.com.cn/"

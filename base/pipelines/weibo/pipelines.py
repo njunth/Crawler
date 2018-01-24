@@ -12,11 +12,16 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 class WeiboPipeline(object):
-    def __init__(self):
+    def __init__(self, stats):
+        self.stats = stats
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
         db = client[MONGODB_DBNAME]
         self.collection = db[MONGODB_COLLECTION]
         #self.collection.remove({})
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls( crawler.stats )
 
     def process_item(self, item, spider):
         #print item
@@ -59,4 +64,5 @@ class WeiboPipeline(object):
             'authid': item['authid'],
             'create_time': createstr
         })
+        self.stats.inc_value( 'item_insert_count' )
         return item

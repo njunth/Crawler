@@ -32,7 +32,6 @@ class DmozSpider(scrapy.Spider):
         url = response.url
         self.bf.extend(url)
         item = WangyiScrapyItem()
-        print url
         try:
             if re.match(self.r2, url):
                 # with open('aaaaa', 'ab') as f:
@@ -42,6 +41,7 @@ class DmozSpider(scrapy.Spider):
                 # print "aaaaaaa!!!!!!!@*#()@_______"
                 # for sel in response:
                 # print 1111
+                print url
                 item['title'] = response.xpath("//head/title/text()").extract()[0]
                 # name= item['name']
                 item['content'] = response.xpath(
@@ -65,9 +65,9 @@ class DmozSpider(scrapy.Spider):
                     """
                     item['html'] = ''
                     contentlist = response.xpath('//html').extract()
-                    for con in contentlist:
-                        utfcontent = con.encode('utf-8')
-                        item['html'] += utfcontent
+                    # for con in contentlist:
+                    #     utfcontent = con.encode('utf-8')
+                    #     item['html'] += utfcontent
 
                     publish_time = response.xpath("//*[@class='post_time_source']/text()").extract()
                     # time1 = response.xpath("//head/meta[@property='article:published_time']//@content").extract()[1]
@@ -114,7 +114,7 @@ class DmozSpider(scrapy.Spider):
                 if re.match(self.r3, url) == None and re.match(self.r4, url) == None:
                     if (self.bf.contains(url) == False):
                         yield scrapy.Request(url=url, callback=self.parse_inpage, priority=1, dont_filter=True)
-            sleep_time = random.random()
-            print sleep_time
-            time.sleep(sleep_time)
+            # sleep_time = random.random()
+            # # print sleep_time
+            # time.sleep(sleep_time)
         # yield scrapy.Request( url="http://www.163.com/", callback=self.parse, priority=0, dont_filter=True )

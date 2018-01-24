@@ -39,7 +39,7 @@ class KaoyanbangSpider(Spider):
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        print 5*sleep_time
+        # print 5*sleep_time
         time.sleep( 5*sleep_time )
         r1 = '.*/zhaosheng/.+.html'
         r2 = '.*/xinwen/.+.html'
@@ -55,7 +55,8 @@ class KaoyanbangSpider(Spider):
                 item['source_url']='http://www.kaoyan.com/'
                 item['url']=url
                 print item['url']
-                item['html']=response.body
+                # item['html']=response.body
+                item['html'] = ''
                 i=0
                 for t in content1:
                     tt = t.replace('\r','').replace('\n','').replace('\t','').replace(' ','')

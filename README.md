@@ -5,7 +5,7 @@
 
 百度贴吧：baidutiebaquanbasousuo，前20-50页，请求之间停顿，不进入具体页面----加大间隔
 
-弘毅考研论坛：hongyikaoyanluntan，直接关闭
+弘毅考研论坛：hongyikaoyanluntan，直接关闭(浏览器检查)
 
 微博：weibo，前50页，请求之间停顿，不进入具体页面，没被封
 

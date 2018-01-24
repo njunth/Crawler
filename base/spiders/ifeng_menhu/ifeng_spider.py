@@ -27,7 +27,7 @@ class DmozSpider(scrapy.Spider):
     r7='^http://.*house.ifeng.*'
     def parse_inpage(self, response):
         sleep_time = random.random()
-        print 3*sleep_time
+        # print 3*sleep_time
         time.sleep( 3*sleep_time )
 
         url = response.url
@@ -70,9 +70,9 @@ class DmozSpider(scrapy.Spider):
                 item['html'] = ''
 
                 contentlist = response.xpath('//html').extract()
-                for con in contentlist:
-                    utfcontent = con.encode('utf-8')
-                    item['html'] += utfcontent
+                # for con in contentlist:
+                #     utfcontent = con.encode('utf-8')
+                #     item['html'] += utfcontent
 
                 item['source'] = u"凤凰网"
                 item['source_url'] = "http://www.ifeng.com/"

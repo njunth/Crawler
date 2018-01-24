@@ -97,7 +97,8 @@ class BaidutiebaquanbasousuoSpider(Spider):
                 #print item['source_url']
                 #os.system("pause")
                 item['source_url']="https://tieba.baidu.com/index.html"
-                item['html']=response.body.decode("unicode_escape")
+                # item['html']=response.body.decode("unicode_escape")
+                item['html'] = ''
                 item['n_click']=0
                 item['n_reply']=0
                 item['content'] = content1

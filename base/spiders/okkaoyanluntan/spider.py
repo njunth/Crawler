@@ -35,7 +35,7 @@ class OkkaoyanluntanSpider(Spider):
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        print 5*sleep_time
+        # print 5*sleep_time
         time.sleep( 5*sleep_time )
         # r1 = 'http://bbs.okaoyan.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
         r1 = 'http://bbs.okaoyan.com/.*.thread.*'
@@ -51,7 +51,8 @@ class OkkaoyanluntanSpider(Spider):
                 item['source_url']='http://bbs.okaoyan.com/'
                 item['url']=url
                 print item['url']
-                item['html']=response.body
+                # item['html']=response.body
+                item['html'] = ''
                 click1 = response.selector.xpath("//span[@class='xi1']/text()").extract()
                 if(len(click1)>0): item['n_click'] = int(click1[0])
                 else:item['n_click']=0

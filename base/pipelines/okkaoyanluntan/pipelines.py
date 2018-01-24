@@ -20,7 +20,8 @@ sys.setdefaultencoding('utf-8')
 class MongoDBPipeline(object):
     # def process_item(self, item, spider):
     #     return item
-    def __init__(self):
+    def __init__(self, stats):
+        self.stats =stats
         self.bf=pyreBloom.pyreBloom('okkaoyanluntan', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         port = MONGODB_PORT
         host = MONGODB_HOST
@@ -28,6 +29,10 @@ class MongoDBPipeline(object):
         client = pymongo.MongoClient(host=host, port=port)
         db = client[db_name]
         self.post = db[MONGODB_COLLECTION]
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls( crawler.stats )
 
     def process_item(self, item, spider):
         j=0
@@ -65,6 +70,7 @@ class MongoDBPipeline(object):
             if(self.bf.contains(str(item['time'][i])+str(item['authid'][i]))==False):
                 self.bf.extend(str(item['time'][i])+str(item['authid'][i]))
                 self.post.insert(njudata)
+                self.stats.inc_value( 'item_insert_count' )
             i = i + 1
             ii = ii + 1
         # njudata = dict(item)

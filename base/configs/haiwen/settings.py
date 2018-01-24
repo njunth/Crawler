@@ -15,7 +15,13 @@ BOT_NAME = 'haiwen'
 SPIDER_MODULES = ['base.spiders.haiwen']
 NEWSPIDER_MODULE = 'base.spiders.haiwen'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
 
 FLAG='Haiwen'
 

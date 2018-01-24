@@ -26,7 +26,7 @@ class htkaoyan(scrapy.Spider):
 		# print urls
 		for url in urls:
 			if(self.bf.contains(url)==False):
-				print url
+				# print url
 				yield Request(url,callback=self.parse_inPage, dont_filter=True)
 			else:
 				continue
@@ -34,7 +34,7 @@ class htkaoyan(scrapy.Spider):
 
 	def parse_inPage(self,response):
 		sleep_time = random.random()
-		print sleep_time
+		# print sleep_time
 		time.sleep( sleep_time )
 		item = HaiItem()
 		item['title'] = ''
@@ -52,9 +52,9 @@ class htkaoyan(scrapy.Spider):
 
 		contentlist = response.xpath('//html').extract()
 
-		for con in contentlist:
-			utfcontent = con.encode('utf-8')
-			item['html'] += utfcontent
+		# for con in contentlist:
+		# 	utfcontent = con.encode('utf-8')
+		# 	item['html'] += utfcontent
 		titlelist = response.xpath('//title/text()').extract()
 
 		for line in titlelist:

@@ -21,8 +21,11 @@ class DmozSpider(scrapy.Spider):
     r4 = '^http://.*.cnr.*.htm.*'
 
     def parse_inpage(self, response):
+        sleep_time = random.random()
+        # print 5 * sleep_time
+        time.sleep( 5 * sleep_time )
         url = response.url
-        print url
+        # print url
         if re.match(self.r2, url) or re.match(self.r3, url)or re.match(self.r4, url):
             try:
                 # print url
@@ -33,6 +36,7 @@ class DmozSpider(scrapy.Spider):
                 # item['name'] = sel.xpath("h1[@class='main-title']/text()").extract()[0].encode('utf-8')
                 # name= item['name']
                 item['url'] = url
+                print item['url']
 
                 item['title'] = response.xpath("//head/title/text()").extract_first()
 
@@ -44,9 +48,9 @@ class DmozSpider(scrapy.Spider):
                 #try:
                 item['html'] = ''
                 contentlist = response.xpath('//html').extract()
-                for con in contentlist:
-                    utfcontent = con.encode('utf-8')
-                    item['html'] += utfcontent
+                # for con in contentlist:
+                #     utfcontent = con.encode('utf-8')
+                #     item['html'] += utfcontent
                 #except:
                 #item['html'] = response.body
 
@@ -107,14 +111,12 @@ class DmozSpider(scrapy.Spider):
                     f.write('\n')
                     """
                 for url in response.selector.xpath("//a/@href").re(self.r1):
-                    print url
+                    # print url
                     if re.match(self.r2, url) is None and re.match(self.r3, url) is None and re.match(self.r4, url) is None:
                             yield scrapy.Request(url=url, callback=self.parse,priority=0, dont_filter=True)
                     else:
                         if (self.bf.contains(url) == False):
                             yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1, dont_filter=True)
-                    sleep_time = random.random()
-                    print 5 * sleep_time
-                    time.sleep(5 * sleep_time)
+
                 # yield scrapy.Request(url='http://www.cnr.cn/', callback=self.parse,priority=0, dont_filter=True)
 

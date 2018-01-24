@@ -7,7 +7,8 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
 from base.items.meiqi.BloomFilter import BloomFilter
 import string
-import datetime, random, time
+import datetime, random
+import time
 
 
 class Meiqispider(scrapy.Spider):
@@ -35,10 +36,11 @@ class Meiqispider(scrapy.Spider):
             for url1 in response.selector.xpath("//a/@href").re(r'^http://bbs.biketo.com.*.html'):
                 # for url1 in url:
                 #if (self.bf.is_element_exist(url1) == False):  # reduce a /
-                sleep_time = random.random()
-                print sleep_time
-                time.sleep( sleep_time )
+
                 yield scrapy.Request(url=url1, callback=self.parse_inpage, dont_filter=True)
+                # sleep_time = random.random()
+                # print sleep_time
+                # time.sleep( sleep_time )
                 #else:
                     #continue
             #for url in response.selector.xpath("//a/@href").re(r'^http://bbs.biketo.com.*.html'):
@@ -56,12 +58,12 @@ class Meiqispider(scrapy.Spider):
 
             item['html'] = ''
             contentlist = response.xpath('//html').extract()
-            for con in contentlist:
-                utfcontent = con.encode('utf-8')
-                item['html'] += utfcontent
+            # for con in contentlist:
+            #     utfcontent = con.encode('utf-8')
+            #     item['html'] += utfcontent
 
             item['url'] = response.url
-            print item['url']
+            # print item['url']
 
             t = response.xpath(
                 "//div[@id='postlist']//span[@id='thread_subject']/text()").extract()  # [0].encode('utf-8')

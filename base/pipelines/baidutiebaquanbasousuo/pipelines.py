@@ -13,6 +13,8 @@ from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
 import os
 import sys
 import re
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -21,7 +23,7 @@ class MongoDBPipeline(object):
     # def process_item(self, item, spider):
     #     return item
     def __init__(self, stats):
-        self.bf=BloomFilter(0.0001,100000)
+        self.bf = pyreBloom.pyreBloom( 'baidutiebaquanbasousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
         port = MONGODB_PORT
         host = MONGODB_HOST
         db_name = MONGODB_DBNAME
@@ -62,8 +64,8 @@ class MongoDBPipeline(object):
                 source_url_="http://tieba.baidu.com"+source_url_
             njudata=dict({'create_time':item['create_time'],'source':source_,'source_url':item['source_url'],'url':source_url_,'html':item['html'],'n_click':item['n_click'],'n_reply':item['n_reply'],'content':str(t),'title':title_,'attention':item['attention'],'time':time_,'authid':authid_,'sentiment':item['sentiment']})
             njudata1=time_+authid_+t
-            if(self.bf.is_element_exist(str(njudata1))==False):
-                self.bf.insert_element( str(njudata1) )
+            if(self.bf.contains(str(njudata1))==False):
+                self.bf.extend( str(njudata1) )
                 self.post.insert(njudata)
                 self.stats.inc_value( 'item_insert_count' )
             i = i + 1

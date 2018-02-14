@@ -2,22 +2,23 @@
 import scrapy
 import re
 import sys
-from base.items.nanfang_menhu.items import NanfangScrapyItem
-from base.items.nanfang_menhu.bloomfilter import BloomFilter
+from base.items.qingnianbao_menhu.items import QingnianbaoScrapyItem
+from base.items.qingnianbao_menhu.bloomfilter import BloomFilter
 import datetime, random, time
 class DmozSpider(scrapy.Spider):
     name = "spider"
-    allowed_domains = ["infzm.com"]
+    #allowed_domains = ["bjnews.com.cn"]
     start_urls = [
-        "http://www.infzm.com/"
+        "http://www.cyol.net/"
     ]
     bf = BloomFilter(0.0001, 1000000)
-    r1 = '^http://.*.infzm.*'
-    r2='^.*content.*'
-
+    r1 = 'http://.*.cyol.*'
+    r='.*content.*'
+    r2='^http://.*.cyol.*.htm.*'
+    r3='^http://.*node.*.htm.*'
     def start_requests(self):
         while 1:
-            yield scrapy.Request("http://www.infzm.com/", callback=self.parse_mainpage)
+            yield scrapy.Request("http://www.cyol.net/", callback=self.parse_mainpage)
 
     def parse_inpage(self, response):
         url = response.url
@@ -33,7 +34,7 @@ class DmozSpider(scrapy.Spider):
                 self.bf.insert_element(url)
                 #print "aaaaaaa!!!!!!!@*#()@_______"
                 #for sel in response:
-                item = NanfangScrapyItem()
+                item = QingnianbaoScrapyItem()
                 # item['name'] = sel.xpath("h1[@class='main-title']/text()").extract()[0].encode('utf-8')
                 # name= item['name']
                 item['url'] = url
@@ -42,8 +43,8 @@ class DmozSpider(scrapy.Spider):
 
 
 
-                item['source'] = "南方周末"
-                item['source_url'] = "http://www.infzm.com/"
+                item['source'] = "中国青年报"
+                item['source_url'] = "http://www.cyol.net/"
 
                 #try:
                 item['html'] = ''
@@ -55,21 +56,26 @@ class DmozSpider(scrapy.Spider):
                 #item['html'] = response.body
 
 
-                item['content'] = response.xpath("//article//p//text()").extract()
+                item['content'] = response.xpath("//div[@class='zhengwen']//p//text()").extract()
 
 
-                #if len(item['content'])==0:
-                    #item['content'] = response.xpath("//div[@class='video_bo']//p/text()").extract()
-
+                if len(item['content'])==0:
+                    item['content'] = response.xpath("//div[@class='layoutA']//p//text()").extract()
+                if len(item['content']) == 0:
+                    item['content'] = response.xpath("//div[@class='jia']//p//text()").extract()
 
                 item['content'] = ''.join(item['content'])
 
 
                 time_item = []
-                try:
-                    publish_time1 = response.xpath("//em[@class='pubTime']/text()").extract()[0]
-                except:
-                    publish_time1 = response.xpath("//p[@class='articleInfo']/text()").extract()[0]
+
+                #try:
+                publish_time1 = response.xpath("//h6/text()").extract()[0]
+               # except:
+                    #try:
+                        #publish_time1 = response.xpath("//span[@id='tujitime']/text()").extract()[0]
+                    #except:
+                        #publish_time1 = response.xpath("//div[@class='mtitle']/span/text()").extract()[0]
                 #print url
                 #print publish_time1
                 #publish_time1=''.join(publish_time1)
@@ -135,9 +141,13 @@ class DmozSpider(scrapy.Spider):
                 #with open('a', 'ab') as f:
                     #f.write(response.url)
                     #f.write('\n')
-
-                for url in response.selector.xpath("//a/@href").re(self.r1):
-                        if re.match(self.r2, url):
+                result = response.url.split('/')
+                #print(result)
+                for url in response.selector.xpath("//a/@href").re(self.r1+'|'+self.r):
+                        if not url.startswith('http:'):
+                            url = "http://" +result[2]+'/'+ url
+                            #print url
+                        if re.match(self.r2, url) and re.match(self.r3,url) is None:
                                 if (self.bf.is_element_exist(url) == False):
                                     yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
                         else:

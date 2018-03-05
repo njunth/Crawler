@@ -16,7 +16,14 @@ SPIDER_MODULES = ['base.spiders.yuyou']
 NEWSPIDER_MODULE = 'base.spiders.yuyou'
 
 LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
 
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
+
+DEPTH_LIMIT = 4
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'yuyou (+http://www.yourdomain.com)'
 
@@ -73,7 +80,7 @@ ITEM_PIPELINES = {
 MONGO_HOST = os.getenv("MONGO_HOST", "localhost")  # 主机IP
 MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))  # 端口号
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")  # 库名
-MONGODB_COLLECTION = "Yuyouzhijianluntan"  # collection名
+MONGODB_COLLECTION = "Yuyouzhijialuntan"  # collection名
 
 
 # Enable and configure the AutoThrottle extension (disabled by default)

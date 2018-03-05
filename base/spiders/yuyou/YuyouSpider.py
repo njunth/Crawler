@@ -4,7 +4,7 @@ from base.items.yuyou.items import YuyouItem
 import re
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
-from base.items.yuyou.bloomfilter import BloomFilter
+# from base.items.yuyou.bloomfilter import BloomFilter
 import string
 import datetime, random, time
 
@@ -17,7 +17,7 @@ class YuyouSpider(scrapy.Spider):
         "http://pbbs.lnfisher.com/"
     }
 
-    bf = BloomFilter(0.0001,1000000)
+    # bf = BloomFilter(0.0001,1000000)
 
     #r1 = '^http://pbbs.lnfisher.com/forum.php?mod=viewthread&tid=[0-9]*'
     r1 = '.*.tid*.*'
@@ -30,19 +30,18 @@ class YuyouSpider(scrapy.Spider):
         r5 = r3 + '|' + r4
         while 1:
             for url1 in response.selector.xpath("//a/@href").re(r5):
-                sleep_time = random.random()
-                #print sleep_time
-                time.sleep(sleep_time)
-
                 if not url1.startswith('http'):
                     url1 = "http://pbbs.lnfisher.com" + url1
 
                 if re.match(self.r1, url1) :#or re.match(self.r2, url1):  # reduce a /
-                    yield scrapy.Request(url=url1, callback=self.parse_inpage, priority=1)
+                    yield scrapy.Request(url=url1, callback=self.parse_inpage, priority=1, dont_filter=True)
                 else:
-                    yield scrapy.Request(url=url1, callback=self.parse, priority=0)
+                    yield scrapy.Request(url=url1, callback=self.parse, priority=1, dont_filter=True)
 
     def parse_inpage(self,response):
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         item = YuyouItem()
         content = response.selector.xpath("//td[@class='t_f']")
         con_div = content.xpath('string(.)').extract()
@@ -59,7 +58,7 @@ class YuyouSpider(scrapy.Spider):
             item['html'] += utfcontent
 
         item['url'] = response.url
-
+        print item['url']
         t = response.xpath("//span[@id='thread_subject']/text()").extract()  # [0].encode('utf-8')
         title = ''.join(t)
         title1 = title.encode('utf-8')
@@ -104,6 +103,7 @@ class YuyouSpider(scrapy.Spider):
                     item['n_reply'] = int(nr)
 
         item['testtime'] = response.xpath("//div[@class='authi']//em//span").extract()
+        item['html'] = ''
         #item['testtime'] = response.xpath("//div[@class='authi']//em").extract()
         #item['replies'] = response.xpath("//tr//td[@class='t_f']//text()").extract()
         #item['testcontent'] = response.xpath("//td[@class='t_f']//text()").extract()

@@ -3,15 +3,19 @@ import scrapy
 import re
 import sys
 from base.items.pengpai_menhu.items import PengpaiScrapyItem
-from base.items.pengpai_menhu.bloomfilter import BloomFilter
+# from base.items.pengpai_menhu.bloomfilter import BloomFilter
 import datetime, random, time
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
+
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["thepaper.cn"]
     start_urls = [
         "http://www.youth.cn/"
     ]
-    bf = BloomFilter(0.0001, 1000000)
+    # bf = BloomFilter(0.0001, 1000000)
+    bf = pyreBloom.pyreBloom( 'pengpai_menhu', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
     r1 = '^http://.*.thepaper.*'
     r2='^.*newsDetail.*'
 
@@ -30,14 +34,14 @@ class DmozSpider(scrapy.Spider):
         if re.match(self.r1,url):
             try:
                 #print url
-                self.bf.insert_element(url)
+                self.bf.extend(url)
                 #print "aaaaaaa!!!!!!!@*#()@_______"
                 #for sel in response:
                 item = PengpaiScrapyItem()
                 # item['name'] = sel.xpath("h1[@class='main-title']/text()").extract()[0].encode('utf-8')
                 # name= item['name']
                 item['url'] = url
-                #print url
+                print url
                 item['title'] = response.xpath("//head/title/text()").extract_first()
 
 
@@ -125,6 +129,8 @@ class DmozSpider(scrapy.Spider):
                     #f.write(response.url)
                     #f.write('\n')
                 item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['html'] = ''
+
                 if item['content'] and item['time']:
 
                     #with open('aaa', 'ab') as f:
@@ -155,7 +161,7 @@ class DmozSpider(scrapy.Spider):
                         if not url.startswith('http:'):
                             url = "http://www.thepaper.cn/" + url
                         if re.match(self.r2, url):
-                                if (self.bf.is_element_exist(url) == False):
+                                if (self.bf.contains(url) == False):
                                     yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
                         else:
                             yield scrapy.Request(url=url, callback=self.parse_mainpage, priority=0)

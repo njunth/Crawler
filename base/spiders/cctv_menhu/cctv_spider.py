@@ -3,15 +3,20 @@ import scrapy
 import re
 import sys
 from base.items.cctv_menhu.items import CctvScrapyItem
-from base.items.cctv_menhu.bloomfilter import BloomFilter
+# from base.items.cctv_menhu.bloomfilter import BloomFilter
+import pyreBloom
 import datetime, random, time
+from base.configs.settings import REDIS_HOST, REDIS_PORT
+
+
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["cctv.com"]
     start_urls = [
         "http://www.cctv.com"
     ]
-    bf = BloomFilter(0.0001, 1000000)
+    # bf = BloomFilter(0.0001, 1000000)
+    bf = pyreBloom.pyreBloom( 'cctv_menhu', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
     r1 = '^http://.*.cctv.*'
     r2 = '^http://.*.cctv.*.shtml.*'
     r3 = '^http://.*.cctv.*./index.*'
@@ -41,13 +46,14 @@ class DmozSpider(scrapy.Spider):
         if re.match(self.r2, url):
             try:
                 #print url
-                self.bf.insert_element(url)
+                self.bf.extend(url)
                 #print "aaaaaaa!!!!!!!@*#()@_______"
                 #for sel in response:
                 item = CctvScrapyItem()
                 # item['name'] = sel.xpath("h1[@class='main-title']/text()").extract()[0].encode('utf-8')
                 # name= item['name']
                 item['url'] = url
+                print url
 
                 item['title'] = response.xpath("//head/title/text()").extract_first()
 
@@ -87,7 +93,6 @@ class DmozSpider(scrapy.Spider):
 """
                 item['content'] = ''.join(item['content'])
 
-
                 time_item = []
 
                 #publish_time1 = response.xpath("normalize-space(//script[11]//text())").extract()
@@ -96,7 +101,7 @@ class DmozSpider(scrapy.Spider):
                 #publish_time = re.findall(r'(\w*[0-9]+)\w*',publish_time1)
                 publish_time = re.search(r'\"\d{14} \"', item['html']).group(0)
                 #print publish_time
-
+                print publish_time
                 #print url
                 #print publish_time
                 time_item.append(publish_time[1:5])
@@ -120,6 +125,7 @@ class DmozSpider(scrapy.Spider):
                     #f.write(response.url)
                     #f.write('\n')
                 item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['html'] = ''
                 if publish_time and item['content']:
                     #with open('aaa', 'ab') as f:
                         #f.write(response.url + '\n')
@@ -151,6 +157,6 @@ class DmozSpider(scrapy.Spider):
                                 yield scrapy.Request(url=url, callback=self.parse_mainpage,priority=0)
                         else:
                             if re.match(self.r4,url) is None:
-                                if (self.bf.is_element_exist(url) == False):
+                                if (self.bf.contains(url) == False):
                                     yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
 

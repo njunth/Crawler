@@ -37,10 +37,10 @@ class DiscuzSpider(scrapy.Spider):
             item['source_url'] = 'http://www.discuz.net/forum.php'
 
             item['html'] = ''
-            contentlist = response.xpath('//html').extract()
-            for con in contentlist:
-                utfcontent = con.encode('utf-8')
-                item['html'] += utfcontent
+            # contentlist = response.xpath('//html').extract()
+            # for con in contentlist:
+            #     utfcontent = con.encode('utf-8')
+            #     item['html'] += utfcontent
 
             item['url'] = response.url
             #self.bf.insert_element(item['url'])

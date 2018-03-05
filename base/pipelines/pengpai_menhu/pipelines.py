@@ -14,7 +14,8 @@ from scrapy.exceptions import DropItem
 
 class PengpaiScrapyPipeline(object):
 
-    def __init__(self):
+    def __init__(self, stats):
+        self.stats = stats
         connection = pymongo.MongoClient(
             MONGODB_SERVER,
             MONGODB_PORT
@@ -22,6 +23,10 @@ class PengpaiScrapyPipeline(object):
         db = connection[MONGODB_DBNAME]
         self.collection = db[MONGODB_COLLECTION]
         print self.collection.database
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls( crawler.stats )
 
     def process_item(self, item, spider):
         valid = True
@@ -31,5 +36,6 @@ class PengpaiScrapyPipeline(object):
                 raise DropItem("Missing {0}!".format(data))
         if valid:
             self.collection.insert(dict(item))
+            self.stats.inc_value( 'item_insert_count' )
             #log.msg("added to MongoDB database!", level=log.INFO, spider=spider)
         return item

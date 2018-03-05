@@ -10,17 +10,26 @@ from base.configs.yuyou.settings import MONGO_HOST, MONGO_PORT, MONGODB_DBNAME, 
 from scrapy.exceptions import DropItem
 import os
 import re
-from base.items.yuyou.bloomfilter import BloomFilter
+# from base.items.yuyou.bloomfilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 import datetime
 
 class YuyouPipeline(object):
-    def __init__(self):
-        self.bf = BloomFilter(0.0001, 100000)
+    def __init__(self, stats):
+        self.stats = stats
+        # self.bf = BloomFilter(0.0001, 100000)
+        self.bf = pyreBloom.pyreBloom( 'yanjiao', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
             # 数据库登录需要帐号密码的话
             # self.client.admin.authenticate(settings['MINGO_USER'], settings['MONGO_PSW'])
         db = client[MONGODB_DBNAME]  # 获得数据库的句柄
         self.collection = db[MONGODB_COLLECTION]  # 获得collection的句柄
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls( crawler.stats )
+
     def process_item(self, item, spider):
         valid = True
         for data in item:
@@ -87,9 +96,10 @@ class YuyouPipeline(object):
                      'title': item['title'], 'create_time': item['create_time']})
                 #self.collection.insert(njudata)
                 data = dict({'t':time_, 'au': authid_,'c':t})
-                if (self.bf.is_element_exist(str(data)) == False):
-                    self.bf.insert_element(str(data))
+                if (self.bf.contains(str(data)) == False):
+                    self.bf.extend(str(data))
                     self.collection.insert(njudata)
+                    self.stats.inc_value( 'item_insert_count' )
                     # self.collection.insert(dict(item))
 
             #self.collection.insert(dict(item))

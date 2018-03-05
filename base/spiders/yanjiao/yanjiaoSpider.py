@@ -4,7 +4,7 @@ from base.items.yanjiao.items import YanjiaoItem
 import re
 from scrapy.linkextractors import LinkExtractor
 from scrapy.selector import Selector
-from base.items.sina.bloomfilter import BloomFilter
+# from base.items.sina.bloomfilter import BloomFilter
 import string
 import datetime, random, time
 
@@ -20,7 +20,7 @@ class yanjiaoSpider(scrapy.Spider):
         # "http://club.eladies.sina.com.cn/thread-6596256-1-1.html"
     }
 
-    bf = BloomFilter(0.0001,1000000)
+    # bf = BloomFilter(0.0001,1000000)
 
     #def start_requests(self):
      #   while 1:
@@ -38,18 +38,14 @@ class yanjiaoSpider(scrapy.Spider):
         r5= r3+'|'+r4
         while 1:
             for url1 in response.selector.xpath("//a/@href").re(r5):
-                sleep_time = random.random()
-                #print sleep_time
-                time.sleep(sleep_time)
 
                 if not url1.startswith('http'):
                     url1 = "http://www.yanjiao.com" + url1
 
-
                 if re.match(self.r1, url1) or re.match(self.r2, url1):  # reduce a /
-                    yield scrapy.Request(url=url1, callback=self.parse_inpage,priority=1)
+                    yield scrapy.Request(url=url1, callback=self.parse_inpage, priority=1)
                 else:
-                    yield scrapy.Request(url=url1, callback=self.parse,priority=0)
+                    yield scrapy.Request(url=url1, callback=self.parse, priority=0)
                 #else:
                     #continue
                 #yield scrapy.Request(url=url1, callback=self.parse)
@@ -59,7 +55,9 @@ class yanjiaoSpider(scrapy.Spider):
 
 
     def parse_inpage(self,response):
-
+        sleep_time = random.random()
+        print sleep_time
+        time.sleep( sleep_time )
         item = YanjiaoItem()
         #reply = response.selector.xpath("//div[@class='cont f14']")#//text()")  # .extract()
         #reply1 = reply.xpath('string(.)').extract()
@@ -86,6 +84,7 @@ class yanjiaoSpider(scrapy.Spider):
 
 
             item['url'] = response.url
+            print item['url']
 
             t = response.xpath("//span[@id='thread_subject']/text()").extract()#[0].encode('utf-8')
             title = ''.join(t)
@@ -194,9 +193,9 @@ class yanjiaoSpider(scrapy.Spider):
 
             item['sentiment'] = 0
             item['attention'] = 0
-
+            item['html'] = ''
             yield item
-            self.bf.insert_element(response.url)
+            # self.bf.insert_element(response.url)
 
         #res = response.xpath("//a/@href")
         #for url2 in res: #ponse.selector.xpath("//a/@href").re(r'^http://www.yanjiao.com.*'):

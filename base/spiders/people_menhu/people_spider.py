@@ -3,15 +3,19 @@ import scrapy
 import re
 import sys
 from base.items.people_menhu.items import PeopleScrapyItem
-from base.items.people_menhu.bloomfilter import BloomFilter
+# from base.items.people_menhu.bloomfilter import BloomFilter
 import datetime, random, time
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
+
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["people.com.cn"]
     start_urls = [
         "http://www.people.com.cn/"
     ]
-    bf = BloomFilter(0.0001, 1000000)
+    # bf = BloomFilter(0.0001, 1000000)
+    bf = pyreBloom.pyreBloom( 'people_menhu', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
     r1 = '^http://.*.people.*'
     r2 = '^http://.*.people.*.html.*'
     r3 = '^http://.*.people.*/index.*'
@@ -65,14 +69,14 @@ class DmozSpider(scrapy.Spider):
         if re.match(self.r2,url):
             try:
                 #print url
-                self.bf.insert_element(url)
+                self.bf.extend(url)
                 #print "aaaaaaa!!!!!!!@*#()@_______"
                 #for sel in response:
                 item = PeopleScrapyItem()
                 # item['name'] = sel.xpath("h1[@class='main-title']/text()").extract()[0].encode('utf-8')
                 # name= item['name']
                 item['url'] = url
-                #print url
+                print url
                 item['title'] = response.xpath("//head/title/text()").extract_first()
                 if len(item['title']) == 0:
                     item['title'] = response.xpath("//h1/text()").extract_first()
@@ -166,6 +170,8 @@ class DmozSpider(scrapy.Spider):
                     #f.write(response.url)
                     #f.write('\n')
                 item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['html'] = ''
+
                 if publish_time and item['content']:
                     #with open('aaa', 'ab') as f:
                         #f.write(response.url + '\n')
@@ -195,7 +201,7 @@ class DmozSpider(scrapy.Spider):
                     if re.match(self.r_language, url) is None and re.match(self.r19,url) is None and re.match(self.r20,url) is None \
                             and re.match(self.r21,url) is None and re.match(self.r22,url) is None:
                         if re.match(self.r2, url) and re.match(self.r3,url) is None:
-                                if (self.bf.is_element_exist(url) == False):
+                                if (self.bf.contains(url) == False):
                                     yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
                         else:
                             yield scrapy.Request(url=url, callback=self.parse_mainpage, priority=0)

@@ -16,7 +16,14 @@ SPIDER_MODULES = ['base.spiders.pengpai_menhu']
 NEWSPIDER_MODULE = 'base.spiders.pengpai_menhu'
 
 LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
 
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
+
+DEPTH_LIMIT = 4
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
 

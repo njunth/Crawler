@@ -16,7 +16,14 @@ SPIDER_MODULES = ['base.spiders.people_menhu']
 NEWSPIDER_MODULE = 'base.spiders.people_menhu'
 
 LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
 
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
+
+DEPTH_LIMIT = 4
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'cctv_scrapy (+http://www.yourdomain.com)'
 

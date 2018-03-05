@@ -16,6 +16,14 @@ SPIDER_MODULES = ['base.spiders.yanjiao']
 NEWSPIDER_MODULE = 'base.spiders.yanjiao'
 
 LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
+
+EXTENSIONS = {
+    'scrapy.extensions.logstats.LogStats': None,
+    'base.configs.logstats.LogStats': 150,
+}
+
+DEPTH_LIMIT = 4
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'yanjiao (+http://www.yourdomain.com)'
 

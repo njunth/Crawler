@@ -69,3 +69,27 @@ OK考研：okkaoyan，请求之间停顿随机数，正常，被封----代理池
 海文考研：haiwen，请求之间停顿随机数，正常，被封----代理池
 
 凤凰网：ifeng_menhu,请求之间停顿随机数，正常,可以爬取页面，没有数据存储
+
+百度搜索:baidusousuo
+
+DISCUZ论坛:DISCUZ
+
+光明网:guangming_menhu
+
+南方网:nanfang_menhu
+
+澎湃网:pengpai_menhu
+
+人民网:people_menhu
+
+青年报:qingnianbao_menhu
+
+新京报:xinjingbao_menhu
+
+燕郊网:yanjiao
+
+中青网:youth_menhu
+
+渔友论坛:yuyou
+
+

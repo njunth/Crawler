@@ -4,7 +4,7 @@ from scrapy.spiders import Spider
 import pyreBloom
 from base.configs.settings import REDIS_HOST, REDIS_PORT
 from base.items.baidusousuo.items import ScrapyBaiduItem
-from base.configs.baidusousuo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD
+from base.configs.baidusousuo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD, KEYWORD_INDEX, SPIDER_COUNTS
 import time
 import datetime
 import MySQLdb
@@ -41,13 +41,22 @@ class BaiduSpider(Spider):
             keywords = cursor.fetchall()
             url_p1 = 'https://www.baidu.com/s?wd='
             url_p2 = '&pn='
-            for i in range(20, 0, -1):
+            # for i, keyword in enumerate(keywords[::-1]):
+            #     print keyword
+            #     if i%10==KEYWORD_INDEX:
+            #         print i, keyword
+            for i in range( 20, 0, -1 ):
                 # print i
+                index = 0
                 for keyword in keywords[::-1]:
                     # print keyword[1]
-                    url = url_p1 + keyword[1] + url_p2 + str(i*10)
-                    time.sleep(1)
-                    yield scrapy.Request(url=url,headers=headers,dont_filter=True,callback=self.parse,meta={'keyword':keyword[1]})
+                    if index % SPIDER_COUNTS == KEYWORD_INDEX:
+                        url = url_p1 + keyword[1] + url_p2 + str( i )
+                        time.sleep( 1 )
+                        print index, keyword[1], url
+                        yield scrapy.Request( url=url, headers=headers, dont_filter=True, callback=self.parse,
+                                              meta={'keyword': keyword[1]} )
+                    index += 1
 
     def parse(self, response):
         # print response.text
@@ -64,6 +73,7 @@ class BaiduSpider(Spider):
                 self.bf.extend(str(bfdata))
                 item = ScrapyBaiduItem()
                 item['url'] = url
+                print url
                 item['title'] = res.xpath('.//h3[contains(@class,"t")]/a').xpath('string(.)').extract_first()
                 #print title
                 abstract = res.xpath('.//div[contains(@class,"c-abstract")]').xpath('string(.)').extract_first()

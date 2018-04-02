@@ -134,6 +134,8 @@ MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "woodpecker")
 MYSQL_USER = os.getenv("MYSQL_USER", "root")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "crawl_nju903")
 MYSQL_TABLE = 'keyword_t'
+SPIDER_COUNTS = (int)(os.getenv("SPIDER_COUNTS", 1))
+KEYWORD_INDEX = (int)(os.getenv("KEYWORD_INDEX", 0))
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

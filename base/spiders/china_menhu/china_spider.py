@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import re
+import re, os
 import sys
 from base.items.china_menhu.items import ChinaScrapyItem
 from base.items.china_menhu.bloomfilter import BloomFilter
 import datetime, random, time
+
 class DmozSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["china.com.cn"]
@@ -23,6 +24,7 @@ class DmozSpider(scrapy.Spider):
     r8 = '^http://.*.china.*/event.*'
     r9 = '.*index.*'
     def start_requests(self):
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request("http://www.china.com.cn", callback=self.parse_mainpage)
     def parse_inpage(self, response):

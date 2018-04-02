@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+
 import scrapy
 import re
 import sys
@@ -21,6 +23,7 @@ class DmozSpider(scrapy.Spider):
     r2='^http://.*.cyol.*.htm.*'
     r3='^http://.*node.*.htm.*'
     def start_requests(self):
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request("http://www.cyol.net/", callback=self.parse_mainpage)
 

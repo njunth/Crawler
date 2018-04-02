@@ -1,4 +1,5 @@
 #-*-coding:utf8-*-
+import os
 import scrapy
 from base.items.DISCUZ.items import DiscuzItem
 import re
@@ -16,6 +17,7 @@ class DiscuzSpider(scrapy.Spider):
     start_urls = {
         "http://www.discuz.net/forum.php"
     }
+    os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
     #bf = BloomFilter(0.0001, 1000000)
     def parse(self, response):
         while 1:

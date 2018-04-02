@@ -1,22 +1,29 @@
 # -*- coding: utf-8 -*-
+import os
+
 import scrapy
 import re
 import sys
 from base.items.nanfangwang_menhu.items import NanfangwangScrapyItem
-from base.items.nanfangwang_menhu.bloomfilter import BloomFilter
+# from base.items.nanfangwang_menhu.bloomfilter import BloomFilter
+import pyreBloom
 import datetime, random, time
+from base.configs.settings import REDIS_HOST, REDIS_PORT
+
 class DmozSpider(scrapy.Spider):
     name = "spider"
     #allowed_domains = ["bjnews.com.cn"]
     start_urls = [
         'http://www.southcn.com'
     ]
-    bf = BloomFilter(0.0001, 1000000)
+    # bf = BloomFilter(0.0001, 1000000)
+    bf = pyreBloom.pyreBloom( 'nanfang_menhu', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
     r1 = 'http://.*.southcn.*'
     r='.*content.*'
     r2='^http://.*.southcn.*.htm.*'
     r3='^http://.*tv.*'
     def start_requests(self):
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request("http://www.southcn.com", callback=self.parse_mainpage)
 
@@ -24,14 +31,14 @@ class DmozSpider(scrapy.Spider):
         url = response.url
 
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         #print url
         time.sleep( sleep_time )
 
         if re.match(self.r1,url):
             try:
-                #print url
-                self.bf.insert_element(url)
+                print url
+                self.bf.extend(url)
                 #print "aaaaaaa!!!!!!!@*#()@_______"
                 #for sel in response:
                 item = NanfangwangScrapyItem()
@@ -97,6 +104,7 @@ class DmozSpider(scrapy.Spider):
                     #f.write(response.url)
                     #f.write('\n')
                 item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['html'] = ''
                 if item['content'] and item['time']:
                     #with open('aaa', 'ab') as f:
                         #f.write(response.url + '\n')
@@ -129,7 +137,7 @@ class DmozSpider(scrapy.Spider):
                             url = "http://" +result[2]+'/'+ url
                             #print url
                         if re.match(self.r, url) :
-                                if (self.bf.is_element_exist(url) == False):
+                                if (self.bf.contains(url) == False):
                                     yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
                         else:
                             yield scrapy.Request(url=url, callback=self.parse_mainpage, priority=0)

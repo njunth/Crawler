@@ -20,7 +20,7 @@ class KaoshibaSpider(Spider):
 
 
     def __init__(self, name=None, **kwargs):
-
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         if name is not None:
             self.name = name
         elif not getattr(self, 'name', None):

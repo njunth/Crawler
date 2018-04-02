@@ -27,6 +27,8 @@ MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "woodpecker")
 MYSQL_USER = os.getenv("MYSQL_USER", "root")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "crawl_nju903")
 MYSQL_TABLE = 'keyword_t'
+SPIDER_COUNTS = (int)(os.getenv("SPIDER_COUNTS", 1))
+KEYWORD_INDEX = (int)(os.getenv("KEYWORD_INDEX", 0))
 
 # LOG_LEVEL = 'INFO'
 LOG_ENABLED = False
@@ -139,7 +141,7 @@ EXTENSIONS = {
 #USER_AGENT = 'weibo (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32

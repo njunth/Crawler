@@ -3,8 +3,8 @@ from scrapy.spider import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.baidutiebaquanbasousuo.items import BaidutiebaquanbasousuoItem
-from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
-from base.configs.baidutiebaquanbasousuo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD
+# from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
+from base.configs.baidutiebaquanbasousuo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD, SPIDER_COUNTS, KEYWORD_INDEX
 
 from datetime import datetime
 import os, random, time
@@ -39,27 +39,28 @@ class BaidutiebaquanbasousuoSpider(Spider):
         url_p1 = 'http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw='
         url_p2 = '&rn=10&un=&only_thread=0&sm=1&sd=&ed=&pn='
         while 1:
-            print MYSQL_HOST
+            # print MYSQL_HOST
             db = MySQLdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             cursor = db.cursor()
             sql = "SELECT DISTINCT * FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
-            keyword_list = []
-            for keyword in keywords[::-1]:
+
+            for i in range(20, 0, -1):
                 # print keyword[1].decode('utf-8')
                 # key = urllib.quote(keyword)
-                key = keyword[1]
-                if key in keyword_list:
-                    continue
-                keyword_list.append(key)
-                print keyword[1].decode('utf-8')
-                for i in range(1, 50):
-                    url = url_p1 + key + url_p2 + str(i)
-                    yield Request(url=url,callback=self.parse_inPage, dont_filter=True)
-                    sleep_time = random.random()
-                    print 5 * sleep_time
-                    time.sleep( 5 * sleep_time )
+                index = 0
+                for keyword in keywords[::-1]:
+                    key = keyword[1]
+                    print keyword[1].decode( 'utf-8' )
+                    if index % SPIDER_COUNTS == KEYWORD_INDEX:
+                        print index, keyword[1]
+                        url = url_p1 + key + url_p2 + str(i)
+                        yield Request(url=url, callback=self.parse_inPage, dont_filter=True)
+                        sleep_time = random.random()
+                        print 5 * sleep_time
+                        time.sleep( 5 * sleep_time )
+                    index += 1
             db.close()
             print "sleep 10s"
             time.sleep(10)

@@ -1,4 +1,6 @@
 # coding=utf-8
+import os
+
 import scrapy
 import re
 import sys
@@ -17,7 +19,7 @@ class DmozSpider(scrapy.Spider):
         "http://www.ifeng.com"
     ]
     bf = pyreBloom.pyreBloom('ifeng_menhu', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
-
+    os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
     r1 = '^http://.*.ifeng.*'
     r2 = '^http://.*.ifeng.*.shtml.*'
 

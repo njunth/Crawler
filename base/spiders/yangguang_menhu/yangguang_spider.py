@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+
 import scrapy
 import re
 import sys
@@ -14,6 +16,7 @@ class DmozSpider(scrapy.Spider):
     start_urls = [
         "http://www.cnr.cn/"
     ]
+    os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
     bf = pyreBloom.pyreBloom('yangguangwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
     r1 = '^http://.*.cnr.*'
     r2 = '^http://.*.cnr.*.shtml.*'

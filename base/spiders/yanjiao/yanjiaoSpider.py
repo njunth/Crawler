@@ -1,4 +1,6 @@
 #-*-coding:utf8-*-
+import os
+
 import scrapy
 from base.items.yanjiao.items import YanjiaoItem
 import re
@@ -30,7 +32,7 @@ class yanjiaoSpider(scrapy.Spider):
     r2 = '^http://www.yanjiao.com.thread.*.[0-9]+'
 
     def parse(self, response):
-
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         #while 1:
         #item = SinaItem()
         r3='.*.thread.*'

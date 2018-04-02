@@ -11,7 +11,7 @@ import pytz
 import time, random
 import os
 import datetime
-from base.configs.weibo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD
+from base.configs.weibo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD, KEYWORD_INDEX, SPIDER_COUNTS
 from base.items.weibo.items import WeiboItem
 
 class WeiboSpider(Spider):
@@ -46,17 +46,22 @@ class WeiboSpider(Spider):
             for i in range(20, 0, -1):
                 print "page: ",
                 print i
+                index = 0
                 for keyword in keywords[::-1]:
-                    # print i
-                    # print keyword[1].decode( 'utf-8' )
-                    key = keyword[1]
-                    # key = keyword.decode('utf-8')
-                    url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
-                    yield scrapy.Request(url=url, callback=self.parse_search, headers=headers, dont_filter=True)
-                    sleep_time = random.random()
-                    # print sleep_time
-                    time.sleep( sleep_time )
+                    # print keyword[1]
+                    if index % SPIDER_COUNTS == KEYWORD_INDEX:
+                        print index, keyword[1]
+                        # print i
+                        # print keyword[1].decode( 'utf-8' )
+                        key = keyword[1]
+                        # key = keyword.decode('utf-8')
+                        url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
+                        yield scrapy.Request(url=url, callback=self.parse_search, headers=headers, dont_filter=True)
+                        sleep_time = random.random()
+                        # print sleep_time
+                        time.sleep( sleep_time )
                     # print url
+                    index += 1
             db.close()
             print "sleep 10s"
             time.sleep(10)

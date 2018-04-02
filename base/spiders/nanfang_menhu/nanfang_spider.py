@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import re
+import re, os
 import sys
 from base.items.nanfang_menhu.items import NanfangScrapyItem
 # from base.items.nanfang_menhu.bloomfilter import BloomFilter
@@ -21,6 +21,7 @@ class DmozSpider(scrapy.Spider):
     r2='^.*content.*'
 
     def start_requests(self):
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request("http://www.infzm.com/", callback=self.parse_mainpage)
 

@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
+import os
+
 import scrapy
 import re
 import sys
 from base.items.xinhua_menhu.items import XinhuaScrapyItem
-from base.items.xinhua_menhu.bloomfilter import BloomFilter
+# from base.items.xinhua_menhu.bloomfilter import BloomFilter
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 import datetime, random, time
 class DmozSpider(scrapy.Spider):
     name = "spider"
@@ -12,7 +16,8 @@ class DmozSpider(scrapy.Spider):
         "http://www.xinhuanet.com"
         #"http://www.sd.xinhuanet.com"
     ]
-    bf = BloomFilter(0.1, 10)
+    # bf = BloomFilter(0.1, 10)
+
     #r1 = '^http://.*.cnr.*'
     #r2 = '^http://.*.cnr.*.shtml.*'
     #r3 = '^http://.*.cnr.*.html.*'
@@ -34,6 +39,8 @@ class DmozSpider(scrapy.Spider):
     r14 = '^http://mongolian.xinhuanet.*'
     r_language = r4+'|' + r5 + '|' + r6 + '|' + r7 + '|' + r8 + '|' + r9 + '|' + r10 + '|' + r11 + '|' + r12 + '|' + r13 + '|' + r14
     def start_requests(self):
+        self.bf = pyreBloom.pyreBloom( 'xinhua_menhu', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request("http://www.xinhuanet.com",callback=self.parse_mainpage)
 
@@ -47,7 +54,7 @@ class DmozSpider(scrapy.Spider):
         if re.match(self.r2, url):
             try:
                 #print url
-                self.bf.insert_element(url)
+                self.bf.extend(url)
                 #print "aaaaaaa!!!!!!!@*#()@_______"
                 #for sel in response:
                 item = XinhuaScrapyItem()
@@ -179,6 +186,6 @@ class DmozSpider(scrapy.Spider):
                         if re.match(self.r2, url) is None or re.match(self.r3,url):
                                 yield scrapy.Request(url=url, callback=self.parse_mainpage,priority=0)
                         else:
-                            if (self.bf.is_element_exist(url) == False):
+                            if (self.bf.contains(url) == False):
                                 yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
 

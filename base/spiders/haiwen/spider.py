@@ -16,12 +16,13 @@ class spider(scrapy.Spider):
 
 	def start_requests(self):
 		os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+		self.bf = pyreBloom.pyreBloom( 'haiwen', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
 		while 1:
 			yield Request( "http://kaoyan.wanxue.cn", callback=self.parse, dont_filter=True )
 			# time.sleep( 10 )
 
 	def parse(self,response):
-		self.bf=pyreBloom.pyreBloom('haiwen', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+
 		# while 1:
 		urls = response.xpath("//ul[@class='con_l']//a[starts-with(@href,'http')]/@href  |  //ul[@class='con_r']//a[starts-with(@href,'http')]/@href   |   //div[@class='tab_box']//a[starts-with(@href,'http')]/@href").extract()
 		for url in urls:

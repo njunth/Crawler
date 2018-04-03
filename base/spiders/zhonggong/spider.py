@@ -15,12 +15,12 @@ class spider(scrapy.Spider):
 	start_urls=["http://www.kaoyan365.cn/"]
 
 	def start_requests(self):
+		self.bf = pyreBloom.pyreBloom( 'zhonggong', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
 		os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
 		while 1:
 			yield Request( "http://www.kaoyan365.cn/", callback=self.parse, dont_filter=True )
 
 	def parse(self,response):
-		self.bf=pyreBloom.pyreBloom('zhonggong', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
 		# while 1:
 		if 1==1:
 			urls = response.xpath("//div[@class='offcn_index_m1_center fl']//a[starts-with(@href,'http')]/@href   |  //div[@class='offcn_m2_right fr']//a[starts-with(@href,'http')]/@href   |   //div[@class='offcn_main3 offcn_mt20 layout']//*/a[starts-with(@href,'http')]/@href   |   //div[@class='offcn_main4 layout']//a[starts-with(@href,'http')]/@href   |   //div[@class='offcn_main7 offcn_mt20 layout']//a[starts-with(@href,'http')]/@href").extract()

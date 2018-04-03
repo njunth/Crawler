@@ -15,12 +15,12 @@ class spider(scrapy.Spider):
 	start_urls=["http://www.kuakao.com"]
 
 	def start_requests(self):
+		self.bf = pyreBloom.pyreBloom( 'kuakao', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
 		os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
 		while 1:
 			yield Request( "http://www.kuakao.com", callback=self.parse, dont_filter=True )
 
 	def parse(self,response):
-		self.bf=pyreBloom.pyreBloom('kuakao', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
 		# while 1:
 		if 1==1:
 			urls = response.xpath("//a[starts-with(@href,'http')]/@href").extract()

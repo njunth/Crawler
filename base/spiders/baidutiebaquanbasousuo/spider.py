@@ -52,7 +52,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
                 index = 0
                 for keyword in keywords[::-1]:
                     key = keyword[1]
-                    print keyword[1].decode( 'utf-8' )
+                    # print keyword[1].decode( 'utf-8' )
                     if index % SPIDER_COUNTS == KEYWORD_INDEX:
                         print index, keyword[1]
                         url = url_p1 + key + url_p2 + str(i)

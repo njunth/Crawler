@@ -128,6 +128,12 @@ class DmozSpider(scrapy.Spider):
                         time_item += '0'
                     item['time'] = time_item
 
+                is_time = item['time'].replace('_', '')
+                # print is_time
+                if not is_time.isdigit():
+                    item['time'] = datetime.datetime.now().strftime( '%Y_%m_%d_%H_%M_%S' )
+                # print item['time']
+
                 item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
                 if publish_time and item['content']:
                     yield item

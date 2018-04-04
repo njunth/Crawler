@@ -117,6 +117,12 @@ class DmozSpider(scrapy.Spider):
                 time_item = ''.join(time_item)
                 item['time'] = time_item
 
+                is_time = item['time'].replace( '_', '' )
+                print is_time
+                if not is_time.isdigit():
+                    item['time'] = datetime.datetime.now().strftime( '%Y_%m_%d_%H_%M_%S' )
+                print item['time']
+
                 item['sentiment'] = 0
                 item['attention'] = 0
                 # print name

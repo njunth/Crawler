@@ -21,12 +21,12 @@ MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "baidusousuo")
 
 MYSQL_HOST = os.getenv("MYSQL_HOST", "114.212.189.147")
-MYSQL_PORT = (int)(os.getenv("MYSQL_PORT", 10103))
+MYSQL_PORT = (int)(os.getenv("MYSQL_PORT", 10136))
 MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "woodpecker")
 MYSQL_USER = os.getenv("MYSQL_USER", "root")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "crawl_nju903")
 MYSQL_TABLE = 'keyword_t'
-SPIDER_COUNTS = (int)(os.getenv("SPIDER_COUNTS", 1))
+SPIDER_COUNTS = (int)(os.getenv("SPIDER_COUNTS", 10))
 KEYWORD_INDEX = (int)(os.getenv("KEYWORD_INDEX", 0))
 
 LOG_ENABLED = False

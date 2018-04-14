@@ -50,7 +50,6 @@ class MeiqiPipeline(object):
                 # os.system("pause")
 
             k = 0
-            item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
             for s in item['testtime']:
                 # item['testtime'][k] = re.findall(r'(\w*[0-9]+-[0-9]+-[0-9]+)\w*', s)[0]
                 # item['testtime'][k] = \

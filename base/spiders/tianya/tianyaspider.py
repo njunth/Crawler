@@ -1,4 +1,5 @@
 # coding=utf-8
+import pytz
 import scrapy
 from base.items.tianya.items import Tianyav2Item
 from base.items.tianya.BloomFilter import BloomFilter
@@ -17,7 +18,7 @@ class Tianyaspider(scrapy.Spider):
         "http://bbs.tianya.cn/"
         #"http://bbs.tianya.cn/post-travel-821028-1.shtml"
     }
-
+    tz = pytz.timezone( 'Asia/Shanghai' )
     #bf = BloomFilter(0.1, 10)
 
     def start_requests(self):
@@ -37,7 +38,7 @@ class Tianyaspider(scrapy.Spider):
 
     def parse_inpage(self,response):
         sleep_time = random.random()
-        # print sleep_time
+        print sleep_time
         time.sleep( sleep_time )
         item = Tianyav2Item()
         content = response.selector.xpath('//div[@class="atl-main"]//div/div[@class="atl-content"]/div[2]/div[1]')#/text()').extract()
@@ -111,7 +112,7 @@ class Tianyaspider(scrapy.Spider):
                 time_collection.append(article_time)
                 item['time'] = ''.join(time_collection)
             else:
-                item['time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
 
             # collection_name = ''.join(time_collection)
             # tianyav2.config.set_name(collection_name)
@@ -147,6 +148,8 @@ class Tianyaspider(scrapy.Spider):
 
             item['sentiment'] = 0
             item['attention'] = 0
+
+            item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
 
             #self.bf.insert_element(response.url)
 

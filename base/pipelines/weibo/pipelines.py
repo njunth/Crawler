@@ -4,6 +4,8 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+import datetime
+import pytz
 import pymongo
 import time
 from base.configs.weibo.settings import MONGO_HOST,MONGO_PORT,MONGODB_COLLECTION,MONGODB_DBNAME
@@ -17,6 +19,7 @@ class WeiboPipeline(object):
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
         db = client[MONGODB_DBNAME]
         self.collection = db[MONGODB_COLLECTION]
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
         #self.collection.remove({})
 
     @classmethod
@@ -45,7 +48,7 @@ class WeiboPipeline(object):
         else:
             # print "new data"
             keyword = item['keyword']
-            createstr = time.strftime('%Y_%m_%d_%H_%M_%S',time.localtime(time.time()))
+            createstr  = datetime.datetime.now(self.tz)
             timestr = item['time']
         #print keyword
         self.collection.save({

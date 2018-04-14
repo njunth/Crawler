@@ -1,10 +1,13 @@
 # -*- coding: UTF-8 -*-
+import pytz
 from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
 from base.items.tianqinluntan.items import TianqinluntanItem
-from base.items.tianqinluntan.bloomfliter import BloomFilter
+# from base.items.tianqinluntan.bloomfliter import BloomFilter
 from datetime import datetime
+import pyreBloom
+from base.configs.settings import REDIS_HOST, REDIS_PORT
 import os, random, time
 import re
 import sys
@@ -27,7 +30,8 @@ class TianqinluntanSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
         self.mainpage="http://www.csbiji.com/forum.php"
-        self.bf=BloomFilter(0.0001,100000)
+        self.bf= pyreBloom.pyreBloom('tianqinluntan', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
 
     def start_requests(self):
         os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
@@ -36,10 +40,10 @@ class TianqinluntanSpider(Spider):
             # time.sleep( 60 )
 
     def parse_inPage(self,response):
-
+        print response
 
         sleep_time = random.random()
-        # print sleep_time
+        print sleep_time
         time.sleep( sleep_time )
 
         r1 = 'http://www.csbiji.com/thread-[0-9]+-[0-9]+-[0-9]+.html'
@@ -71,15 +75,15 @@ class TianqinluntanSpider(Spider):
                 authid_str=response.selector.xpath("//div[@class='authi']//a[@class='xw1']/text()").extract()
                 item['authid']=authid_str
                 item['sentiment']=0
-                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
+                item['create_time']=str(datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')
         for t in response.selector.xpath("//a[@class='nxt' and @href]/@href").extract():
             if not t.startswith('http'):
                 t=response.url+t
-            self.bf.insert_element(t)
-            if(self.bf.is_element_exist(t)==False):
+            self.bf.extend(t)
+            if(self.bf.contains(t)==False):
                 yield Request(t,callback=self.parse_inPage, dont_filter=True)
             else:
                 continue
@@ -93,14 +97,15 @@ class TianqinluntanSpider(Spider):
                 urls = "http://www.csbiji.com/"+site
             else:
                 urls=site
-            yield Request(urls,callback=self.parse_inPage)
+            # print urls
+            yield Request(urls,callback=self.parse_inPage, dont_filter=True)
         for site in sites2:
             if not site.startswith('http'):
                 urls = "http://www.csbiji.com/"+site
             else:
                 urls=site
-            self.bf.insert_element(urls)
-            if(self.bf.is_element_exist(urls)==False):
+            self.bf.extend(urls)
+            if(self.bf.contains(urls)==False):
                 yield Request(urls,callback=self.parse_zhuye, dont_filter=True)
             else:
                 continue
@@ -115,4 +120,5 @@ class TianqinluntanSpider(Spider):
                     urls = "http://www.csbiji.com/"+site
                 else:
                     urls=site
+                # print urls
                 yield Request(urls,callback=self.parse_zhuye, dont_filter=True)

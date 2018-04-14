@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import pytz
 from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
@@ -27,6 +28,7 @@ class OkkaoyanluntanSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
         self.mainpage="http://bbs.okaoyan.com/"
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
 
 
     def start_requests(self):
@@ -67,7 +69,7 @@ class OkkaoyanluntanSpider(Spider):
                 item['sentiment']=0
                 authid_str=response.selector.xpath("//div[@class='authi']//a[@class='xw1']/text()").extract()
                 item['authid']=authid_str
-                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
+                item['create_time']=str(datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')

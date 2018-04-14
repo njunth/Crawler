@@ -1,6 +1,7 @@
 #-*-coding:utf8-*-
 import os
 
+import pytz
 import scrapy
 from base.items.yuyou.items import YuyouItem
 import re
@@ -18,7 +19,7 @@ class YuyouSpider(scrapy.Spider):
     start_urls = {
         "http://pbbs.lnfisher.com/"
     }
-
+    tz = pytz.timezone( 'Asia/Shanghai' )
     # bf = BloomFilter(0.0001,1000000)
 
     #r1 = '^http://pbbs.lnfisher.com/forum.php?mod=viewthread&tid=[0-9]*'
@@ -42,7 +43,7 @@ class YuyouSpider(scrapy.Spider):
 
     def parse_inpage(self,response):
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         item = YuyouItem()
         content = response.selector.xpath("//td[@class='t_f']")
@@ -105,6 +106,7 @@ class YuyouSpider(scrapy.Spider):
                     item['n_reply'] = int(nr)
 
         item['testtime'] = response.xpath("//div[@class='authi']//em//span").extract()
+        item['create_time'] = datetime.datetime.now(self.tz).strftime( '%Y_%m_%d_%H_%M_%S' )
         item['html'] = ''
         #item['testtime'] = response.xpath("//div[@class='authi']//em").extract()
         #item['replies'] = response.xpath("//tr//td[@class='t_f']//text()").extract()

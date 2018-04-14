@@ -1,6 +1,7 @@
 #-*-coding:utf8-*-
 import os
 
+import pytz
 import scrapy
 from base.items.yanjiao.items import YanjiaoItem
 import re
@@ -21,7 +22,7 @@ class yanjiaoSpider(scrapy.Spider):
         # "http://club.eladies.sina.com.cn/thread-6490945-1-1.html"
         # "http://club.eladies.sina.com.cn/thread-6596256-1-1.html"
     }
-
+    # tz = pytz.timezone( 'Asia/Shanghai' )
     # bf = BloomFilter(0.0001,1000000)
 
     #def start_requests(self):
@@ -58,7 +59,7 @@ class yanjiaoSpider(scrapy.Spider):
 
     def parse_inpage(self,response):
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         item = YanjiaoItem()
         #reply = response.selector.xpath("//div[@class='cont f14']")#//text()")  # .extract()

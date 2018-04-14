@@ -1,4 +1,5 @@
 # coding=utf-8
+import pytz
 import scrapy
 import os
 from base.items.kaidi.items import KaidiItem
@@ -17,6 +18,7 @@ class KdSpider(scrapy.Spider):
         "http://club.kdnet.net/index.asp"
     }
     # bf = pyreBloom.pyreBloom( 'kaicheng', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+    tz = pytz.timezone( 'Asia/Shanghai' )
 
     def start_requests(self):
         os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
@@ -26,11 +28,15 @@ class KdSpider(scrapy.Spider):
 
     def parse(self,response):
         # while 1:
+        # print response.selector.xpath("//a/@href")
+        # print response.selector.xpath("//a/@href").re(r'^//club.kdnet.net.*.id=[0-9.]*')
         if 1==1:
-            for url1 in response.selector.xpath("//a/@href").re(r'^http://club.kdnet.net.*.id=[0-9.]*'):
+            # print len(response.selector.xpath("//a/@href").re(r'^//club.kdnet.net.*.id=[0-9.]*'))
+            for url1 in response.selector.xpath("//a/@href").re(r'^//club.kdnet.net.*.id=[0-9.]*'):
                 # yield scrapy.Request(url=url1, callback=self.parse)
+                # print url1
             #if (self.bf.is_element_exist(url1) == False):  # reduce a /
-                yield scrapy.Request(url=url1, callback=self.parse_inpage, dont_filter=True)
+                yield scrapy.Request(url="http:"+url1, callback=self.parse_inpage, dont_filter=True)
             #else:
              #   continue
 
@@ -54,10 +60,11 @@ class KdSpider(scrapy.Spider):
             #     item['html'] += utfcontent
 
             item['url'] = response.url
+            print item['url']
 
             item['attention'] = 0
             item['sentiment'] = 0
-            item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+            item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
 
             item['content'] = response.selector.xpath("//div[@class='posts-cont']//text()").extract()
             item['content'] = ''.join(item['content'])
@@ -85,7 +92,7 @@ class KdSpider(scrapy.Spider):
 
             item['title'] = response.xpath("//div[@class='posts-title']//text()").extract()
             item['title'] = ''.join(item['title'])
-            item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+            item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
 
             item['testtime'] = response.xpath("//div[@class='posts-posted']//text()").extract()
             k = 0

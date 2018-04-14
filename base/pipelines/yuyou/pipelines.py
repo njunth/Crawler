@@ -6,6 +6,8 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pymongo
 # from scrapy.conf import settings
+import pytz
+
 from base.configs.yuyou.settings import MONGO_HOST, MONGO_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
 from scrapy.exceptions import DropItem
 import os
@@ -25,6 +27,7 @@ class YuyouPipeline(object):
             # self.client.admin.authenticate(settings['MINGO_USER'], settings['MONGO_PSW'])
         db = client[MONGODB_DBNAME]  # 获得数据库的句柄
         self.collection = db[MONGODB_COLLECTION]  # 获得collection的句柄
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -55,13 +58,17 @@ class YuyouPipeline(object):
                 temp = re.findall(r'(\w*[0-9]+)\w*', s)
                 #temp = re.findall(r'(\w*[0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+)\w*', s)
                 if temp is None or temp is '':
-                    item['testtime'][k] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                    item['testtime'][k] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
                 else:
                     t = []
                     t.append(temp[0])
                     t.append('_')
-                    t.append(temp[1])
-                    t.append('_')
+                    if len( temp[1] ) < 2:
+                        t.append( '0' )
+                    t.append( temp[1] )
+                    t.append( '_' )
+                    if len( temp[2] ) < 2:
+                        t.append( '0' )
                     t.append(temp[2])
                     t.append('_')
                     t.append(temp[3])
@@ -70,13 +77,14 @@ class YuyouPipeline(object):
                 # t.append('_')
                     ti = ''.join(t)
                     item['testtime'][k] = ti
+                if len( item['create_time'] ) > len( item['testtime'][k] ):
+                    item['testtime'][k] += item['create_time'][len( item['testtime'][k] ):]
 
                 # else:
                 k = k + 1
                 # c = c + 1
                 # os.system("pause")
 
-            item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
             i = 0
             ii = 0
             #for t in item['replies']:

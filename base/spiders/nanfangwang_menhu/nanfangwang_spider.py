@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
+import pytz
 import scrapy
 import re
 import sys
@@ -22,6 +23,8 @@ class DmozSpider(scrapy.Spider):
     r='.*content.*'
     r2='^http://.*.southcn.*.htm.*'
     r3='^http://.*tv.*'
+    tz = pytz.timezone( 'Asia/Shanghai' )
+
     def start_requests(self):
         os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
@@ -103,7 +106,7 @@ class DmozSpider(scrapy.Spider):
                 #with open('aaa', 'ab') as f:
                     #f.write(response.url)
                     #f.write('\n')
-                item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
                 item['html'] = ''
                 if item['content'] and item['time']:
                     #with open('aaa', 'ab') as f:

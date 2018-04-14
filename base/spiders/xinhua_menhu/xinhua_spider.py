@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
+import pytz
 import scrapy
 import re
 import sys
@@ -38,6 +39,8 @@ class DmozSpider(scrapy.Spider):
     r13 = '^http://xizang.xinhuanet.*'
     r14 = '^http://mongolian.xinhuanet.*'
     r_language = r4+'|' + r5 + '|' + r6 + '|' + r7 + '|' + r8 + '|' + r9 + '|' + r10 + '|' + r11 + '|' + r12 + '|' + r13 + '|' + r14
+    tz = pytz.timezone( 'Asia/Shanghai' )
+
     def start_requests(self):
         self.bf = pyreBloom.pyreBloom( 'xinhua_menhu', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
         os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
@@ -48,7 +51,7 @@ class DmozSpider(scrapy.Spider):
         url = response.url
         #print url
         sleep_time = random.random()
-        print sleep_time
+        # print sleep_time
         time.sleep( sleep_time )
         flag=0
         if re.match(self.r2, url):
@@ -155,7 +158,10 @@ class DmozSpider(scrapy.Spider):
                 #with open('aaa', 'ab') as f:
                     #f.write(response.url)
                     #f.write('\n')
-                item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
+                if len(item['create_time'])>len(item['time']):
+                    item['time'] += item['create_time'][len(item['time'])-1:]
+
                 if publish_time and item['content']:
                     #with open('aaa', 'ab') as f:
                         #f.write(response.url + '\n')

@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import pytz
 from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
@@ -32,6 +33,7 @@ class WangdaoluntanSpider(Spider):
             self.start_urls = []
         self.bf = BloomFilter( 0.0001, 100000 )
         self.mainpage="http://www.cskaoyan.com/forum.php"
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
 
     def start_requests(self):
         os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
@@ -74,7 +76,7 @@ class WangdaoluntanSpider(Spider):
                 item['sentiment']=0
                 authid_str=response.selector.xpath("//div[@class='authi']//a[@class='xw1']/text()").extract()
                 item['authid']=authid_str
-                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
+                item['create_time']=str(datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')

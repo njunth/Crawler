@@ -1,4 +1,5 @@
 #encoding=utf-8
+import pytz
 from scrapy.spider import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
@@ -26,6 +27,7 @@ class KaoyanluntanSpider(Spider):
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
 
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
         self.mainpage="http://bbs.kaoyan.com/"
 
 
@@ -35,7 +37,7 @@ class KaoyanluntanSpider(Spider):
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        # print sleep_time
+        print sleep_time
         time.sleep( sleep_time )
         r1 = 'http://bbs.kaoyan.com/t[0-9]*p1'
         url = response.url
@@ -61,7 +63,7 @@ class KaoyanluntanSpider(Spider):
                 item['sentiment']=0
                 authid_str=response.selector.xpath("//div[@class='authi']//a[@class='xw1']/text()").extract()
                 item['authid']=authid_str
-                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
+                item['create_time']=str(datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')
@@ -80,4 +82,5 @@ class KaoyanluntanSpider(Spider):
                     urls = "http://bbs.kaoyan.com"+site
                 else:
                     urls=site
+                # print urls
                 yield Request(urls,callback=self.parse_inPage, dont_filter=True)

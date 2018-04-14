@@ -1,4 +1,5 @@
 # -*-coding:utf-8-*-
+import pytz
 import scrapy
 from scrapy.spiders import Spider
 import pyreBloom
@@ -17,6 +18,7 @@ class BaiduSpider(Spider):
     name = 'spider'
     def __init__(self):
         # self.bf = BloomFilter(0.0001, 100000)
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
         self.bf = pyreBloom.pyreBloom( 'baidusousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
 
     def start_requests(self):
@@ -36,7 +38,7 @@ class BaiduSpider(Spider):
             db = MySQLdb.connect( host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD,
                                   db=MYSQL_DATABASE, charset='utf8' )
             cursor = db.cursor()
-            sql = "SELECT * FROM keyword_t"
+            sql = "SELECT DISTINCT name FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
             url_p1 = 'https://www.baidu.com/s?wd='
@@ -63,7 +65,7 @@ class BaiduSpider(Spider):
         keyword = response.meta['keyword']
         results = response.xpath('//div[@class="result c-container "]')
         #print results
-        time = datetime.datetime.now()
+        time = datetime.datetime.now(self.tz)
         for res in results:
             #print res.extract()
             url = res.xpath('.//h3[contains(@class,"t")]/a/@href').extract_first()

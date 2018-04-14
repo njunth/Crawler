@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
+import pytz
 import scrapy
 import re
 import sys
@@ -18,6 +19,7 @@ class DmozSpider(scrapy.Spider):
     ]
     # bf = BloomFilter(0.0001, 1000000)
     bf = pyreBloom.pyreBloom( 'guangming_menhu', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+    tz = pytz.timezone( 'Asia/Shanghai' )
     r1 = '^http://.*.gmw.*'
     r2 = '^http://.*.gmw.*.shtml.*'
     r3 = '^http://.*.gmw.*.html.*'
@@ -138,7 +140,7 @@ class DmozSpider(scrapy.Spider):
                 #with open('aaa', 'ab') as f:
                     #f.write(response.url)
                     #f.write('\n')
-                item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
                 item['html'] = ''
 
                 if publish_time and item['content']:

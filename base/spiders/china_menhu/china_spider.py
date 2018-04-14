@@ -3,7 +3,9 @@ import scrapy
 import re, os
 import sys
 from base.items.china_menhu.items import ChinaScrapyItem
-from base.items.china_menhu.bloomfilter import BloomFilter
+# from base.items.china_menhu.bloomfilter import BloomFilter
+from base.configs.settings import REDIS_HOST, REDIS_PORT
+import pyreBloom
 import datetime, random, time
 
 class DmozSpider(scrapy.Spider):
@@ -12,7 +14,8 @@ class DmozSpider(scrapy.Spider):
     start_urls = [
         "http://www.china.com.cn/"
     ]
-    bf = BloomFilter(0.0001, 1000000)
+    bf = pyreBloom.pyreBloom( 'cctv_menhu', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+    tz = pytz.timezone( 'Asia/Shanghai' )
     r1 = '^http://.*.china.*'
     r2 = '^http://.*.china.*.shtml.*'
     r3 = '^http://.*.china.*.html.*'
@@ -37,7 +40,7 @@ class DmozSpider(scrapy.Spider):
         if re.match(self.r2, url) or re.match(self.r3, url) or re.match(self.r4, url) and re.match(self.r9,url) is None:
             try:
                 #print url
-                self.bf.insert_element(url)
+                self.bf.extend(url)
                 #print "aaaaaaa!!!!!!!@*#()@_______"
                 #for sel in response:
                 item = ChinaScrapyItem()
@@ -153,7 +156,7 @@ class DmozSpider(scrapy.Spider):
                 #with open('aaa', 'ab') as f:
                     #f.write(response.url)
                     #f.write('\n')
-                item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
                 if publish_time and item['content']:
                     #with open('aaa', 'ab') as f:
                         #f.write(response.url + '\n')
@@ -183,7 +186,7 @@ class DmozSpider(scrapy.Spider):
                     if re.match(self.r5, url) is None and re.match(self.r6, url) is None:
                         if re.match(self.r2, url)  or re.match(self.r3, url)or re.match(self.r4, url) and re.match(self.r7,url) is None \
                                 and re.match(self.r8, url) is None and re.match(self.r9,url) is None:
-                                if (self.bf.is_element_exist(url) == False):
+                                if (self.bf.contains(url) == False):
                                     yield scrapy.Request(url=url, callback=self.parse_inpage,priority=1)
                         else:
                             yield scrapy.Request(url=url, callback=self.parse_mainpage, priority=0)

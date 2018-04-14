@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
+import pytz
 import scrapy
 import re
 from base.items.sina_menhu.items import SinaScrapyItem
@@ -27,6 +28,7 @@ class DmozSpider(scrapy.Spider):
     r8='^http://.*jiaju.*.sina.*'
     bf = pyreBloom.pyreBloom('xinlangwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
     os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+    tz = pytz.timezone( 'Asia/Shanghai' )
 
     def parse_inpage(self, response):
         r_content1="//div[@id='artibody']//p/text()"
@@ -90,7 +92,7 @@ class DmozSpider(scrapy.Spider):
                 if len(time_item)==18:
                     time_item += '0'
                 item['time'] = time_item
-                item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
 
                 #with open('aaa', 'ab') as f:
                   #f.write(response.url)

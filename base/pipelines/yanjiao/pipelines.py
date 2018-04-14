@@ -7,6 +7,8 @@
 
 import pymongo
 # from scrapy.conf import settings
+import pytz
+
 from base.configs.yanjiao.settings import MONGO_HOST, MONGO_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
 from scrapy.exceptions import DropItem
 import os
@@ -22,6 +24,7 @@ class YanjiaoPipeline(object):
         self.stats = stats
         # self.bf = BloomFilter(0.0001, 100000)
         self.bf = pyreBloom.pyreBloom( 'yanjiao', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
         client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
             # 数据库登录需要帐号密码的话
             # self.client.admin.authenticate(settings['MINGO_USER'], settings['MONGO_PSW'])
@@ -59,8 +62,12 @@ class YanjiaoPipeline(object):
                 t = []
                 t.append(temp[0])
                 t.append('_')
+                if len(temp[1])<2:
+                    t.append( '0' )
                 t.append(temp[1])
                 t.append('_')
+                if len(temp[2])<2:
+                    t.append( '0' )
                 t.append(temp[2])
                 t.append('_')
                 t.append(temp[3])
@@ -76,8 +83,10 @@ class YanjiaoPipeline(object):
                 # os.system("pause")
 
 
-            item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+            item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
             item['content'] = ''.join(item['content'])
+            if len( item['create_time'] ) > len( item['testtime'][0] ):
+                item['testtime'][0] += item['create_time'][len( item['testtime'][0] ) :]
 
             njudata = dict(
                 {'content': item['content'], 'url': item['url'], 'time': item['testtime'][0], 'authid': item['authid'][0],

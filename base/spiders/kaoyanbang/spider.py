@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import pytz
 from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
@@ -30,6 +31,7 @@ class KaoyanbangSpider(Spider):
             self.start_urls = []
 
         self.bf=pyreBloom.pyreBloom('kaoyanbang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
         self.mainpage="http://www.kaoyan.com/"
 
 
@@ -69,10 +71,10 @@ class KaoyanbangSpider(Spider):
                 try:
                     item['time'] =time_str.replace('-','_').replace(' ','_').replace(':','_')
                 except:
-                    item['time']='0000_00_00_00_00'
+                    item['time']=str(datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S'))
                 item['time']=item['time']+'_00'
                 item['sentiment']=0
-                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
+                item['create_time']=str(datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')
@@ -96,6 +98,7 @@ class KaoyanbangSpider(Spider):
                     urls=site
                 # print urls
                 if(self.bf.contains(urls)==False):
+                    # print urls
                     yield Request(urls, callback=self.parse_inPage, dont_filter=True)
                 else:
                     continue

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
+import pytz
 import scrapy
 import re
 import sys
@@ -19,6 +20,7 @@ class DmozSpider(scrapy.Spider):
     ]
     os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
     bf = pyreBloom.pyreBloom('tengxunwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+    tz = pytz.timezone( 'Asia/Shanghai' )
     r1 = '^http://.*.qq.*'
     r2 = '^http://.*.qq.*.htm.*'
     r3 = '^http://.*.qq.com/a/.*'
@@ -106,7 +108,7 @@ class DmozSpider(scrapy.Spider):
                 if len(time_item) == 18:
                     time_item += '0'
                 item['time'] = time_item
-                item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
                 if item['content']:
                     yield item
                     #with open('aaaa', 'ab') as f:

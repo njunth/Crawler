@@ -45,18 +45,30 @@ class DiscuzPipeline(object):
 
             k = 0
             for s in item['time']:
+                print s
                 temp = re.findall(r'(\w*[0-9]+)\w*', s)
+                print temp
                 t = []
                 t.append(temp[0])
                 t.append('_')
-                t.append(temp[1])
-                t.append('_')
-                t.append(temp[2])
-                t.append('_')
-                t.append(temp[3])
-                t.append('_')
-                t.append(temp[4])
-                ti = ''.join(t)
+                for n in range(1, 6):
+                    if n < len(temp):
+                        if len(temp[n]) < 2:
+                            t.append( '0' )
+                            t.append( temp[n] )
+                            t.append( '_' )
+                        else:
+                            t.append(temp[n])
+                            t.append('_')
+                    else:
+                        t.append("00")
+                        t.append('_')
+                    # t.append(temp[2])
+                    # t.append('_')
+                    # t.append(temp[3])
+                    # t.append('_')
+                    # t.append(temp[4])
+                ti = ''.join(t[:len(t)-1])
                 item['time'][k] = ti
                 k = k + 1
 

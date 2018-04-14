@@ -73,7 +73,6 @@ class SinaPipeline(object):
                 #c = c + 1
                 # os.system("pause")
 
-            item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
             i = 0
             ii = 0
             for t in item['replies']:

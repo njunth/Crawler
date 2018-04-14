@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import pytz
 from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
@@ -30,6 +31,7 @@ class YixuekaoyanSpider(Spider):
 
         self.bf=pyreBloom.pyreBloom('yixuekaoyan', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         self.mainpage="http://www.medkaoyan.net/"
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
 
 
     def start_requests(self):
@@ -70,7 +72,7 @@ class YixuekaoyanSpider(Spider):
                     item['time']='0000_00_00_00_00_00'
                 item['attention'] = 0
                 item['sentiment']=0
-                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
+                item['create_time']=str(datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')

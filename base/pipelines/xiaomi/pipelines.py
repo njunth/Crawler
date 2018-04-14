@@ -7,6 +7,8 @@
 
 import pymongo
 # from scrapy.conf import settings
+import pytz
+
 from base.configs.xiaomi.settings import MONGO_HOST, MONGO_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
 from scrapy.exceptions import DropItem
 import os
@@ -27,6 +29,7 @@ class XiaomiPipeline(object):
         # self.client.admin.authenticate(settings['MINGO_USER'], settings['MONGO_PSW'])
         db = client[MONGODB_DBNAME]  # 获得数据库的句柄
         self.collection = db[MONGODB_COLLECTION]  # 获得collection的句柄
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -48,7 +51,7 @@ class XiaomiPipeline(object):
                 j = j + 1
 
             k = 0
-            item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+            item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
             for s in item['time']:
                 t = []
                 # item['testtime'][k] = re.findall(r'(\w*[0-9]+-[0-9]+-[0-9]+)\w*', s)[0]
@@ -61,6 +64,8 @@ class XiaomiPipeline(object):
                  #   if temp is "  ":
                   #      item['time'][k] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
                    # else:
+                t.append(datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')[0:4])
+                t.append( '_' )
                 t.append(temp[0])
                 t.append('_')
                 t.append(temp[1])
@@ -68,7 +73,10 @@ class XiaomiPipeline(object):
                 t.append(temp[2])
                 t.append('_')
                 t.append(temp[3])
+                t.append( '_' )
+                t.append( temp[4] )
                 ti = ''.join(t)
+                # print ti
                 item['time'][k] = ti
                 #item['time'][k] = temp
                 k = k + 1

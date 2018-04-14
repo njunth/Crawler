@@ -1,5 +1,7 @@
 #-*-coding:utf8-*-
 import os
+
+import pytz
 import scrapy
 from base.items.DISCUZ.items import DiscuzItem
 import re
@@ -19,6 +21,7 @@ class DiscuzSpider(scrapy.Spider):
     }
     os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
     #bf = BloomFilter(0.0001, 1000000)
+    tz = pytz.timezone( 'Asia/Shanghai' )
     def parse(self, response):
         while 1:
             for url1 in response.selector.xpath("//a/@href").re(r'^http://www.discuz.net.*'):
@@ -49,7 +52,7 @@ class DiscuzSpider(scrapy.Spider):
 
             item['sentiment'] = 0
             item['attention'] = 0
-            item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+            item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
         #item['n_click'] = \
             n_click = response.xpath('//div[@class="hm ptn"]//span[@class="xi1"]/text()').extract_first()
         #item['n_reply'] \

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import pytz
 import scrapy
 import re
 import os
@@ -24,11 +25,14 @@ class DmozSpider(scrapy.Spider):
     r5 = '^http://.*.163.*.shtml'
     bf = pyreBloom.pyreBloom('wangyiwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
     os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+    tz = pytz.timezone( 'Asia/Shanghai' )
 
     def parse_inpage(self, response):
         # print response.url
         # print '\n'
-
+        sleep_time = random.random()
+        # print sleep_time
+        time.sleep(sleep_time)
         url = response.url
         self.bf.extend(url)
         item = WangyiScrapyItem()
@@ -93,7 +97,7 @@ class DmozSpider(scrapy.Spider):
                         time_item += '0'
                     # time_item = ''.join(time_item)
                     item['time'] = time_item
-                    item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                    item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
                     # print name
                     # with open('aaa', 'ab') as f:
                     # f.write(response.url)
@@ -114,7 +118,5 @@ class DmozSpider(scrapy.Spider):
                 if re.match(self.r3, url) == None and re.match(self.r4, url) == None:
                     if (self.bf.contains(url) == False):
                         yield scrapy.Request(url=url, callback=self.parse_inpage, priority=1, dont_filter=True)
-            # sleep_time = random.random()
-            # # print sleep_time
-            # time.sleep(sleep_time)
+
         # yield scrapy.Request( url="http://www.163.com/", callback=self.parse, priority=0, dont_filter=True )

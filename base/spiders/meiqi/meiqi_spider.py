@@ -1,4 +1,5 @@
 # coding=utf-8
+import pytz
 import scrapy
 from base.items.meiqi.items import MeiqiItem
 import re
@@ -21,6 +22,7 @@ class Meiqispider(scrapy.Spider):
         # "http://bbs.biketo.com/index.html"
     }
     #bf = BloomFilter(0.0001, 1000000)
+    tz = pytz.timezone( 'Asia/Shanghai' )
 
     def start_requests(self):
         os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
@@ -78,7 +80,7 @@ class Meiqispider(scrapy.Spider):
             item['mainauth'] = response.xpath("//a[@target='_blank'][@class='xw1']/text()").extract_first()
             item['authid'] = response.xpath("//a[@target='_blank'][@class='xg1']/text()").extract()
             item['testtime'] = response.xpath("//em[@class='date']/text()").extract()
-
+            item['create_time'] = datetime.datetime.now(self.tz).strftime( '%Y_%m_%d_%H_%M_%S' )
 
 
 
@@ -86,7 +88,7 @@ class Meiqispider(scrapy.Spider):
             time = response.xpath("//div[@class='pti']//em/text()").extract_first()
             # item['time'] = time
             if (time == None):
-                item['time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
             else:
                 time_item.append(time[0:4])
                 time_item.append('_')

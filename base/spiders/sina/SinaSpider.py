@@ -1,4 +1,5 @@
 # coding=utf-8
+import pytz
 import scrapy
 from base.items.sina.items import SinaItem
 import re
@@ -20,18 +21,21 @@ class Sinaspider(scrapy.Spider):
         # "http://club.eladies.sina.com.cn/thread-6596256-1-1.html"
     }
     #bf = BloomFilter(0.0001,1000000)
+    tz = pytz.timezone( 'Asia/Shanghai' )
 
     def start_requests(self):
         os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
-            yield scrapy.Request(url="http://people.sina.com.cn/", callback=self.parse, dont_filter=True)
+            yield scrapy.Request(url="http://people.sina.com.cn/forum/", callback=self.parse, dont_filter=True)
 
 
     def parse(self, response):
         # while 1:
         if 1==1:
+            # print response.selector.xpath("//a/@href")
             for url1 in response.selector.xpath("//a/@href").re(r'^http://club.[a-z.]*.sina.*'):
                 #if (self.bf.is_element_exist(url1) == False):  # reduce a /
+                print url1
                 yield scrapy.Request(url=url1, callback=self.parse_inpage, dont_filter=True)
                 # sleep_time = random.random()
                 # # print sleep_time
@@ -57,6 +61,7 @@ class Sinaspider(scrapy.Spider):
         #author1 = author.xpath('string(.)').extract()
         #else:
          #   author1 = None
+        print response.url
 
         #if re.match('^http://club.[a-z.]*.sina.*.html', response.url):
         if re.match('^http://club.[a-z.]*.sina.com.cn/thread-[0-9]+-[0-9]+-[0-9]+.html', response.url) and len(reply1)>0:
@@ -164,7 +169,7 @@ class Sinaspider(scrapy.Spider):
             time_item = []
             time = response.xpath("//div[@class='maincont']//tbody//font/text()").extract_first()
             if time is None:
-                item['time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
             else:
                 time_item.append(time[4:8])
                 time_item.append('_')
@@ -181,7 +186,7 @@ class Sinaspider(scrapy.Spider):
 
             item['sentiment'] = 0
             item['attention'] = 0
-
+            item['create_time'] = datetime.datetime.now(self.tz).strftime( '%Y_%m_%d_%H_%M_%S' )
             yield item
             #self.bf.insert_element(response.url)
 

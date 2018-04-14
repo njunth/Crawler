@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
+import pytz
 import scrapy
 import re
 from base.items.sohu_menhu.items import SohuScrapyItem
@@ -18,6 +19,7 @@ class DmozSpider(scrapy.Spider):
     ]
     os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
     bf = pyreBloom.pyreBloom('souhuwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
+    tz = pytz.timezone( 'Asia/Shanghai' )
     r1 = '.*.sohu.*'
     r2 = '^http://.*.sohu.*.shtml.*'
     r3 = '^http://.*.sohu.com/a/.*'
@@ -108,7 +110,7 @@ class DmozSpider(scrapy.Spider):
                     time_item += '0'
                 # time_item = ''.join(time_item)
                 item['time'] = time_item
-                item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+                item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
                 #with open('aaaaa', 'ab') as f:
                     #f.write(response.url + '\n')
 

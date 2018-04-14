@@ -1,4 +1,5 @@
 # coding=utf-8
+import pytz
 import scrapy
 from base.items.qiangguo.items import QiangguoItem
 import re
@@ -19,6 +20,7 @@ class Tianyaspider(scrapy.Spider):
         "http://bbs1.people.com.cn/"
     }
     # bf = BloomFilter(0.0001, 100000)
+    tz = pytz.timezone( 'Asia/Shanghai' )
 
     def start_requests(self):
         os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
@@ -56,7 +58,7 @@ class Tianyaspider(scrapy.Spider):
             #     item['html'] += utfcontent
 
             item['url'] = response.url
-            item['create_time'] = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
+            item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
             item['sentiment'] = 0
             item['attention'] = 0
             #item['n_click'] = response.xpath("//span[@class='readNum']//text()").extract()

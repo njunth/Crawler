@@ -1,4 +1,5 @@
 #encoding=utf-8
+import pytz
 from scrapy.spider import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
@@ -27,6 +28,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
         elif not getattr(self, 'name', None):
             raise ValueError("%s must have a name" % type(self).__name__)
         self.__dict__.update(kwargs)
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
         self.mainpage="http://www.csbiji.com/forum.php"
@@ -42,7 +44,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
             # print MYSQL_HOST
             db = MySQLdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             cursor = db.cursor()
-            sql = "SELECT DISTINCT * FROM keyword_t"
+            sql = "SELECT DISTINCT name FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
 
@@ -110,7 +112,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
                 time_str=response.selector.xpath("//font[@class='p_green p_date']/text()").extract()
                 item['time']=time_str
                 item['sentiment']=0
-                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
+                item['create_time']=str(datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')

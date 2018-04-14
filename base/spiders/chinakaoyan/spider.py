@@ -8,6 +8,7 @@ import os
 # from base.items.Bloomfilter import BloomFilter
 from datetime import datetime
 
+import pytz
 from scrapy.http import Request
 from scrapy.selector import Selector
 from scrapy.spider import Spider
@@ -34,7 +35,7 @@ class ChinakaoyanSpider(Spider):
         self.__dict__.update(kwargs)
         if not hasattr(self, 'start_urls'):
             self.start_urls = []
-
+        self.tz = pytz.timezone( 'Asia/Shanghai' )
         self.bf=pyreBloom.pyreBloom('chinakaoyan', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         self.mainpage="http://www.chinakaoyan.com/info/main/ClassID/2.shtml"
         os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
@@ -42,6 +43,7 @@ class ChinakaoyanSpider(Spider):
 
     def start_requests(self):
         while 1:
+            print self.mainpage
             yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
@@ -75,7 +77,7 @@ class ChinakaoyanSpider(Spider):
                 except:
                     item['time']='0000_00_00_00_00_00'
                 item['sentiment']=0
-                item['create_time']=str(datetime.now().strftime('%Y_%m_%d_%H_%M_%S'))
+                item['create_time']=str(datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S'))
                 yield item
         except:
             print('error')
@@ -101,6 +103,7 @@ class ChinakaoyanSpider(Spider):
                     urls=site
                 # print urls
                 if(self.bf.contains(urls)==False):
+                    # print urls
                     yield Request(urls,callback=self.parse_inPage, dont_filter=True)
                 else:
                     continue

@@ -7,6 +7,9 @@
 
 import pymongo
 # from scrapy.conf import settings
+import redis
+import time
+
 from base.configs.baidutiebaquanbasousuo.settings import MONGODB_HOST, MONGODB_PORT, MONGODB_DBNAME, MONGODB_COLLECTION
 from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
 # from base.items.Bloomfilter import BloomFilter
@@ -23,7 +26,21 @@ class MongoDBPipeline(object):
     # def process_item(self, item, spider):
     #     return item
     def __init__(self, stats):
-        self.bf = pyreBloom.pyreBloom( 'baidutiebaquanbasousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+        r = redis.StrictRedis( host=REDIS_HOST, port=REDIS_PORT )
+        if r.exists("baidutiebaquanbasousuo.0"):
+            print "baidutiebaquanbasousuo.0 exist"
+            self.bf = pyreBloom.pyreBloom( 'baidutiebaquanbasousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+            print r.ttl( 'baidutiebaquanbasousuo.0' )
+        else:
+            print "creat baidutiebaquanbasousuo.0"
+            self.bf = pyreBloom.pyreBloom( "baidutiebaquanbasousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+            tests = "Hello baidutiebaquanbasousuo!"
+            self.bf.extend( tests )
+            print r.expire( 'baidutiebaquanbasousuo.0', 60*60*24 )
+            time.sleep(3)
+
+            print r.ttl( 'baidutiebaquanbasousuo.0' )
+        # self.bf = pyreBloom.pyreBloom( 'baidutiebaquanbasousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
         port = MONGODB_PORT
         host = MONGODB_HOST
         db_name = MONGODB_DBNAME

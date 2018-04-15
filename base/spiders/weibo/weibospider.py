@@ -39,7 +39,7 @@ class WeiboSpider(Spider):
             # db = pymysql.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             db = MySQLdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             cursor = db.cursor()
-            sql = "SELECT DISTINCT name FROM keyword_t"
+            sql = "SELECT DISTINCT * FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
             # print keywords

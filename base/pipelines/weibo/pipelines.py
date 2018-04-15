@@ -65,7 +65,7 @@ class WeiboPipeline(object):
             'time': timestr,
             'url': item['url'],
             'authid': item['authid'],
-            'create_time': createstr
+            'create_time': createstr.strftime('%Y_%m_%d_%H_%M_%S')
         })
         self.stats.inc_value( 'item_insert_count' )
         return item

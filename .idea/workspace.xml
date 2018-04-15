@@ -3,64 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="782425e8-1cb4-45e1-b426-98e0e79b2149" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pipelines/DISCUZ/pipelines.py" afterPath="$PROJECT_DIR$/base/pipelines/DISCUZ/pipelines.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pipelines/meiqi/pipelines.py" afterPath="$PROJECT_DIR$/base/pipelines/meiqi/pipelines.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pipelines/sina/pipelines.py" afterPath="$PROJECT_DIR$/base/pipelines/sina/pipelines.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pipelines/tianya/pipelines.py" afterPath="$PROJECT_DIR$/base/pipelines/tianya/pipelines.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/configs/settings.py" afterPath="$PROJECT_DIR$/base/configs/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pipelines/baidutiebaquanbasousuo/pipelines.py" afterPath="$PROJECT_DIR$/base/pipelines/baidutiebaquanbasousuo/pipelines.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pipelines/weibo/pipelines.py" afterPath="$PROJECT_DIR$/base/pipelines/weibo/pipelines.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pipelines/xiaomi/pipelines.py" afterPath="$PROJECT_DIR$/base/pipelines/xiaomi/pipelines.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pipelines/yanjiao/pipelines.py" afterPath="$PROJECT_DIR$/base/pipelines/yanjiao/pipelines.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/pipelines/yuyou/pipelines.py" afterPath="$PROJECT_DIR$/base/pipelines/yuyou/pipelines.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/DISCUZ/DiscuzSpider.py" afterPath="$PROJECT_DIR$/base/spiders/DISCUZ/DiscuzSpider.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/baidusousuo/baiduspider.py" afterPath="$PROJECT_DIR$/base/spiders/baidusousuo/baiduspider.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/baidutiebaquanbasousuo/spider.py" afterPath="$PROJECT_DIR$/base/spiders/baidutiebaquanbasousuo/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/cctv_menhu/cctv_spider.py" afterPath="$PROJECT_DIR$/base/spiders/cctv_menhu/cctv_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/china_menhu/china_spider.py" afterPath="$PROJECT_DIR$/base/spiders/china_menhu/china_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/chinakaoyan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/chinakaoyan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/chinakaoyanluntan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/chinakaoyanluntan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/guangming_menhu/guangming_spider.py" afterPath="$PROJECT_DIR$/base/spiders/guangming_menhu/guangming_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/haitian/spider.py" afterPath="$PROJECT_DIR$/base/spiders/haitian/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/haiwen/spider.py" afterPath="$PROJECT_DIR$/base/spiders/haiwen/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/hongyikaoyanluntan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/hongyikaoyanluntan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/ifeng_menhu/ifeng_spider.py" afterPath="$PROJECT_DIR$/base/spiders/ifeng_menhu/ifeng_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/kaicheng/spider.py" afterPath="$PROJECT_DIR$/base/spiders/kaicheng/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/kaidi/KdSpider.py" afterPath="$PROJECT_DIR$/base/spiders/kaidi/KdSpider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/kaoshiba/spider.py" afterPath="$PROJECT_DIR$/base/spiders/kaoshiba/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/kaoyanbang/spider.py" afterPath="$PROJECT_DIR$/base/spiders/kaoyanbang/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/kaoyanluntan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/kaoyanluntan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/kuakao/spider.py" afterPath="$PROJECT_DIR$/base/spiders/kuakao/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/meiqi/meiqi_spider.py" afterPath="$PROJECT_DIR$/base/spiders/meiqi/meiqi_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/nanfang_menhu/nanfang_spider.py" afterPath="$PROJECT_DIR$/base/spiders/nanfang_menhu/nanfang_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/nanfangwang_menhu/nanfangwang_spider.py" afterPath="$PROJECT_DIR$/base/spiders/nanfangwang_menhu/nanfangwang_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/okkaoyan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/okkaoyan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/okkaoyanluntan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/okkaoyanluntan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/pengpai_menhu/pengpai_spider.py" afterPath="$PROJECT_DIR$/base/spiders/pengpai_menhu/pengpai_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/people_menhu/people_spider.py" afterPath="$PROJECT_DIR$/base/spiders/people_menhu/people_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/qiangguo/qspider.py" afterPath="$PROJECT_DIR$/base/spiders/qiangguo/qspider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/qihang/spider.py" afterPath="$PROJECT_DIR$/base/spiders/qihang/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/qingnianbao_menhu/qingnianbao_spider.py" afterPath="$PROJECT_DIR$/base/spiders/qingnianbao_menhu/qingnianbao_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/sina/SinaSpider.py" afterPath="$PROJECT_DIR$/base/spiders/sina/SinaSpider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/sina_menhu/sina_spider.py" afterPath="$PROJECT_DIR$/base/spiders/sina_menhu/sina_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/sohu_menhu/sohu_spider.py" afterPath="$PROJECT_DIR$/base/spiders/sohu_menhu/sohu_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/tencent_menhu/tencent_spider.py" afterPath="$PROJECT_DIR$/base/spiders/tencent_menhu/tencent_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/tianqinluntan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/tianqinluntan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/tianya/tianyaspider.py" afterPath="$PROJECT_DIR$/base/spiders/tianya/tianyaspider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/wangdaoluntan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/wangdaoluntan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/wangyi_menhu/wangyi_spider.py" afterPath="$PROJECT_DIR$/base/spiders/wangyi_menhu/wangyi_spider.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/weibo/weibospider.py" afterPath="$PROJECT_DIR$/base/spiders/weibo/weibospider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/wendu/spider.py" afterPath="$PROJECT_DIR$/base/spiders/wendu/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/xiaomi/xiaomiSpider.py" afterPath="$PROJECT_DIR$/base/spiders/xiaomi/xiaomiSpider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/xindongfang/spider.py" afterPath="$PROJECT_DIR$/base/spiders/xindongfang/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/xinhua_menhu/xinhua_spider.py" afterPath="$PROJECT_DIR$/base/spiders/xinhua_menhu/xinhua_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/xinjingbao_menhu/xinjingbao_spider.py" afterPath="$PROJECT_DIR$/base/spiders/xinjingbao_menhu/xinjingbao_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/yangguang_menhu/yangguang_spider.py" afterPath="$PROJECT_DIR$/base/spiders/yangguang_menhu/yangguang_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/yanjiao/yanjiaoSpider.py" afterPath="$PROJECT_DIR$/base/spiders/yanjiao/yanjiaoSpider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/yixuekaoyan/spider.py" afterPath="$PROJECT_DIR$/base/spiders/yixuekaoyan/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/youth_menhu/youth_spider.py" afterPath="$PROJECT_DIR$/base/spiders/youth_menhu/youth_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/yuyou/YuyouSpider.py" afterPath="$PROJECT_DIR$/base/spiders/yuyou/YuyouSpider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/zhonggong/spider.py" afterPath="$PROJECT_DIR$/base/spiders/zhonggong/spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/base/spiders/zhuoyue/spider.py" afterPath="$PROJECT_DIR$/base/spiders/zhuoyue/spider.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scrapy.cfg" afterPath="$PROJECT_DIR$/scrapy.cfg" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -96,21 +44,39 @@
         <entry file="file://$PROJECT_DIR$/scrapy.cfg">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="160">
-              <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+              <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spider.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/base/spiders/zhuoyue/spider.py">
+      <file leaf-file-name="weibospider.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/base/spiders/weibo/weibospider.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="75" column="56" lean-forward="false" selection-start-line="75" selection-start-column="56" selection-end-line="75" selection-end-column="56" />
+            <state relative-caret-position="420">
+              <caret line="111" column="32" lean-forward="true" selection-start-line="111" selection-start-column="32" selection-end-line="111" selection-end-column="62" />
               <folding>
-                <element signature="e#15#26#0" expanded="true" />
+                <element signature="e#39#72#0" expanded="true" />
+                <marker date="1523781204678" expanded="true" signature="1916:1948" ph="SELECT * FRO... keyword_t" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pipelines.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/base/pipelines/weibo/pipelines.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="67" column="66" lean-forward="false" selection-start-line="67" selection-start-column="66" selection-end-line="67" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="weibo/Crawler/Weibo" pinned="false" current-in-tab="false">
+        <entry file="mongo://weibo/Crawler/Weibo">
+          <provider selected="true" editor-type-id="MongoData">
+            <state />
           </provider>
         </entry>
       </file>
@@ -141,6 +107,7 @@
       <find>bf</find>
       <find>create_time</find>
       <find>datetime</find>
+      <find>expire</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -149,9 +116,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/base/spiders/haiwen/spider.py" />
-        <option value="$PROJECT_DIR$/base/spiders/hongyikaoyanluntan/spider.py" />
-        <option value="$PROJECT_DIR$/base/spiders/ifeng_menhu/ifeng_spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/kaicheng/spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/kaidi/KdSpider.py" />
         <option value="$PROJECT_DIR$/base/spiders/kaoshiba/spider.py" />
@@ -179,12 +143,8 @@
         <option value="$PROJECT_DIR$/base/spiders/tianya/tianyaspider.py" />
         <option value="$PROJECT_DIR$/base/spiders/wangdaoluntan/spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/wangyi_menhu/wangyi_spider.py" />
-        <option value="$PROJECT_DIR$/base/pipelines/weibo/pipelines.py" />
         <option value="$PROJECT_DIR$/base/spiders/wendu/spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/xiaomi/xiaomiSpider.py" />
-        <option value="$PROJECT_DIR$/base/spiders/weibo/weibospider.py" />
-        <option value="$PROJECT_DIR$/base/spiders/baidutiebaquanbasousuo/spider.py" />
-        <option value="$PROJECT_DIR$/base/spiders/baidusousuo/baiduspider.py" />
         <option value="$PROJECT_DIR$/base/pipelines/xiaomi/pipelines.py" />
         <option value="$PROJECT_DIR$/base/spiders/xindongfang/spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/xinhua_menhu/xinhua_spider.py" />
@@ -199,7 +159,14 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/base/spiders/zhonggong/spider.py" />
         <option value="$PROJECT_DIR$/base/spiders/zhuoyue/spider.py" />
+        <option value="$PROJECT_DIR$/base/configs/baidusousuo/settings.py" />
+        <option value="$PROJECT_DIR$/base/configs/settings.py" />
+        <option value="$PROJECT_DIR$/base/spiders/baidusousuo/baiduspider.py" />
+        <option value="$PROJECT_DIR$/base/pipelines/baidutiebaquanbasousuo/pipelines.py" />
+        <option value="$PROJECT_DIR$/base/spiders/baidutiebaquanbasousuo/spider.py" />
         <option value="$PROJECT_DIR$/scrapy.cfg" />
+        <option value="$PROJECT_DIR$/base/spiders/weibo/weibospider.py" />
+        <option value="$PROJECT_DIR$/base/pipelines/weibo/pipelines.py" />
       </list>
     </option>
   </component>
@@ -210,8 +177,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="227" />
-    <option name="y" value="52" />
+    <option name="x" value="157" />
+    <option name="y" value="26" />
     <option name="width" value="1679" />
     <option name="height" value="996" />
   </component>
@@ -331,7 +298,51 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="spiders" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="weibo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="pipelines" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Crawler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="base" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pipelines" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="weibo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -540,7 +551,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="227" y="52" width="1679" height="996" extended-state="0" />
+    <frame x="157" y="26" width="1679" height="996" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -548,9 +560,9 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871974" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19374616" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32871974" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29411766" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16554262" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32886267" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32863274" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -577,55 +589,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/base/spiders/kaoshiba/spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="33" column="8" lean-forward="true" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/kaoyanbang/spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="33" column="8" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/kaoyanluntan/spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/kuakao/spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="17" column="4" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/pipelines/meiqi/pipelines.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="97" column="70" lean-forward="true" selection-start-line="97" selection-start-column="70" selection-end-line="97" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/meiqi/meiqi_spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="24" column="4" lean-forward="false" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/nanfang_menhu/nanfang_spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1580">
-          <caret line="22" column="4" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base/spiders/nanfangwang_menhu/nanfangwang_spider.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -788,16 +751,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base/pipelines/weibo/pipelines.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="67" column="29" lean-forward="false" selection-start-line="67" selection-start-column="29" selection-end-line="67" selection-end-column="29" />
-          <folding>
-            <element signature="e#192#207#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base/spiders/wendu/spider.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -813,37 +766,6 @@
         <state relative-caret-position="184">
           <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/weibo/weibospider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="41" column="39" lean-forward="false" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="39" />
-          <folding>
-            <element signature="e#39#72#0" expanded="true" />
-            <marker date="1523687148703" expanded="true" signature="1916:1951" ph="SELECT * FRO... keyword_t" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/baidutiebaquanbasousuo/spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="46" column="39" lean-forward="false" selection-start-line="46" selection-start-column="39" selection-end-line="46" selection-end-column="39" />
-          <folding>
-            <marker date="1523687148667" expanded="true" signature="1743:1778" ph="SELECT DISTI... keyword_t" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/baidusousuo/baiduspider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="39" column="32" lean-forward="true" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
-          <folding>
-            <marker date="1523687148735" expanded="true" signature="2208:2243" ph="SELECT DISTI... keyword_t" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -912,7 +834,7 @@
         <state relative-caret-position="460">
           <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="50" />
           <folding>
-            <element signature="e#24#35#0" expanded="true" />
+            <element signature="e#24#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -970,7 +892,96 @@
         <state relative-caret-position="-639">
           <caret line="20" column="102" lean-forward="false" selection-start-line="20" selection-start-column="102" selection-end-line="20" selection-end-column="102" />
           <folding>
-            <element signature="e#15#26#0" expanded="true" />
+            <element signature="e#15#26#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/spiders/zhuoyue/spider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="58" column="29" lean-forward="true" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
+          <folding>
+            <element signature="e#15#26#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2017.1/system/python_stubs/-1247972723/__builtin__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1256">
+          <caret line="3915" column="8" lean-forward="false" selection-start-line="3915" selection-start-column="8" selection-end-line="3915" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2017.1/system/python_stubs/-1247972723/pyreBloom.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-55">
+          <caret line="19" column="26" lean-forward="false" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/configs/baidusousuo/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="31" column="19" lean-forward="false" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/redis/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/redis/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="951" column="25" lean-forward="true" selection-start-line="951" selection-start-column="25" selection-end-line="951" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/configs/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" column="47" lean-forward="false" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/spiders/baidusousuo/baiduspider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="46" column="42" lean-forward="true" selection-start-line="27" selection-start-column="8" selection-end-line="46" selection-end-column="42" />
+          <folding>
+            <element signature="e#21#32#0" expanded="true" />
+            <marker date="1523779595278" expanded="true" signature="3325:3357" ph="SELECT DISTI... keyword_t" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/pipelines/baidutiebaquanbasousuo/pipelines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="43" column="27" lean-forward="true" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/spiders/baidutiebaquanbasousuo/spider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="50" column="17" lean-forward="true" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
+          <folding>
+            <marker date="1523781115402" expanded="true" signature="1743:1775" ph="SELECT DISTI... keyword_t" />
           </folding>
         </state>
       </provider>
@@ -978,18 +989,27 @@
     <entry file="file://$PROJECT_DIR$/scrapy.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
-          <caret line="8" column="30" lean-forward="false" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+          <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base/spiders/zhuoyue/spider.py">
+    <entry file="file://$PROJECT_DIR$/base/spiders/weibo/weibospider.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="75" column="56" lean-forward="false" selection-start-line="75" selection-start-column="56" selection-end-line="75" selection-end-column="56" />
+        <state relative-caret-position="420">
+          <caret line="111" column="32" lean-forward="true" selection-start-line="111" selection-start-column="32" selection-end-line="111" selection-end-column="62" />
           <folding>
-            <element signature="e#15#26#0" expanded="true" />
+            <element signature="e#39#72#0" expanded="true" />
+            <marker date="1523781204678" expanded="true" signature="1916:1948" ph="SELECT * FRO... keyword_t" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/pipelines/weibo/pipelines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="67" column="66" lean-forward="false" selection-start-line="67" selection-start-column="66" selection-end-line="67" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>

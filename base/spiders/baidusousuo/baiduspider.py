@@ -1,5 +1,6 @@
 # -*-coding:utf-8-*-
 import pytz
+import redis
 import scrapy
 from scrapy.spiders import Spider
 import pyreBloom
@@ -19,7 +20,31 @@ class BaiduSpider(Spider):
     def __init__(self):
         # self.bf = BloomFilter(0.0001, 100000)
         self.tz = pytz.timezone( 'Asia/Shanghai' )
-        self.bf = pyreBloom.pyreBloom( 'baidusousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+        #r = redis.Redis( host=REDIS_HOST, port=REDIS_PORT)#, db = 0)
+        r = redis.StrictRedis( host=REDIS_HOST, port=REDIS_PORT)
+        # self.bf = pyreBloom.pyreBloom( 'baidusousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+        # print r.exists( "baidusousuo.0" )
+        # print r.keys()
+        if r.exists("baidusousuo.0"):
+            print "baidusousuo.0 exist"
+            self.bf = pyreBloom.pyreBloom( 'baidusousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+            print r.ttl( 'baidusousuo.0' )
+        else:
+            print "creat baidusousuo.0"
+            # r.set('baidusousuo.0','')
+            self.bf = pyreBloom.pyreBloom( "baidusousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+            tests = "Hello baidu!"
+            self.bf.extend( tests )
+            print r.expire( 'baidusousuo.0', 60*60*24 )
+            time.sleep(3)
+
+            # print self.bf.contains( 'hello' )
+            # # True
+            # print self.bf.contains( ['hello', 'whats', 'new', 'with', 'you'] )
+            # # ['hello', 'you']
+            # print 'hello' in self.bf
+            # print self.r.get('baidusousuo')
+            print r.ttl( 'baidusousuo.0' )
 
     def start_requests(self):
         os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
@@ -38,7 +63,7 @@ class BaiduSpider(Spider):
             db = MySQLdb.connect( host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD,
                                   db=MYSQL_DATABASE, charset='utf8' )
             cursor = db.cursor()
-            sql = "SELECT DISTINCT name FROM keyword_t"
+            sql = "SELECT DISTINCT * FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
             url_p1 = 'https://www.baidu.com/s?wd='

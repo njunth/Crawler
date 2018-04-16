@@ -35,7 +35,7 @@ class BaiduSpider(Spider):
             self.bf = pyreBloom.pyreBloom( "baidusousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
             tests = "Hello baidu!"
             self.bf.extend( tests )
-            print r.expire( 'baidusousuo.0', 60*60*24 )
+            print r.expire( 'baidusousuo.0', 60*60*24*7 )
             time.sleep(3)
 
             # print self.bf.contains( 'hello' )

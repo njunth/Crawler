@@ -48,7 +48,7 @@ class WeiboSpider(Spider):
                 print i
                 index = 0
                 for keyword in keywords[::-1]:
-                    # print keyword[1]
+                    print keyword[1]
                     if index % SPIDER_COUNTS == KEYWORD_INDEX:
                         print index, keyword[1]
                         # print i

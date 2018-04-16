@@ -36,7 +36,7 @@ class MongoDBPipeline(object):
             self.bf = pyreBloom.pyreBloom( "baidutiebaquanbasousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
             tests = "Hello baidutiebaquanbasousuo!"
             self.bf.extend( tests )
-            print r.expire( 'baidutiebaquanbasousuo.0', 60*60*24 )
+            print r.expire( 'baidutiebaquanbasousuo.0', 60*60*24*7 )
             time.sleep(3)
 
             print r.ttl( 'baidutiebaquanbasousuo.0' )

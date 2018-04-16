@@ -21,21 +21,21 @@ class BaiduSpider(Spider):
         # self.bf = BloomFilter(0.0001, 100000)
         self.tz = pytz.timezone( 'Asia/Shanghai' )
         #r = redis.Redis( host=REDIS_HOST, port=REDIS_PORT)#, db = 0)
-        r = redis.StrictRedis( host=REDIS_HOST, port=REDIS_PORT)
+        self.r = redis.StrictRedis( host=REDIS_HOST, port=REDIS_PORT)
         # self.bf = pyreBloom.pyreBloom( 'baidusousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
         # print r.exists( "baidusousuo.0" )
         # print r.keys()
-        if r.exists("baidusousuo.0"):
+        if self.r.exists("baidusousuo.0"):
             print "baidusousuo.0 exist"
             self.bf = pyreBloom.pyreBloom( 'baidusousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
-            print r.ttl( 'baidusousuo.0' )
+            print self.r.ttl( 'baidusousuo.0' )
         else:
             print "creat baidusousuo.0"
             # r.set('baidusousuo.0','')
             self.bf = pyreBloom.pyreBloom( "baidusousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
             tests = "Hello baidu!"
             self.bf.extend( tests )
-            print r.expire( 'baidusousuo.0', 60*60*24*7 )
+            print self.r.expire( 'baidusousuo.0', 60*60*24*7 )
             time.sleep(3)
 
             # print self.bf.contains( 'hello' )
@@ -44,7 +44,7 @@ class BaiduSpider(Spider):
             # # ['hello', 'you']
             # print 'hello' in self.bf
             # print self.r.get('baidusousuo')
-            print r.ttl( 'baidusousuo.0' )
+            print self.r.ttl( 'baidusousuo.0' )
 
     def start_requests(self):
         os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
@@ -96,6 +96,13 @@ class BaiduSpider(Spider):
             url = res.xpath('.//h3[contains(@class,"t")]/a/@href').extract_first()
             # print keyword,url
             bfdata = str(keyword) + str(url)
+            print self.r.ttl( 'baidusousuo.0' ),
+            if self.r.ttl('baidusousuo.0') == -1:
+                print self.r.exists('baidusousuo.0'),
+                # self.bf = pyreBloom.pyreBloom( "baidusousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+                # tests = "Hello baidu!"
+                # self.bf.extend( tests )
+                print self.r.expire( 'baidusousuo.0', 60*60*24*7 )
             if (self.bf.contains(str(bfdata)) == False):
                 self.bf.extend(str(bfdata))
                 item = ScrapyBaiduItem()

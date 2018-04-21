@@ -45,9 +45,9 @@ class DiscuzPipeline(object):
 
             k = 0
             for s in item['time']:
-                print s
+                # print s
                 temp = re.findall(r'(\w*[0-9]+)\w*', s)
-                print temp
+                # print temp
                 t = []
                 t.append(temp[0])
                 t.append('_')

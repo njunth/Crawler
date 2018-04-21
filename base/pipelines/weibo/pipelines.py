@@ -48,7 +48,7 @@ class WeiboPipeline(object):
         else:
             # print "new data"
             keyword = item['keyword']
-            createstr  = datetime.datetime.now(self.tz)
+            createstr  = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
             timestr = item['time']
         #print keyword
         self.collection.save({
@@ -65,7 +65,7 @@ class WeiboPipeline(object):
             'time': timestr,
             'url': item['url'],
             'authid': item['authid'],
-            'create_time': createstr.strftime('%Y_%m_%d_%H_%M_%S')
+            'create_time': createstr
         })
         self.stats.inc_value( 'item_insert_count' )
         return item

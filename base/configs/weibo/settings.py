@@ -30,8 +30,8 @@ MYSQL_TABLE = 'keyword_t'
 SPIDER_COUNTS = (int)(os.getenv("SPIDER_COUNTS", 1))
 KEYWORD_INDEX = (int)(os.getenv("KEYWORD_INDEX", 0))
 
-LOG_LEVEL = 'INFO'
-# LOG_ENABLED = False
+# LOG_LEVEL = 'INFO'
+LOG_ENABLED = False
 
 EXTENSIONS = {
     'scrapy.extensions.logstats.LogStats': None,

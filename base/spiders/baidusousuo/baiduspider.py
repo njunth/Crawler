@@ -27,15 +27,15 @@ class BaiduSpider(Spider):
         # print r.keys()
         if self.r.exists("baidusousuo.0"):
             print "baidusousuo.0 exist"
-            self.bf = pyreBloom.pyreBloom( 'baidusousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+            self.bf = pyreBloom.pyreBloom( 'baidusousuo', 100000, 0.001, host=REDIS_HOST, port=REDIS_PORT )
             print self.r.ttl( 'baidusousuo.0' )
         else:
             print "creat baidusousuo.0"
             # r.set('baidusousuo.0','')
-            self.bf = pyreBloom.pyreBloom( "baidusousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+            self.bf = pyreBloom.pyreBloom( "baidusousuo", 100000, 0.001, host=REDIS_HOST, port=REDIS_PORT )
             tests = "Hello baidu!"
             self.bf.extend( tests )
-            print self.r.expire( 'baidusousuo.0', 60*60*24*7 )
+            print self.r.expire( 'baidusousuo.0', 60*60*24*3 )
             time.sleep(3)
 
             # print self.bf.contains( 'hello' )
@@ -102,7 +102,7 @@ class BaiduSpider(Spider):
                 # self.bf = pyreBloom.pyreBloom( "baidusousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
                 # tests = "Hello baidu!"
                 # self.bf.extend( tests )
-                print self.r.expire( 'baidusousuo.0', 60*60*24*7 )
+                print self.r.expire( 'baidusousuo.0', 60*60*24*3 )
             if (self.bf.contains(str(bfdata)) == False):
                 self.bf.extend(str(bfdata))
                 item = ScrapyBaiduItem()

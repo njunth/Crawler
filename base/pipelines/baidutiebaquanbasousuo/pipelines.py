@@ -29,14 +29,14 @@ class MongoDBPipeline(object):
         self.r = redis.StrictRedis( host=REDIS_HOST, port=REDIS_PORT )
         if self.r.exists("baidutiebaquanbasousuo.0"):
             print "baidutiebaquanbasousuo.0 exist"
-            self.bf = pyreBloom.pyreBloom( 'baidutiebaquanbasousuo', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+            self.bf = pyreBloom.pyreBloom( 'baidutiebaquanbasousuo', 100000, 0.001, host=REDIS_HOST, port=REDIS_PORT )
             print self.r.ttl( 'baidutiebaquanbasousuo.0' )
         else:
             print "creat baidutiebaquanbasousuo.0"
-            self.bf = pyreBloom.pyreBloom( "baidutiebaquanbasousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+            self.bf = pyreBloom.pyreBloom( "baidutiebaquanbasousuo", 100000, 0.001, host=REDIS_HOST, port=REDIS_PORT )
             tests = "Hello baidutiebaquanbasousuo!"
             self.bf.extend( tests )
-            print self.r.expire( 'baidutiebaquanbasousuo.0', 60*60*24*7 )
+            print self.r.expire( 'baidutiebaquanbasousuo.0', 60*60*24*3 )
             time.sleep(3)
 
             print self.r.ttl( 'baidutiebaquanbasousuo.0' )
@@ -87,7 +87,7 @@ class MongoDBPipeline(object):
                 # self.bf = pyreBloom.pyreBloom( "baidutiebaquanbasousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
                 # tests = "Hello baidutieba!"
                 # self.bf.extend( tests )
-                print self.r.expire( 'baidutiebaquanbasousuo.0', 60*60*24*7 )
+                print self.r.expire( 'baidutiebaquanbasousuo.0', 60*60*24*3 )
             if(self.bf.contains(str(njudata1))==False):
                 self.bf.extend( str(njudata1) )
                 self.post.insert(njudata)

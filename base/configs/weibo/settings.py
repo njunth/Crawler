@@ -14,12 +14,13 @@ BOT_NAME = 'weibo'
 SPIDER_MODULES = ['base.spiders.weibo']
 NEWSPIDER_MODULE = 'base.spiders.weibo'
 
-# MONGO_HOST = os.getenv("MONGO_HOST", "114.212.189.147")
-# MONGO_PORT = (int)(os.getenv("MONGO_PORT", 10100))
-MONGO_HOST = os.getenv("MONGO_HOST", "localhost")
-MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))
+MONGO_HOST = os.getenv("MONGO_HOST", "114.212.189.147")
+MONGO_PORT = (int)(os.getenv("MONGO_PORT", 10100))
+# MONGO_HOST = os.getenv("MONGO_HOST", "localhost")
+# MONGO_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
-MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "Weibo")
+# MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "Weibo")
+MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "weibo")
 
 MYSQL_HOST = os.getenv("MYSQL_HOST", "114.212.189.147")
 MYSQL_PORT = (int)(os.getenv("MYSQL_PORT", 10136))
@@ -27,11 +28,11 @@ MYSQL_DATABASE = os.getenv("MYSQL_DATABASE", "woodpecker")
 MYSQL_USER = os.getenv("MYSQL_USER", "root")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD", "crawl_nju903")
 MYSQL_TABLE = 'keyword_t'
-SPIDER_COUNTS = (int)(os.getenv("SPIDER_COUNTS", 1))
-KEYWORD_INDEX = (int)(os.getenv("KEYWORD_INDEX", 0))
+SPIDER_COUNTS = (int)(os.getenv("SPIDER_COUNTS", 2))
+KEYWORD_INDEX = (int)(os.getenv("KEYWORD_INDEX", 1))
 
-# LOG_LEVEL = 'INFO'
-LOG_ENABLED = False
+LOG_LEVEL = 'INFO'
+# LOG_ENABLED = False
 
 EXTENSIONS = {
     'scrapy.extensions.logstats.LogStats': None,

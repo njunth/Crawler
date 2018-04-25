@@ -30,6 +30,7 @@ class ScrapyBaiduPipeline(object):
             'keyword':item['keyword'],
             'time':item['time'],
             'create_time':item['time'],
+            'source':'百度搜索',
             'html':''
         })
         self.stats.inc_value( 'item_insert_count' )

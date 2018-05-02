@@ -36,7 +36,7 @@ class MongoDBPipeline(object):
             self.bf = pyreBloom.pyreBloom( "baidutiebaquanbasousuo", 100000, 0.001, host=REDIS_HOST, port=REDIS_PORT )
             tests = "Hello baidutiebaquanbasousuo!"
             self.bf.extend( tests )
-            print self.r.expire( 'baidutiebaquanbasousuo.0', 60*60*24*3 )
+            print self.r.expire( 'baidutiebaquanbasousuo.0', 60 )
             time.sleep(3)
 
             print self.r.ttl( 'baidutiebaquanbasousuo.0' )
@@ -82,9 +82,9 @@ class MongoDBPipeline(object):
             njudata=dict({'create_time':item['create_time'],'source':source_,'source_url':item['source_url'],'url':source_url_,'html':item['html'],'n_click':item['n_click'],'n_reply':item['n_reply'],'content':str(t),'title':title_,'attention':item['attention'],'time':time_,'authid':authid_,'sentiment':item['sentiment']})
             njudata1=time_+authid_+t
             print self.r.ttl( 'baidutiebaquanbasousuo.0' ),
-            if self.r.ttl( 'baidutiebaquanbasousuo.0' ) == -1:
+            if self.r.ttl( 'baidutiebaquanbasousuo.0' ) < 0:
                 print self.r.exists( 'baidutiebaquanbasousuo.0' ),
-                # self.bf = pyreBloom.pyreBloom( "baidutiebaquanbasousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+                self.bf = pyreBloom.pyreBloom( "baidutiebaquanbasousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
                 # tests = "Hello baidutieba!"
                 # self.bf.extend( tests )
                 print self.r.expire( 'baidutiebaquanbasousuo.0', 60*60*24*3 )

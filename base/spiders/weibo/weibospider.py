@@ -39,7 +39,7 @@ class WeiboSpider(Spider):
             # db = pymysql.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             db = MySQLdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             cursor = db.cursor()
-            sql = "SELECT DISTINCT * FROM keyword_t"
+            sql = "SELECT DISTINCT name FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
             # print keywords
@@ -48,12 +48,12 @@ class WeiboSpider(Spider):
                 print i
                 index = 0
                 for keyword in keywords[::-1]:
-                    print keyword[1]
+                    print keyword[0]
                     if index % SPIDER_COUNTS == KEYWORD_INDEX:
-                        print index, keyword[1]
+                        print index, keyword[0]
                         # print i
                         # print keyword[1].decode( 'utf-8' )
-                        key = keyword[1]
+                        key = keyword[0]
                         # key = keyword.decode('utf-8')
                         url = url_p1 + key + url_p2 + key + url_p3 + key + url_p4 + str(i)
                         yield scrapy.Request(url=url, callback=self.parse_search, headers=headers, dont_filter=True)
@@ -79,7 +79,14 @@ class WeiboSpider(Spider):
             for key in res['data']['cards'][0]['card_group']:
                 item = WeiboItem()
                 item['_id'] = key['mblog']['id']
-                item['content'] = key['mblog']['text']
+                #print type(key['mblog']['isLongText']),key['mblog']['isLongText']
+                if key['mblog']['isLongText']:
+                    item['content'] = key['mblog']['longText']['longTextContent']
+                    # print key['mblog']['longText']['longTextContent']
+                    # print key['mblog']['text']
+                    # print key['mblog']['id']
+                else:
+                    item['content'] = key['mblog']['text']
                 # item['source'] = 'sina_weibo'
                 item['n_forward'] = key['mblog']['reposts_count']
                 item['n_comment'] = key['mblog']['comments_count']

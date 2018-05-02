@@ -44,7 +44,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
             # print MYSQL_HOST
             db = MySQLdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DATABASE, charset='utf8')
             cursor = db.cursor()
-            sql = "SELECT DISTINCT * FROM keyword_t"
+            sql = "SELECT DISTINCT name FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
 
@@ -53,10 +53,10 @@ class BaidutiebaquanbasousuoSpider(Spider):
                 # key = urllib.quote(keyword)
                 index = 0
                 for keyword in keywords[::-1]:
-                    key = keyword[1]
+                    key = keyword[0]
                     # print keyword[1].decode( 'utf-8' )
                     if index % SPIDER_COUNTS == KEYWORD_INDEX:
-                        print index, keyword[1]
+                        print index, keyword[0]
                         url = url_p1 + key + url_p2 + str(i)
                         yield Request(url=url, callback=self.parse_inPage, dont_filter=True)
                         sleep_time = random.random()

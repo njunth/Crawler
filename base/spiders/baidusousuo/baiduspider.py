@@ -63,7 +63,7 @@ class BaiduSpider(Spider):
             db = MySQLdb.connect( host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWORD,
                                   db=MYSQL_DATABASE, charset='utf8' )
             cursor = db.cursor()
-            sql = "SELECT DISTINCT * FROM keyword_t"
+            sql = "SELECT DISTINCT name FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
             url_p1 = 'https://www.baidu.com/s?wd='
@@ -78,11 +78,11 @@ class BaiduSpider(Spider):
                 for keyword in keywords[::-1]:
                     # print keyword[1]
                     if index % SPIDER_COUNTS == KEYWORD_INDEX:
-                        url = url_p1 + keyword[1] + url_p2 + str( i )
+                        url = url_p1 + keyword[0] + url_p2 + str( i )
                         time.sleep( 1 )
-                        print index, keyword[1], url
+                        print index, keyword[0], url
                         yield scrapy.Request( url=url, headers=headers, dont_filter=True, callback=self.parse,
-                                              meta={'keyword': keyword[1]} )
+                                              meta={'keyword': keyword[0]} )
                     index += 1
 
     def parse(self, response):
@@ -97,9 +97,9 @@ class BaiduSpider(Spider):
             # print keyword,url
             bfdata = str(keyword) + str(url)
             print self.r.ttl( 'baidusousuo.0' ),
-            if self.r.ttl('baidusousuo.0') == -1:
+            if self.r.ttl('baidusousuo.0') < 0:
                 print self.r.exists('baidusousuo.0'),
-                # self.bf = pyreBloom.pyreBloom( "baidusousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
+                self.bf = pyreBloom.pyreBloom( "baidusousuo", 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
                 # tests = "Hello baidu!"
                 # self.bf.extend( tests )
                 print self.r.expire( 'baidusousuo.0', 60*60*24*3 )

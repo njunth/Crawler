@@ -15,10 +15,10 @@ BOT_NAME = 'baidusousuo'
 SPIDER_MODULES = ['base.spiders.baidusousuo']
 NEWSPIDER_MODULE = 'base.spiders.baidusousuo'
 
-MONGODB_HOST = os.getenv("MONGO_HOST", "localhost")
-MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 27017))
-# MONGODB_HOST = os.getenv("MONGO_HOST", "114.212.189.147")
-# MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 10100))
+# MONGODB_HOST = os.getenv("MONGO_HOST", "localhost")
+# MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 27017))
+MONGODB_HOST = os.getenv("MONGO_HOST", "114.212.189.147")
+MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 10100))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
 MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "baidusousuo")
 

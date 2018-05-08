@@ -6,7 +6,6 @@ from scrapy.selector import Selector
 from base.items.baidutiebaquanbasousuo.items import BaidutiebaquanbasousuoItem
 # from base.items.baidutiebaquanbasousuo.bloomfliter import BloomFilter
 from base.configs.baidutiebaquanbasousuo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD, SPIDER_COUNTS, KEYWORD_INDEX
-from base.configs.settings import IP_SERVER
 from datetime import datetime
 import os, random, time
 import urllib, MySQLdb
@@ -36,7 +35,7 @@ class BaidutiebaquanbasousuoSpider(Spider):
 
 
     def start_requests(self):
-        os.environ["all_proxy"] = IP_SERVER
+        # os.environ["all_proxy"] = IP_SERVER
         # keywords = ['出售', '提供', '发现', '高考', '考研', '研考', '硕士考试', '硕士生考试', '成考', '成人高考', '自考', '自学考试']
         url_p1 = 'http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw='
         url_p2 = '&rn=10&un=&only_thread=0&sm=1&sd=&ed=&pn='

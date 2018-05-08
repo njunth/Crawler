@@ -70,7 +70,7 @@ DOWNLOADER_MIDDLEWARES = {
          # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
          # 'base.downloaders.retry.RetryMiddleware': 500,
          # 'base.downloaders.baidutiebaquanbasousuo.middlewares.MyUserAgentMiddleware': 400,
-         # 'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
     }
 
 # Obey robots.txt rules
@@ -117,6 +117,14 @@ COOKIES_ENABLED = False
 #EXTENSIONS = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
+
+# DOWNLOADER_MIDDLEWARES = {
+#          'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+#          # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+#          # 'base.downloaders.weibo_retry.RetryMiddleware': 500,
+#          # 'base.downloaders.weibo_proxy_middlewares.ProxyMiddleware':100
+#          'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+#     }
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html

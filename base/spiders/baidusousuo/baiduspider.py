@@ -6,7 +6,6 @@ from scrapy.spiders import Spider
 import pyreBloom
 from base.configs.settings import REDIS_HOST, REDIS_PORT
 from base.items.baidusousuo.items import ScrapyBaiduItem
-from base.configs.settings import IP_SERVER
 from base.configs.baidusousuo.settings import MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_TABLE, MYSQL_USER, MYSQL_PASSWORD, KEYWORD_INDEX, SPIDER_COUNTS
 import time
 import datetime
@@ -49,7 +48,6 @@ class BaiduSpider(Spider):
 
     def start_requests(self):
         # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
-        os.environ["all_proxy"] = IP_SERVER
         headers = {
             'Host': 'www.baidu.com',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0',

@@ -43,6 +43,15 @@ EXTENSIONS = {
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+         # 'base.downloaders.retry.RetryMiddleware': 500,
+         # 'base.downloaders.baidutiebaquanbasousuo.middlewares.MyUserAgentMiddleware': 400,
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+    }
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 

@@ -24,7 +24,7 @@ class DmozSpider(scrapy.Spider):
     r2='^http://.*.bjnews.*.html'
     r3='^^http://.*list.*.html'
     def start_requests(self):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request("http://www.bjnews.com.cn/", callback=self.parse_mainpage)
 

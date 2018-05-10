@@ -17,7 +17,7 @@ class DmozSpider(scrapy.Spider):
     start_urls = [
         "http://www.cnr.cn/"
     ]
-    os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+    # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
     bf = pyreBloom.pyreBloom('yangguangwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
     tz = pytz.timezone( 'Asia/Shanghai' )
     r1 = '^http://.*.cnr.*'

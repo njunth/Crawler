@@ -27,7 +27,7 @@ class YuyouSpider(scrapy.Spider):
     #r1 = 'http://pbbs.lnfisher.com/forum.php?mod=viewthread&tid=[0-9]+'
     r2 = '^http://www.yanjiao.com.thread.*.[0-9]+'
     def parse(self, response):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         r3 = '.*.thread.*'
         r4 = '^http://pbbs.lnfisher.com.*'
         r5 = r3 + '|' + r4

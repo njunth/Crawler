@@ -21,7 +21,7 @@ NEWSPIDER_MODULE = 'base.spiders.DISCUZ'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
 
 LOG_ENABLED = False
 
@@ -31,6 +31,11 @@ EXTENSIONS = {
 }
 
 DEPTH_LIMIT = 4
+
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+    }
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 

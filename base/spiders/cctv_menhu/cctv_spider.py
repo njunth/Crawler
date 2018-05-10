@@ -36,7 +36,7 @@ class DmozSpider(scrapy.Spider):
     r14 = '^http://kazakh.cctv.*'
     r_language=r5+'|'+r6+'|'+r7+'|'+r8+'|'+r9+'|'+r10+'|'+r11+'|'+r12+'|'+r13+'|'+r14
     def start_requests(self):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request("http://www.cctv.com", callback=self.parse_mainpage)
     def parse_inpage(self, response):

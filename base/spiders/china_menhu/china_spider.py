@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import pytz
 import scrapy
 import re, os
 import sys
@@ -27,7 +28,7 @@ class DmozSpider(scrapy.Spider):
     r8 = '^http://.*.china.*/event.*'
     r9 = '.*index.*'
     def start_requests(self):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request("http://www.china.com.cn", callback=self.parse_mainpage)
     def parse_inpage(self, response):

@@ -23,6 +23,11 @@ EXTENSIONS = {
     'base.configs.logstats.LogStats': 150,
 }
 
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+    }
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'yangguang_manhu (+http://www.yourdomain.com)'
 
@@ -81,7 +86,7 @@ ITEM_PIPELINES = {
 MONGODB_SERVER=os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT=(int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME=os.getenv("MONGO_DBNAME", "Crawler")
-MONGODB_COLLECTION=os.getenv("MONGODB_COLLECTION", "Xinhuawang")
+MONGODB_COLLECTION=os.getenv("MONGODB_COLLECTION", "xinhua_menhu")
 
 #LOG_LEVEL = 'INFO'
 # Enable and configure the AutoThrottle extension (disabled by default)

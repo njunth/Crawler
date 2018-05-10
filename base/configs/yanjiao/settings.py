@@ -23,6 +23,12 @@ EXTENSIONS = {
     'base.configs.logstats.LogStats': 150,
 }
 
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+    }
+
+
 DEPTH_LIMIT = 4
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'yanjiao (+http://www.yourdomain.com)'

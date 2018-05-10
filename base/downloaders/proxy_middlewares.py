@@ -44,14 +44,15 @@ class ProxyMiddleware(object):
             if response.status_code == 200:
                 proxy = response.text
                 request.meta['proxy'] = 'http://' + proxy
+                print request.meta['proxy']
         except:
-            request.meta['proxy'] = 'http://127.0.0.1:9743'
+            # request.meta['proxy'] = 'http://127.0.0.1:9743'
             print " failed get new service_address"
 
         # proxy_user_pass = "dailaoshi:D9xvyfrgPwqBx39u"
         # encoded_user_pass = base64.encodestring( proxy_user_pass )
         # request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass
-        print request.meta['proxy']
+
         # if request.meta.get('change_proxy', False):
         #     self.proxy = self.update_proxy()
         #     msg = 'ProxyMiddleware: Change proxy to:' + self.proxy

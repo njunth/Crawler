@@ -21,7 +21,7 @@ class KaoshibaSpider(Spider):
 
 
     def __init__(self, name=None, **kwargs):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         if name is not None:
             self.name = name
         elif not getattr(self, 'name', None):
@@ -41,7 +41,7 @@ class KaoshibaSpider(Spider):
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        # print sleep_time
+        print sleep_time
         time.sleep( sleep_time )
         r1 = '.*html'
         url = response.url

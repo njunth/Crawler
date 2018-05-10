@@ -15,7 +15,7 @@ BOT_NAME = 'cctv_scrapy'
 SPIDER_MODULES = ['base.spiders.cctv_menhu']
 NEWSPIDER_MODULE = 'base.spiders.cctv_menhu'
 
-LOG_LEVEL = 'INFO'
+# LOG_LEVEL = 'INFO'
 
 LOG_ENABLED = False
 
@@ -25,6 +25,11 @@ EXTENSIONS = {
 }
 
 DEPTH_LIMIT = 4
+
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+    }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'cctv_scrapy (+http://www.yourdomain.com)'

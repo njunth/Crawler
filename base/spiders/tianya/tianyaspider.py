@@ -22,7 +22,7 @@ class Tianyaspider(scrapy.Spider):
     #bf = BloomFilter(0.1, 10)
 
     def start_requests(self):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request(url="http://bbs.tianya.cn/", callback=self.parse, dont_filter=True)
 
@@ -59,7 +59,7 @@ class Tianyaspider(scrapy.Spider):
             #     item['html'] += utfcontent
 
             item['url'] = response.url
-
+            print item['url']
             #item['title'] = response.xpath('//*[@id="post_head"]/h1/span[1]/span/text()').extract()[0].encode('utf-8')
             t = response.xpath('//*[@id="post_head"]/h1/span[1]/span/text()').extract()#[0].encode('utf-8')
             title = ''.join(t)

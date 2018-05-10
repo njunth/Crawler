@@ -23,7 +23,7 @@ class Tianyaspider(scrapy.Spider):
     tz = pytz.timezone( 'Asia/Shanghai' )
 
     def start_requests(self):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request( url="http://bbs1.people.com.cn/", callback=self.parse, dont_filter=True )
 
@@ -58,6 +58,7 @@ class Tianyaspider(scrapy.Spider):
             #     item['html'] += utfcontent
 
             item['url'] = response.url
+            print item['url']
             item['create_time'] = datetime.datetime.now(self.tz).strftime('%Y_%m_%d_%H_%M_%S')
             item['sentiment'] = 0
             item['attention'] = 0

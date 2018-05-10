@@ -31,7 +31,7 @@ class yanjiaoSpider(scrapy.Spider):
     r1 = '^www.yanjiao.com/forum.php?mod=viewthread&tid=[0-9]+.*'
     #r1 = '.*.tid*.*'
     r2 = '^http://www.yanjiao.com.thread.*.[0-9]+'
-    os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+    # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
 
     def parse(self, response):
         #while 1:

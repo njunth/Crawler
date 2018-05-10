@@ -25,7 +25,7 @@ class Meiqispider(scrapy.Spider):
     tz = pytz.timezone( 'Asia/Shanghai' )
 
     def start_requests(self):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request(url="http://bbs.biketo.com/index.html", callback=self.parse, dont_filter=True)
 
@@ -65,7 +65,7 @@ class Meiqispider(scrapy.Spider):
             #     item['html'] += utfcontent
 
             item['url'] = response.url
-            # print item['url']
+            print item['url']
 
             t = response.xpath(
                 "//div[@id='postlist']//span[@id='thread_subject']/text()").extract()  # [0].encode('utf-8')

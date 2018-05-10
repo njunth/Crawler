@@ -24,7 +24,7 @@ class Sinaspider(scrapy.Spider):
     tz = pytz.timezone( 'Asia/Shanghai' )
 
     def start_requests(self):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request(url="http://people.sina.com.cn/forum/", callback=self.parse, dont_filter=True)
 
@@ -35,7 +35,7 @@ class Sinaspider(scrapy.Spider):
             # print response.selector.xpath("//a/@href")
             for url1 in response.selector.xpath("//a/@href").re(r'^http://club.[a-z.]*.sina.*'):
                 #if (self.bf.is_element_exist(url1) == False):  # reduce a /
-                print url1
+                # print url1
                 yield scrapy.Request(url=url1, callback=self.parse_inpage, dont_filter=True)
                 # sleep_time = random.random()
                 # # print sleep_time

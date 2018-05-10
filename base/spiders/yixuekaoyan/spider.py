@@ -35,7 +35,7 @@ class YixuekaoyanSpider(Spider):
 
 
     def start_requests(self):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
@@ -54,6 +54,7 @@ class YixuekaoyanSpider(Spider):
                 item['source']="医学考研网"
                 item['source_url']='http://www.medkaoyan.net/'
                 item['url']=url
+                print url
                 # item['html']=response.body
                 item['html'] = ''
                 i=0

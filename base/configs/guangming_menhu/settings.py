@@ -24,6 +24,11 @@ EXTENSIONS = {
 }
 
 DEPTH_LIMIT = 4
+
+DOWNLOADER_MIDDLEWARES = {
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+    }
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'cctv_scrapy (+http://www.yourdomain.com)'
 

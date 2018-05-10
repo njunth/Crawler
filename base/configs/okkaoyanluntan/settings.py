@@ -66,10 +66,10 @@ MY_USER_AGENT = [
 DOWNLOADER_MIDDLEWARES = {
          'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
          'base.downloaders.okkaoyanluntan.middlewares.MyUserAgentMiddleware': 400,
-         # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
          # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
          # 'base.downloaders.retry.RetryMiddleware': 500,
-         # 'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
     }
 
 # Obey robots.txt rules
@@ -125,7 +125,7 @@ ITEM_PIPELINES = {
 MONGODB_HOST = os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
-MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "Okkaoyanluntan")
+MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "okkaoyanluntan")
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

@@ -38,17 +38,17 @@ class ChinakaoyanSpider(Spider):
         self.tz = pytz.timezone( 'Asia/Shanghai' )
         self.bf=pyreBloom.pyreBloom('chinakaoyan', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
         self.mainpage="http://www.chinakaoyan.com/info/main/ClassID/2.shtml"
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
 
 
     def start_requests(self):
         while 1:
-            print self.mainpage
+            # print self.mainpage
             yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        # print sleep_time
+        print sleep_time
         time.sleep( sleep_time )
         r1 = '.*/info/article/id.*'
         url = response.url

@@ -24,7 +24,7 @@ class DmozSpider(scrapy.Spider):
     r4 = '^http://.*house.163.*'
     r5 = '^http://.*.163.*.shtml'
     bf = pyreBloom.pyreBloom('wangyiwang', 100000, 0.0001, host=REDIS_HOST,port=REDIS_PORT)
-    os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+    # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
     tz = pytz.timezone( 'Asia/Shanghai' )
 
     def parse_inpage(self, response):

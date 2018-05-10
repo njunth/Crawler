@@ -31,13 +31,13 @@ class HongyikaoyanluntanSpider(Spider):
         self.mainpage="http://www.hykaoyan.org/"
 
     def start_requests(self):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield Request(self.mainpage, callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         sleep_time = random.random()
-        # print sleep_time
+        print sleep_time
         time.sleep( sleep_time )
         r1 = 'http://www.hykaoyan.org/thread-[0-9]+-[0-9]+-[0-9]+.html'
         url = response.url

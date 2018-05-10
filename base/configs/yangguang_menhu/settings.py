@@ -23,6 +23,11 @@ EXTENSIONS = {
     'base.configs.logstats.LogStats': 150,
 }
 
+# DOWNLOADER_MIDDLEWARES = {
+#          'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+#          'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+#     }
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'yangguang_manhu (+http://www.yourdomain.com)'
 
@@ -36,7 +41,7 @@ DEPTH_LIMIT=10
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -82,7 +87,7 @@ ITEM_PIPELINES = {
 MONGODB_SERVER=os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT=(int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME=os.getenv("MONGO_DBNAME", "Crawler")
-MONGODB_COLLECTION=os.getenv("MONGODB_COLLECTION", "Yangguangwang")
+MONGODB_COLLECTION=os.getenv("MONGODB_COLLECTION", "yangguang_menhu")
 
 #LOG_LEVEL = 'INFO'
 # Enable and configure the AutoThrottle extension (disabled by default)

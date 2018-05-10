@@ -19,7 +19,7 @@ class spider( scrapy.Spider ):
 
     def start_requests(self):
         self.bf = pyreBloom.pyreBloom( 'zhonggong', 100000, 0.0001, host=REDIS_HOST, port=REDIS_PORT )
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield Request( "http://www.kaoyan365.cn/", callback=self.parse, dont_filter=True )
 

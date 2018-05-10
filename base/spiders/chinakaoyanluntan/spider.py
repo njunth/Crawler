@@ -34,14 +34,14 @@ class ChinakaoyanluntanSpider(Spider):
 
 
     def start_requests(self):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield Request(self.mainpage,callback=self.parse_mainPage, dont_filter=True)
 
     def parse_inPage(self,response):
         r1 = '.*/club/topicShow/clubId/[0-9]*/tid.*'
         sleep_time = random.random()
-        # print sleep_time
+        print sleep_time
         time.sleep( sleep_time )
         url = response.url
         item =ChinakaoyanluntanItem()
@@ -52,6 +52,7 @@ class ChinakaoyanluntanSpider(Spider):
                 item['source']="中国考研网论坛"
                 item['source_url']='http://www.chinakaoyan.com/'
                 item['url']=url
+                print url
                 # item['html']=response.body.decode("unicode_escape")
                 item['html'] = ''
                 click_reply_str=response.selector.xpath("//h6/text()").extract()[0]

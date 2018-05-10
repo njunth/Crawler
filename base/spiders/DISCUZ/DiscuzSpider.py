@@ -19,7 +19,7 @@ class DiscuzSpider(scrapy.Spider):
     start_urls = {
         "http://www.discuz.net/forum.php"
     }
-    os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+    # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
     #bf = BloomFilter(0.0001, 1000000)
     tz = pytz.timezone( 'Asia/Shanghai' )
     def parse(self, response):
@@ -28,6 +28,7 @@ class DiscuzSpider(scrapy.Spider):
                 if not url1.startswith('http'):
                     url1 += "http://www.discuz.net/"
                 #if (self.bf.is_element_exist(url1) == False):
+                # print url1
                 yield scrapy.Request(url=url1, callback=self.parse_inpage)
 
 

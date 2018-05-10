@@ -21,7 +21,7 @@ class KdSpider(scrapy.Spider):
     tz = pytz.timezone( 'Asia/Shanghai' )
 
     def start_requests(self):
-        os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
+        # os.environ["all_proxy"] = "http://dailaoshi:D9xvyfrgPwqBx39u@bh21.84684.net:21026"
         while 1:
             yield scrapy.Request( url="http://club.kdnet.net/index.asp", callback=self.parse, dont_filter=True )
 
@@ -34,7 +34,7 @@ class KdSpider(scrapy.Spider):
             # print len(response.selector.xpath("//a/@href").re(r'^//club.kdnet.net.*.id=[0-9.]*'))
             for url1 in response.selector.xpath("//a/@href").re(r'^//club.kdnet.net.*.id=[0-9.]*'):
                 # yield scrapy.Request(url=url1, callback=self.parse)
-                # print url1
+                print url1
             #if (self.bf.is_element_exist(url1) == False):  # reduce a /
                 yield scrapy.Request(url="http:"+url1, callback=self.parse_inpage, dont_filter=True)
             #else:
@@ -43,7 +43,7 @@ class KdSpider(scrapy.Spider):
 
     def parse_inpage(self,response):
         sleep_time = random.random()
-        # print sleep_time
+        print sleep_time
         time.sleep( sleep_time )
         item = KaidiItem()
         content = response.selector.xpath("//div[@class='replycont-text']")#//text()").extract()

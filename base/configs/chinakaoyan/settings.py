@@ -66,10 +66,10 @@ MY_USER_AGENT = [
 DOWNLOADER_MIDDLEWARES = {
          'scrapy.downloadermiddleware.useragent.UserAgentMiddleware': None,
          'base.downloaders.chinakaoyan.middlewares.MyUserAgentMiddleware': 400,
-         # 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
+         'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
          # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
          # 'base.downloaders.retry.RetryMiddleware': 500,
-         # 'base.downloaders.proxy_middlewares.ProxyMiddleware':100
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
     }
 
 # Obey robots.txt rules
@@ -81,7 +81,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
@@ -126,7 +126,7 @@ ITEM_PIPELINES = {
 MONGODB_HOST = os.getenv("MONGO_HOST", "localhost")
 MONGODB_PORT = (int)(os.getenv("MONGO_PORT", 27017))
 MONGODB_DBNAME = os.getenv("MONGO_DBNAME", "Crawler")
-MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "Zhongguokaoyanwang")
+MONGODB_COLLECTION = os.getenv("MONGODB_COLLECTION", "chinakaoyan")
 # MONGODB_COLLECTION = 'Zhongguokaoyanwang'
 
 # Enable and configure the AutoThrottle extension (disabled by default)

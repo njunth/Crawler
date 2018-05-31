@@ -76,7 +76,7 @@ class BaiduSpider(Spider):
                 # print i
                 index = 0
                 for keyword in keywords[::-1]:
-                    # print keyword[1]
+                    # print keyword[0]
                     if index % SPIDER_COUNTS == KEYWORD_INDEX:
                         url = url_p1 + keyword[0] + url_p2 + str( i )
                         time.sleep( 1 )

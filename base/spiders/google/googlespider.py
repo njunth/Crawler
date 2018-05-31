@@ -66,7 +66,7 @@ class GoogleSpider(Spider):
                 for keyword in keywords[::-1]:
                     # print keyword[0]
                     if index % SPIDER_COUNTS == KEYWORD_INDEX:
-                        url = url_p1 + keyword[0] + url_p2 + str( i )
+                        url = url_p1 + keyword[0] + url_p2 + str( i*10 )
                         time.sleep( 1 )
                         print index, keyword[0], url
                         yield scrapy.Request( url=url, headers=headers, dont_filter=True, callback=self.parse,

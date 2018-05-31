@@ -17,4 +17,5 @@ class ScrapyBaiduItem(scrapy.Item):
     keyword = scrapy.Field()
     #html = ''
     time = scrapy.Field()
+    create_time = scrapy.Field()
     pass

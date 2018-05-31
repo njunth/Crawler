@@ -66,8 +66,14 @@ class BaiduSpider(Spider):
             sql = "SELECT DISTINCT name FROM keyword_t"
             cursor.execute( sql )
             keywords = cursor.fetchall()
+            d = datetime.datetime.now(self.tz)
+            d1 = d.replace( hour=0, minute=0, second=0, microsecond=0 )
+            d2 = d1 - datetime.timedelta( days=3 )
+            t1 = int( time.mktime( d1.timetuple() ) )
+            t2 = int( time.mktime( d2.timetuple() ) )
             url_p1 = 'https://www.baidu.com/s?wd='
             url_p2 = '&pn='
+            url_p3 = '&gpc=stf%3D' + str( t2 ) + '%2C' + str( t1 ) + '|stftype%3D2'
             # for i, keyword in enumerate(keywords[::-1]):
             #     print keyword
             #     if i%10==KEYWORD_INDEX:
@@ -78,7 +84,7 @@ class BaiduSpider(Spider):
                 for keyword in keywords[::-1]:
                     # print keyword[0]
                     if index % SPIDER_COUNTS == KEYWORD_INDEX:
-                        url = url_p1 + keyword[0] + url_p2 + str( i )
+                        url = url_p1 + keyword[0] + url_p2 + str( i*10 ) +url_p3
                         time.sleep( 1 )
                         print index, keyword[0], url
                         yield scrapy.Request( url=url, headers=headers, dont_filter=True, callback=self.parse,
@@ -109,6 +115,32 @@ class BaiduSpider(Spider):
                 item['url'] = url
                 print url
                 item['title'] = res.xpath('.//h3[contains(@class,"t")]/a').xpath('string(.)').extract_first()
+                timestr = res.xpath( './/span[contains(@class," newTimeFactor_before_abs m")]' ).xpath(
+                    'string(.)' ).extract_first()
+                # print timestr
+                if timestr == None:
+                    item['time'] = time.strftime( '%Y_%m_%d_%H_%M_%S' )
+                else:
+                    if str( timestr ).find( '天前' ) != -1:
+                        time_num = int( timestr[:str( timestr ).find( '天前' )] )
+                        delta = datetime.timedelta( days=time_num )
+                        new_time = time - delta
+                        item['time'] = new_time.strftime( '%Y_%m_%d_%H_%M_%S' )
+                    elif str( timestr ).find( '小时前' ) != -1:
+                        time_num = int( timestr[:str( timestr ).find( '小时前' )] )
+                        delta = datetime.timedelta( hours=time_num )
+                        new_time = time - delta
+                        item['time'] = new_time.strftime( '%Y_%m_%d_%H_%M_%S' )
+                    elif str( timestr ).find( '分钟前' ) != -1:
+                        time_num = int( timestr[:str( timestr ).find( '分钟前' )] )
+                        delta = datetime.timedelta( minutes=time_num )
+                        new_time = time - delta
+                        item['time'] = new_time.strftime( '%Y_%m_%d_%H_%M_%S' )
+                    elif str( timestr ).find( '秒钟前' ) != -1:
+                        time_num = int( timestr[:str( timestr ).find( '秒钟前' )] )
+                        delta = datetime.timedelta( seconds=time_num )
+                        new_time = time - delta
+                        item['time'] = new_time.strftime( '%Y_%m_%d_%H_%M_%S' )
                 #print title
                 abstract = res.xpath('.//div[contains(@class,"c-abstract")]').xpath('string(.)').extract_first()
                 if abstract == None:
@@ -117,7 +149,10 @@ class BaiduSpider(Spider):
                     abstract = ' '.join(abstract)
                     #print abstract
                 #print abstract
+                s = abstract.find( '-' )
+                if s > 0:
+                    abstract = abstract[s + 2:]
                 item['abstract'] = abstract
                 item['keyword'] = unicode(keyword)
-                item['time'] = time.strftime('%Y_%m_%d_%H_%M_%S')
+                item['create_time'] = time.strftime('%Y_%m_%d_%H_%M_%S')
                 yield item

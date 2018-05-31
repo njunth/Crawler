@@ -29,7 +29,7 @@ class ScrapyBaiduPipeline(object):
             'content':item['abstract'],
             'keyword':item['keyword'],
             'time':item['time'],
-            'create_time':item['time'],
+            'create_time':item['create_time'],
             'source':'百度搜索',
             'html':''
         })

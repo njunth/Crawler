@@ -31,7 +31,7 @@ MYSQL_TABLE = 'keyword_t'
 SPIDER_COUNTS = (int)(os.getenv("SPIDER_COUNTS", 10))
 KEYWORD_INDEX = (int)(os.getenv("KEYWORD_INDEX", 0))
 
-LOG_ENABLED = False
+# LOG_ENABLED = False
 
 EXTENSIONS = {
     'scrapy.extensions.logstats.LogStats': None,
@@ -42,6 +42,7 @@ EXTENSIONS = {
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
+DOWNLOAD_DELAY=1
 
 DOWNLOADER_MIDDLEWARES = {
          'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,

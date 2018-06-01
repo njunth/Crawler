@@ -34,6 +34,8 @@ KEYWORD_INDEX = (int)(os.getenv("KEYWORD_INDEX", 0))
 # LOG_LEVEL = 'INFO'
 LOG_ENABLED = False
 
+DOWNLOAD_DELAY=1
+
 EXTENSIONS = {
     'scrapy.extensions.logstats.LogStats': None,
     'base.configs.logstats.LogStats': 150,

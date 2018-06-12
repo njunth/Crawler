@@ -43,6 +43,7 @@ EXTENSIONS = {
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 DOWNLOAD_DELAY=1
+DNSCACHE_ENABLED = True
 
 DOWNLOADER_MIDDLEWARES = {
          'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,

@@ -40,7 +40,7 @@ class ProxyMiddleware(object):
         #     return self.proxy
 
     def process_request(self, request, spider):
-        service_address = PROXY_SERVICE_ADDRESS
+        # service_address = PROXY_SERVICE_ADDRESS
         # print service_address
         client = pymongo.MongoClient( MONGO_HOST, MONGO_PORT )
         db = client[self.mongodbname]

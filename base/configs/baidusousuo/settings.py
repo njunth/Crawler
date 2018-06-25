@@ -51,7 +51,7 @@ DOWNLOADER_MIDDLEWARES = {
          # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
          # 'base.downloaders.retry.RetryMiddleware': 500,
          # 'base.downloaders.baidutiebaquanbasousuo.middlewares.MyUserAgentMiddleware': 400,
-         'base.downloaders.db_proxy_middlewares.ProxyMiddleware':100
+         'base.downloaders.proxy_middlewares.ProxyMiddleware':100
     }
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
